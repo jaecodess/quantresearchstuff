@@ -1,0 +1,2 @@
+# Matches Spark 3.5.x shipped with EMR 7.x; local/CI only, not evidence of the assessed EMR run.
+pyspark==3.5.3

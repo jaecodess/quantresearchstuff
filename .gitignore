@@ -1,0 +1,22 @@
+# Local machine config and secrets (templates live next to them)
+config/paths.yaml
+.env
+*.pem
+*.key
+credentials*
+# Raw data never goes in git
+*.zip
+*.gz
+# Python / Spark / notebooks
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+spark-warehouse/
+metastore_db/
+derby.log
+# Build output
+dist/
+.DS_Store

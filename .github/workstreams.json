@@ -1,0 +1,49 @@
+{
+  "_comment": "Single source of truth for who owns what. Set each owner to a real GitHub handle, then run `make codeowners`. Longest matching path prefix wins; unmatched paths are 'shared'.",
+  "exempt_paths": ["docs/progress/"],
+  "shared_file": "docs/progress/team.md",
+  "workstreams": {
+    "TEAM": {
+      "name": "Shared / team",
+      "file": "docs/progress/team.md",
+      "owner": "@TODO",
+      "cross_reviewers": [],
+      "paths": ["report/", "docs/decisions/", "docs/brief/", "docs/ci/", ".github/", "scripts/", "config/", "tests/conftest.py"]
+    },
+    "CORP": {
+      "name": "Corpus (Task 1)",
+      "file": "docs/progress/corpus.md",
+      "owner": "@TODO",
+      "cross_reviewers": ["PIPE"],
+      "paths": ["corpus/", "manifests/", "docs/corpus/", "tests/corpus/"]
+    },
+    "PIPE": {
+      "name": "Pipeline (Task 2)",
+      "file": "docs/progress/pipeline.md",
+      "owner": "@TODO",
+      "cross_reviewers": ["MODEL"],
+      "paths": ["streaming/", "hive/", "spark/", "config/split_events.csv", "tests/pipeline/", "tests/spark/"]
+    },
+    "MODEL": {
+      "name": "Model (Task 3)",
+      "file": "docs/progress/model.md",
+      "owner": "@TODO",
+      "cross_reviewers": ["PIPE"],
+      "paths": ["modeling/", "evaluation/", "models/", "tests/model/"]
+    },
+    "ANLY": {
+      "name": "Analytics (Task 4)",
+      "file": "docs/progress/analytics.md",
+      "owner": "@TODO",
+      "cross_reviewers": ["MODEL"],
+      "paths": ["analytics/", "tests/analytics/"]
+    },
+    "PERF": {
+      "name": "Performance & reproducibility",
+      "file": "docs/progress/performance.md",
+      "owner": "@TODO",
+      "cross_reviewers": ["CORP"],
+      "paths": ["perf/", "evidence/", "notebooks/", "docs/rerun/", "tests/perf/"]
+    }
+  }
+}

@@ -1,0 +1,38 @@
+name: Package submission
+
+# Dry run on demand; strict build (all deliverables must exist) on tags named submission-*.
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run (missing deliverables are warnings)"
+        type: boolean
+        default: true
+  push:
+    tags: ["submission-*"]
+
+permissions:
+  contents: read
+
+jobs:
+  zip:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Build ZIP (relative paths, hygiene-checked)
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.dry_run }}" = "true" ]; then
+            python scripts/build_submission_zip.py --out dist/submission.zip --dry-run
+          else
+            python scripts/build_submission_zip.py --out dist/submission.zip
+          fi
+      - name: List ZIP contents
+        run: python -m zipfile -l dist/submission.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: submission
+          path: dist/submission.zip
+          retention-days: 30

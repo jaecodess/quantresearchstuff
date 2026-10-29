@@ -1,0 +1,13 @@
+[tool.ruff]
+line-length = 120
+target-version = "py39"
+extend-exclude = ["streaming/_template"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["UP006", "UP007", "UP035"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["spark: needs pyspark and Java (run in the spark-tests CI job)"]
+addopts = "-m 'not spark'"

@@ -1,0 +1,5 @@
+# Append-only logs: concurrent appends merge cleanly instead of conflicting.
+docs/progress/ai-usage.md merge=union
+# Generated; on conflict just rerun `make status`.
+docs/progress/STATUS.md merge=union
+* text=auto
