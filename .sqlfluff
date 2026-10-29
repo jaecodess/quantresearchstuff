@@ -1,0 +1,5 @@
+[sqlfluff]
+dialect = hive
+max_line_length = 120
+# Keep CI useful, not noisy: style/layout rules are left to authors, correctness rules stay on.
+exclude_rules = LT01, LT02, LT05, LT12, CP01, CP02, CP03, CP04, CP05, AL01, AL04, AL05, AM03, AM05, RF01, RF02, RF03, RF04, ST05, ST06

@@ -1,0 +1,5 @@
+# Copy to config/paths.yaml (git-ignored) and fill in locally. Never commit real values.
+hdfs_root: /inf2006
+local_sample_dir: <path-to-local-sample>      # development only; not evidence of the assessed EMR run
+s3_staging_uri: s3://<bucket>/<prefix>        # placeholder
+run_id: <YYYYMMDD-HHMM-profile-config>
