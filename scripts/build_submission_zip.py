@@ -87,7 +87,8 @@ def main(argv: list[str] | None = None) -> int:
     with tempfile.TemporaryDirectory() as tmp:
         stage_dir = Path(tmp) / "zipcontent"
         files = stage(stage_dir)
-        problems = check_hygiene.scan(stage_dir)
+        # Repo CI already checks markdown links; the ZIP omits process files (CLAUDE.md, .github) that docs link to.
+        problems = check_hygiene.scan(stage_dir, links=False)
         for p in problems:
             print(f"::error::{p}")
         if problems:

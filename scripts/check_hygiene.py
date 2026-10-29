@@ -88,7 +88,7 @@ def check_links(rel: str, text: str, root: Path) -> list[str]:
     return problems
 
 
-def scan(root: Path) -> list[str]:
+def scan(root: Path, links: bool = True) -> list[str]:
     problems = []
     for rel in sorted(list_files(root)):
         if rel in SELF_EXCLUDE:
@@ -102,7 +102,7 @@ def scan(root: Path) -> list[str]:
         except (UnicodeDecodeError, OSError):
             continue
         problems += check_text(rel, text)
-        if rel.endswith(".md"):
+        if links and rel.endswith(".md"):
             problems += check_links(rel, text, root)
     return problems
 
