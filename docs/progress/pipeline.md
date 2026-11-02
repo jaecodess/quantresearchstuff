@@ -9,7 +9,7 @@ Streaming job convention: `streaming/<job>/mapper.py`, `reducer.py`, `tests/samp
 - [ ] **PIPE-01** Hive DDL scripts for every table in the §9 contracts, numbered by run order, recreatable on a fresh cluster · owner: @TODO · due: 2026-11-04 · needs: TEAM-03
 - [ ] **PIPE-02** Hadoop Streaming price audit mapper/reducer (row counts, date range, null/invalid/duplicate counts, overnight-jump flags), tested locally · owner: @TODO · due: 2026-11-05 · needs: CORP-04
 - [ ] **PIPE-03** Prototype GDELT mapper on 2 to 3 archives (field count, malformed lines, daily aggregates); NLineInputFormat over an archive manifest, one mapper per archive · owner: @TODO · due: 2026-11-06 · needs: CORP-05
-- [ ] **PIPE-04** PySpark cleaning: validity rules (§6.1), clean and rejected outputs kept separate, never fill with future observations · owner: @TODO · due: 2026-11-06 · needs: PIPE-01, CORP-04
+- [~] **PIPE-04** PySpark cleaning: validity rules (§6.1), clean and rejected outputs kept separate, never fill with future observations · owner: @r4ihn · due: 2026-11-06 · needs: PIPE-01, CORP-04
 - [ ] **PIPE-05** Split detection (§6.2) and reviewed `config/split_events.csv`; register as Hive table · owner: @TODO · due: 2026-11-07 · needs: PIPE-04
 - [ ] **PIPE-06** Trading calendar and weekly start dates (holiday Fridays cross-check, week lengths) → `features.calendar_weeks` · owner: @TODO · due: 2026-11-06 · needs: PIPE-04
 - [ ] **PIPE-07** Weekly universe (eligibility incl. split exclusion) and labels (median over eligible stocks, ratio never a feature) · owner: @TODO · due: 2026-11-07 · needs: PIPE-05, PIPE-06

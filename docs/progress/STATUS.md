@@ -10,8 +10,8 @@ Legend: `[ ]` todo, `[~]` in progress, `[x]` done, `[!]` blocked.
 | Workstream | Owner | Done | In progress | Blocked | Todo | Total |
 |---|---|---|---|---|---|---|
 | [TEAM](team.md) Shared / team | @TODO | 1 | 0 | 0 | 15 | 16 |
-| [CORP](corpus.md) Corpus (Task 1) | @TODO | 0 | 0 | 0 | 13 | 13 |
-| [PIPE](pipeline.md) Pipeline (Task 2) | @TODO | 0 | 0 | 0 | 14 | 14 |
+| [CORP](corpus.md) Corpus (Task 1) | @HoShangJ | 0 | 0 | 0 | 13 | 13 |
+| [PIPE](pipeline.md) Pipeline (Task 2) | @r4ihn | 0 | 1 | 0 | 13 | 14 |
 | [MODEL](model.md) Model (Task 3) | @TODO | 0 | 0 | 0 | 11 | 11 |
 | [ANLY](analytics.md) Analytics (Task 4) | @TODO | 0 | 0 | 0 | 7 | 7 |
 | [PERF](performance.md) Performance & reproducibility | @TODO | 0 | 0 | 0 | 14 | 14 |
@@ -20,7 +20,7 @@ Legend: `[ ]` todo, `[~]` in progress, `[x]` done, `[!]` blocked.
 
 ## In progress
 
-_Nothing claimed yet._
+- [PIPE-04](pipeline.md) PySpark cleaning: validity rules (§6.1), clean and rejected outputs kept separate, never fill with future observations: @r4ihn · due 2026-11-06
 
 ## Blocked
 
