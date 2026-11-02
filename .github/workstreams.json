@@ -13,14 +13,14 @@
     "CORP": {
       "name": "Corpus (Task 1)",
       "file": "docs/progress/corpus.md",
-      "owner": "@TODO",
+      "owner": "@HoShangJ",
       "cross_reviewers": ["PIPE"],
       "paths": ["corpus/", "manifests/", "docs/corpus/", "tests/corpus/"]
     },
     "PIPE": {
       "name": "Pipeline (Task 2)",
       "file": "docs/progress/pipeline.md",
-      "owner": "@TODO",
+      "owner": "@r4ihn",
       "cross_reviewers": ["MODEL"],
       "paths": ["streaming/", "hive/", "spark/", "config/split_events.csv", "tests/pipeline/", "tests/spark/"]
     },
