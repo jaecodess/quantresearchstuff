@@ -10,17 +10,23 @@ Legend: `[ ]` todo, `[~]` in progress, `[x]` done, `[!]` blocked.
 | Workstream | Owner | Done | In progress | Blocked | Todo | Total |
 |---|---|---|---|---|---|---|
 | [TEAM](team.md) Shared / team | @TODO | 1 | 0 | 0 | 15 | 16 |
-| [CORP](corpus.md) Corpus (Task 1) | @TODO | 0 | 0 | 0 | 13 | 13 |
-| [PIPE](pipeline.md) Pipeline (Task 2) | @TODO | 0 | 0 | 0 | 14 | 14 |
+| [CORP](corpus.md) Corpus (Task 1) | @HoShangJ | 5 | 7 | 0 | 1 | 13 |
+| [PIPE](pipeline.md) Pipeline (Task 2) | @r4ihn | 0 | 0 | 0 | 14 | 14 |
 | [MODEL](model.md) Model (Task 3) | @TODO | 0 | 0 | 0 | 11 | 11 |
 | [ANLY](analytics.md) Analytics (Task 4) | @TODO | 0 | 0 | 0 | 7 | 7 |
 | [PERF](performance.md) Performance & reproducibility | @TODO | 0 | 0 | 0 | 14 | 14 |
 
-**Overall: 1/75 tasks done.**
+**Overall: 6/75 tasks done.**
 
 ## In progress
 
-_Nothing claimed yet._
+- [CORP-01](corpus.md) Get the price CSV and record source reference, version identifier and acquisition time (needs teaching-team answer, §16 Q5): @husyGIT · due 2026-11-02
+- [CORP-06](corpus.md) Acquire and stage raw price CSV in HDFS unchanged under `/inf2006/raw/prices/<version>/acquired=<date>/`: @husyGIT · due 2026-11-09
+- [CORP-07](corpus.md) Acquire and stage the GDELT ZIPs (decide 731 archives vs documented subset, §16 Q4), no expanded copy in HDFS: @husyGIT · due 2026-11-09
+- [CORP-08](corpus.md) Survivorship check: series ending before 2017-12-29 and starting after 2013-02-08; report counts either way (§5): @husyGIT · due 2026-11-05
+- [CORP-09](corpus.md) Raw quality findings for price and GDELT: coverage, missing, duplicates, corrupt fields, limitations the pipeline must handle (§6.1): @husyGIT · due 2026-11-10
+- [CORP-11](corpus.md) Corpus inventory and reproducibility record: measured rows and bytes, checksums, config, evidence inputs can be re-acquired: @husyGIT · due 2026-11-12
+- [CORP-12](corpus.md) Report section 2 draft and Appendix B locators for the corpus: @husyGIT · due 2026-11-17
 
 ## Blocked
 
@@ -35,11 +41,10 @@ _Nothing blocked._
 - [TEAM-06](team.md) Freeze development and full input profiles (the dev subset rule and the GDELT month): @TODO · due 2026-11-01
 - [TEAM-07](team.md) Send the teaching-team questions (§16) and record answers in the decision log: @TODO · due 2026-11-01
 - [TEAM-08](team.md) Copy the brief PDF to `docs/brief/` and the Final Draft export to `docs/decisions/`: @TODO · due 2026-11-01
-- [CORP-01](corpus.md) Get the price CSV and record source reference, version identifier and acquisition time (needs teaching-team answer, §16 Q5): @TODO · due 2026-11-02
-- [CORP-03](corpus.md) Manifest script: source reference, size, SHA-256, retrieval timestamp (§19 step 9): @TODO · due 2026-11-03
-- [CORP-05](corpus.md) Verify the GDELT 1.0 event column count and field positions against the codebook and supplied metadata (§5): @TODO · due 2026-11-03
 - [PERF-01](performance.md) Shared logging helper → `evidence/timings.csv`, application/job/query IDs: @TODO · due 2026-11-04
+- [PIPE-02](pipeline.md) Hadoop Streaming price audit mapper/reducer (row counts, date range, null/invalid/duplicate counts, overnight-jump flags), tested locally: @TODO · due 2026-11-05
 - [PERF-04](performance.md) EMR bring-up: reference cluster config (emr-7.10.0, 1 + 2 m5.xlarge, replication 2, Spark 2 x 2 x 6 GiB, dynamic allocation off); confirm with teaching team: @TODO · due 2026-11-06
+- [PIPE-03](pipeline.md) Prototype GDELT mapper on 2 to 3 archives (field count, malformed lines, daily aggregates); NLineInputFormat over an archive manifest, one mapper per archive: @TODO · due 2026-11-06
 - [MODEL-03](model.md) GATE: write the 8-config grid into the decision log before running validation: @TODO · due 2026-11-08
 - [TEAM-12](team.md) References with versions: @TODO · due 2026-11-19
 - [TEAM-13](team.md) Appendix C: use of AI assistance, compiled from `ai-usage.md`: @TODO · due 2026-11-19
@@ -47,4 +52,5 @@ _Nothing blocked._
 
 ## Recent activity (newest 15 progress-log entries)
 
+- 2026-11-02 @husyGIT [CORP]: Price source pinned (plotly/datasets 0c447c4, SHA-256 recorded); acquisition-to-S3, S3-to-HDFS staging and HDFS verification scripts; PySpark raw profile (dev run reconciles exactly to the brief's 605,887 accepted bars; 23 invalid rows, 13,130 rows after 2017-12-29, survivorship confirmed); data dictionary, quality findings, inventory, section 2 draft and AWS guide. EMR runs pending. Evidence: corpus/, docs/corpus/ (CORP-01 to CORP-12)
 - 2026-10-29 @jaecodess [TEAM]: Repo scaffolded with CI/CD, per-workstream task files, STATUS.md generator and PR progress gate (TEAM-01).
