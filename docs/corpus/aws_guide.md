@@ -221,10 +221,7 @@ Copy the output into `evidence/corpus/hdfs_layout_<run_id>.txt` (`... > evidence
 
 ### B3. Profile the price file on EMR
 ```bash
-spark-submit --deploy-mode client corpus/profile_prices.py \
-  --input "/inf2006/raw/prices/plotly-datasets-0c447c4/acquired=*/all_stocks_5yr.csv" \
-  --out evidence/corpus/prices_profile_<run_id> --run-id <run_id> \
-  2>&1 | tee evidence/corpus/prices_profile_<run_id>.log
+cd ~/quantresearchstuff && spark-submit --deploy-mode client corpus/profile_prices.py --input "/inf2006/raw/prices/plotly-datasets-0c447c4/acquired=*/all_stocks_5yr.csv" --out evidence/corpus/prices_profile_20261103-2250-full-ref --run-id 20261103-2250-full-ref 2>&1 | tee evidence/corpus/prices_profile_20261103-2250-full-ref.log
 grep -o "application_[0-9_]*" evidence/corpus/prices_profile_<run_id>.log | sort -u
 ```
 The application ID is your execution evidence. Check the result matches the development profile:
