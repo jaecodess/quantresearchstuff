@@ -31,15 +31,31 @@ Console → **S3** → **Buckets** → **Create bucket**. Fill in each section a
 | | Bucket Key | **Enable** | |
 | Advanced settings | Object Lock | **Disable** | Not needed; versioning is enough |
 
-Click **Create bucket**. Then open the bucket → **Create folder** for each of these (the scripts also create them, but this makes the layout visible):
+Click **Create bucket**. Then open the bucket and create the folders. The paths contain a nested folder, so you actually create four folders. The S3 console makes one folder at a time, and you type only the name, without the slash.
+
+**At the top level of the bucket**
+
+1. Click **Create folder**, type `inf2006`, then **Create folder**.
+2. Click **Create folder** again, type `emr-logs`, then **Create folder**.
+
+**Inside `inf2006`** (click it to open it first)
+
+3. Click **Create folder**, type `raw`, then **Create folder**.
+4. Click **Create folder**, type `evidence`, then **Create folder**.
+
+The finished layout:
 
 ```
-inf2006/raw/          raw corpus (written by corpus/acquire.py)
-inf2006/evidence/     optional copy of evidence files
-emr-logs/             EMR cluster logs (set as the log location in A3)
+<bucket>/
+  emr-logs/
+  inf2006/
+    raw/
+    evidence/
 ```
 
-No bucket policy is needed: the cluster reaches the bucket through its EC2 instance role (A3, IAM roles). Teammates in other AWS accounts cannot read it; if they need the data, they run `acquire.py` into their own bucket and the checksums prove it is identical.
+Leave **Server-side encryption** on the create-folder screen at its default, which uses the bucket's SSE-S3 setting.
+
+Leave `raw/` empty. `acquire.py` creates the `prices/` and `gdelt/` folders inside it when it runs. When you set up EMR in A3, the log location is `s3://<bucket>/emr-logs/`.
 
 ### A2. EC2 settings: key pair and network
 You do not launch EC2 instances yourself; EMR does. You only need a key pair and to check the network.
