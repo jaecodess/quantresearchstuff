@@ -28,3 +28,4 @@ Format and rules: [README.md](README.md). Edit only your own task lines; add a l
 ## Progress log
 <!-- Newest last. Format: - YYYY-MM-DD @handle: what you finished / changed / learned. One line, link evidence. -->
 - 2026-10-29 @jaecodess: Repo scaffolded with CI/CD, per-workstream task files, STATUS.md generator and PR progress gate (TEAM-01).
+- 2026-11-03 @husyGIT: Regenerated .github/CODEOWNERS and STATUS.md with `make codeowners` / `make status` (stale on main after the owners change in workstreams.json). No content changes. Evidence: .github/CODEOWNERS
