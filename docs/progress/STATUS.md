@@ -47,5 +47,6 @@ _Nothing blocked._
 
 ## Recent activity (newest 15 progress-log entries)
 
+- 2026-11-03 @husyGIT [TEAM]: Regenerated .github/CODEOWNERS and STATUS.md with `make codeowners` / `make status` (stale on main after the owners change in workstreams.json). No content changes. Evidence: .github/CODEOWNERS
 - 2026-11-02 @husyGIT [PIPE]: GDELT daily Streaming job (one archive per mapper, ZIP read in-stream, per-date audit + aggregates) and Hive DDL for raw.gdelt_daily_audit / clean.gdelt_daily; tested locally on one real archive and a fixture with planted errors. Remaining: EMR run on 3 archives. Evidence: streaming/gdelt_daily/, hive/10_gdelt_daily.sql (PIPE-03)
 - 2026-10-29 @jaecodess [TEAM]: Repo scaffolded with CI/CD, per-workstream task files, STATUS.md generator and PR progress gate (TEAM-01).
