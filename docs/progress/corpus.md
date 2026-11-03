@@ -26,3 +26,4 @@ Provides: raw files in HDFS `/inf2006/raw/...`, manifests, data dictionary, qual
 - 2026-11-03 @husyGIT: AWS guide A1: step-by-step S3 folder creation (four folders, one at a time). Evidence: docs/corpus/aws_guide.md (CORP-06)
 - 2026-11-03 @husyGIT: Brief update applied: core EBS data volume now 100 GiB per node (200 GiB physical, ~100 GiB logical at replication 2). Updated AWS guide console settings, CLI JSON and storage budget, and the inventory record. HANDOVER §2/§9 still say 200 GiB per node (TEAM file). Evidence: docs/corpus/aws_guide.md, docs/corpus/inventory.md (CORP-06, CORP-11)
 - 2026-11-03 @husyGIT: AWS guide B3: spark-submit profile command written out on one line with the 2026-11-03 run_id. Evidence: docs/corpus/aws_guide.md (CORP-09)
+- 2026-11-04 @husyGIT: AWS guide B7: bundle evidence and manifests into one tar.gz, download with scp, S3 fallback. Evidence: docs/corpus/aws_guide.md (CORP-11)

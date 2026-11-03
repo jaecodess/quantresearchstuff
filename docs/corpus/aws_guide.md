@@ -254,13 +254,30 @@ yarn application -list -appStates FINISHED,FAILED,KILLED > evidence/corpus/yarn_
 Owned by PIPE-01; skip if they have done it.
 
 ### B7. Bring the evidence back to your laptop
-From your **laptop** (not the cluster; keeps GitHub credentials off AWS):
+The evidence files the cluster created exist only on the cluster, and **they are deleted when you terminate it**. Without them in the repo there is no proof of the EMR run, so do this before B8. The simplest way is to bundle everything into one file and download it.
+
+**1. In the cluster window, bundle the evidence:**
 ```bash
-cd quantresearchstuff
-scp -i <key>.pem -r "hadoop@<primary-dns>:quantresearchstuff/evidence/corpus" evidence/
-scp -i <key>.pem "hadoop@<primary-dns>:quantresearchstuff/manifests/*.csv" manifests/
+cd ~/quantresearchstuff
+tar czf ~/task1_evidence_<run_id>.tar.gz evidence manifests
+ls -lh ~/task1_evidence_<run_id>.tar.gz
 ```
-Check nothing secret is inside (`make hygiene`), then commit on your branch.
+
+**2. In a NEW PowerShell window on your laptop** (leave the cluster window open), from the folder with your key:
+```powershell
+cd $HOME\Downloads
+scp -i <key>.pem hadoop@<primary-dns>:task1_evidence_<run_id>.tar.gz .
+```
+`scp` works like `ssh` but copies a file. The `.` at the end means "into this folder"; the file lands in Downloads.
+
+**3. Get it into the repo.** Unpack it into your laptop clone of the repo on your branch (`tar xzf task1_evidence_<run_id>.tar.gz`), or hand the file to whoever is committing. Run `make hygiene` to check nothing secret is inside, then commit `evidence/` and `manifests/`, replace the *dev* numbers in `docs/corpus/` with the EMR numbers, and update the task file.
+
+**Backup** in case `scp` gives you trouble: copy it to S3 from the cluster, then download it from the S3 console.
+```bash
+aws s3 cp ~/task1_evidence_<run_id>.tar.gz s3://<bucket>/inf2006/evidence/
+```
+
+After you have the file safely on your laptop, do **B8: terminate the cluster**.
 
 ### B8. Terminate the cluster
 EMR console → cluster → **Terminate**. S3 keeps the raw files and manifests. The next session starts again at B1.
