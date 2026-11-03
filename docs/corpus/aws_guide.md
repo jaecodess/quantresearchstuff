@@ -86,7 +86,7 @@ Console → **EMR** → **EMR on EC2: Clusters** → **Create cluster**. Go thro
 | | Operating system | **Amazon Linux release** (default); **Apply latest updates** ticked |
 | Cluster configuration | Configuration type | **Instance groups** |
 | | Primary | Instance type **m5.xlarge**; EBS root volume default; no extra EBS volume |
-| | Core | Instance type **m5.xlarge**; **Add EBS volume**: **gp3, 200 GiB, IOPS 3000, Throughput 125 MiB/s**, 1 volume per instance |
+| | Core | Instance type **m5.xlarge**; **Add EBS volume**: **gp3, 100 GiB, IOPS 3000, Throughput 125 MiB/s**, 1 volume per instance (brief update: 100 GiB per core node for Learner Lab limits; the root volume is separate, leave it at the default) |
 | | Task 1 of 1 | **Remove instance group** |
 | Cluster scaling and provisioning | Choose an option | **Set cluster size manually** |
 | | Core instance count | **2** (Task: 0) |
@@ -130,7 +130,7 @@ Click **Create cluster**. Wait until the status is **Waiting** (about 10 minutes
   {"Name": "Primary", "InstanceGroupType": "MASTER", "InstanceType": "m5.xlarge", "InstanceCount": 1},
   {"Name": "Core", "InstanceGroupType": "CORE", "InstanceType": "m5.xlarge", "InstanceCount": 2,
    "EbsConfiguration": {"EbsOptimized": true, "EbsBlockDeviceConfigs": [
-     {"VolumeSpecification": {"VolumeType": "gp3", "SizeInGB": 200, "Iops": 3000, "Throughput": 125},
+     {"VolumeSpecification": {"VolumeType": "gp3", "SizeInGB": 100, "Iops": 3000, "Throughput": 125},
       "VolumesPerInstance": 1}]}}
 ]
 ```
@@ -216,6 +216,7 @@ hdfs dfs -ls -R /inf2006/raw | head -20
 hdfs dfs -du -s -h /inf2006/raw/prices /inf2006/raw/gdelt
 hdfs dfsadmin -report | grep -E "Configured Capacity|DFS Used|DFS Remaining"
 ```
+Storage budget: 2 core nodes × 100 GiB = 200 GiB physical, which is about **100 GiB logical** at replication 2, shared with YARN shuffle and temp space. The raw corpus uses about 19.2 GB physical (GDELT ZIPs 9.61 GB × 2) plus about 60 MB for prices. Never expand GDELT in HDFS: 54.71 GB × 2 ≈ 109 GB would exceed the whole cluster. Record `DFS Remaining` before and after each run.
 Copy the output into `evidence/corpus/hdfs_layout_<run_id>.txt` (`... > evidence/corpus/hdfs_layout_<run_id>.txt`).
 
 ### B3. Profile the price file on EMR

@@ -24,7 +24,7 @@ One manifest per acquisition run, committed under [`manifests/`](../../manifests
 
 - Durable raw store: S3 `<s3_raw>/` (bucket name kept out of the repo; set it in `config/paths.yaml`). Same relative layout as HDFS.
 - Session copy: `s3-dist-cp` into HDFS `/inf2006/raw/`, then made read-only (`corpus/stage_to_hdfs.sh`).
-- HDFS replication: `dfs.replication=2` (cluster config, PERF-04). Physical HDFS use ≈ 2 × logical bytes: GDELT ZIPs ≈ 19.2 GB physical against a nominal 200 GiB logical ceiling.
+- HDFS replication: `dfs.replication=2` (cluster config, PERF-04). Core storage: one 100 GiB gp3 data volume per core node (brief update for Learner Lab limits), 200 GiB physical in total, so a nominal **100 GiB logical** HDFS ceiling at replication 2, before HDFS overhead and YARN shuffle/temp space. Root volumes are separate and not counted. Physical HDFS use ≈ 2 × logical bytes: GDELT ZIPs ≈ 19.2 GB physical (about 10% of physical capacity); an expanded copy (≈ 109 GB physical) would not fit, which is a second reason for D-010.
 - Formats: raw CSV and ZIP unchanged. No expanded GDELT copy is ever stored (D-010).
 - Software: EMR release …, Hadoop …, Spark …, Python … (from the cluster; record in Appendix A).
 
