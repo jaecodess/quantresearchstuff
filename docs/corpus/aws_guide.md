@@ -10,29 +10,86 @@ Rough time: Part A about 1 to 1.5 hours (mostly the GDELT download running by it
 
 ## Part A: one-time setup and acquisition
 
+### A0. Before you start
+- **Region:** pick one and use it for everything (S3, key pair, EMR). `us-east-1` (N. Virginia) is the usual choice; AWS Academy Learner Labs normally allow only `us-east-1` or `us-west-2`. Select it in the region menu (top right of the console) before each step.
+- **Account:** agree with the team which AWS account runs the assessed work, and that the bucket lives there.
+- **Cost:** a running cluster is about USD 0.80 per hour (3 × m5.xlarge plus EMR fee, disks and public IPs). S3 storage for about 10 GB is about USD 0.25 per month.
+
 ### A1. Create the S3 bucket
-1. AWS console → **S3** → **Create bucket**.
-2. Name: something unique, e.g. `inf2006-team-<code>-raw`. Region: the one you will run EMR in (e.g. `us-east-1`). Keep "Block all public access" on.
-3. Create. Inside it, the scripts will create `inf2006/raw/...` themselves.
+Console → **S3** → **Buckets** → **Create bucket**. Fill in each section as follows:
 
-### A2. Create an EC2 key pair (skip if you have one)
-1. Console → **EC2** → **Key pairs** → **Create key pair**, type RSA, format `.pem`.
-2. Save the file. On Mac/Linux: `chmod 400 <key>.pem`.
+| Section | Setting | Value | Why |
+|---|---|---|---|
+| General configuration | Bucket type | **General purpose** | |
+| | Bucket name | `inf2006-<team-code>-raw-<random 4 digits>` (lowercase, no spaces, globally unique) | |
+| | AWS Region | **Same region as EMR** (e.g. `us-east-1`) | Same-region transfer to EMR is free and faster |
+| Object Ownership | | **ACLs disabled (recommended)** | Access is controlled by IAM only |
+| Block Public Access | Block all public access | **On** (all 4 boxes ticked) | Raw data and evidence stay private |
+| Bucket Versioning | | **Enable** | An overwritten or deleted raw file can be recovered; supports "raw data is immutable" |
+| Tags | | optional, e.g. `project = inf2006` | Easier to find costs in Billing |
+| Default encryption | Encryption type | **SSE-S3** (Amazon S3 managed keys) | Free, no key management |
+| | Bucket Key | **Enable** | |
+| Advanced settings | Object Lock | **Disable** | Not needed; versioning is enough |
 
-### A3. Launch the EMR cluster
-Console → **EMR** → **Create cluster**:
+Click **Create bucket**. Then open the bucket → **Create folder** for each of these (the scripts also create them, but this makes the layout visible):
+
+```
+inf2006/raw/          raw corpus (written by corpus/acquire.py)
+inf2006/evidence/     optional copy of evidence files
+emr-logs/             EMR cluster logs (set as the log location in A3)
+```
+
+No bucket policy is needed: the cluster reaches the bucket through its EC2 instance role (A3, IAM roles). Teammates in other AWS accounts cannot read it; if they need the data, they run `acquire.py` into their own bucket and the checksums prove it is identical.
+
+### A2. EC2 settings: key pair and network
+You do not launch EC2 instances yourself; EMR does. You only need a key pair and to check the network.
+
+**Key pair** (skip if you already have one in this region): Console → **EC2** → **Network & Security** → **Key pairs** → **Create key pair**.
 
 | Setting | Value |
 |---|---|
-| Name | `inf2006-<run_id>` |
-| Release | **emr-7.10.0** |
-| Applications | **Hadoop, Hive, Spark, JupyterEnterpriseGateway** (Livy if you want notebooks) |
-| Instance groups | Primary: 1 × **m5.xlarge**. Core: 2 × **m5.xlarge**. **Remove the task group** |
-| Core EBS | 1 volume, **gp3, 200 GiB**, 3,000 IOPS, 125 MiB/s |
-| Scaling | **No** managed scaling / autoscaling |
-| Auto-termination | On, idle 1 hour (saves credits if you forget) |
-| Software settings | Paste the JSON below |
-| Security | Your EC2 key pair. Roles: default EMR roles (in AWS Academy use `EMR_DefaultRole` / `EMR_EC2_DefaultRole` or `LabRole` as offered) |
+| Name | `inf2006-<yourname>` |
+| Key pair type | **RSA** |
+| Private key file format | **.pem** (Mac/Linux/Windows OpenSSH) or **.ppk** (PuTTY) |
+
+The file downloads once. Keep it outside the repo. On Mac/Linux: `chmod 400 ~/Downloads/inf2006-<yourname>.pem`.
+
+**Network** (check once): Console → **VPC** → **Your VPCs**: a **default VPC** should exist. Under **Subnets**, pick one subnet in it and check **Auto-assign public IPv4 address = Yes**. Write down its subnet ID (`subnet-...`). A public subnet gives the cluster internet access for the downloads without a NAT gateway (a NAT gateway costs extra; do not create one).
+
+**Security groups:** EMR creates two on first launch, `ElasticMapReduce-master` (primary) and `ElasticMapReduce-slave` (core). The only change you make is the SSH rule in A4.
+
+### A3. Launch the EMR cluster
+Console → **EMR** → **EMR on EC2: Clusters** → **Create cluster**. Go through the page top to bottom:
+
+| Section | Setting | Value |
+|---|---|---|
+| Name and applications | Name | `inf2006-<run_id>` |
+| | Amazon EMR release | **emr-7.10.0** |
+| | Application bundle | **Custom**: tick **Hadoop, Hive, Spark, JupyterEnterpriseGateway, Livy**; untick everything else |
+| | AWS Glue Data Catalog settings | **Untick both** (use the cluster's own Hive metastore; DDL is recreated from `hive/*.sql`, D-013) |
+| | Operating system | **Amazon Linux release** (default); **Apply latest updates** ticked |
+| Cluster configuration | Configuration type | **Instance groups** |
+| | Primary | Instance type **m5.xlarge**; EBS root volume default; no extra EBS volume |
+| | Core | Instance type **m5.xlarge**; **Add EBS volume**: **gp3, 200 GiB, IOPS 3000, Throughput 125 MiB/s**, 1 volume per instance |
+| | Task 1 of 1 | **Remove instance group** |
+| Cluster scaling and provisioning | Choose an option | **Set cluster size manually** |
+| | Core instance count | **2** (Task: 0) |
+| | Provisioning | **On-Demand** (not Spot: a lost Spot node could fail a timed run) |
+| Networking | VPC / Subnet | default VPC, the **public subnet** you noted in A2 |
+| | EC2 security groups | leave the EMR-managed defaults |
+| Cluster termination and node replacement | Termination option | **Automatically terminate cluster after idle time**, idle time **1 hour** |
+| | Use termination protection | **Off** |
+| | Unhealthy node replacement | On (default) |
+| Bootstrap actions | | none |
+| Cluster logs | Publish cluster-specific logs to Amazon S3 | **On**, location `s3://<bucket>/emr-logs/` (job logs become evidence; they survive termination) |
+| Tags | | optional `project = inf2006` |
+| Software settings | Enter configuration | paste the JSON below |
+| Security configuration and EC2 key pair | Security configuration | none |
+| | Amazon EC2 key pair for SSH | your key from A2 |
+| Identity and Access Management (IAM) roles | Amazon EMR service role | **Choose an existing service role** → `EMR_DefaultRole` (or **Create a service role** if none exists) |
+| | EC2 instance profile | **Choose an existing instance profile** → `EMR_EC2_DefaultRole` (AWS Academy: use the role the lab provides, often `EMR_EC2_DefaultRole` or `LabInstanceProfile`). It must allow read/write on `<bucket>` |
+
+Software settings JSON (same as the reference configuration; PERF-04 owns it, so use theirs if they publish one in `config/`):
 
 ```json
 [
@@ -46,17 +103,53 @@ Console → **EMR** → **Create cluster**:
     "spark.driver.memory": "2g"}}
 ]
 ```
-(The reference configuration is owned by PERF-04; if they publish `config/` files, use those instead.)
 
-Wait until the status is **Waiting** (about 10 minutes).
+Click **Create cluster**. Wait until the status is **Waiting** (about 10 minutes). On the cluster summary, check the release, 1 primary + 2 core, and that the configuration tab shows the two classifications.
+
+**Same cluster from the AWS CLI** (optional, repeatable, good for Appendix A). Save the two JSON files, then run from your laptop with the AWS CLI configured:
+
+`emr-instance-groups.json`
+```json
+[
+  {"Name": "Primary", "InstanceGroupType": "MASTER", "InstanceType": "m5.xlarge", "InstanceCount": 1},
+  {"Name": "Core", "InstanceGroupType": "CORE", "InstanceType": "m5.xlarge", "InstanceCount": 2,
+   "EbsConfiguration": {"EbsOptimized": true, "EbsBlockDeviceConfigs": [
+     {"VolumeSpecification": {"VolumeType": "gp3", "SizeInGB": 200, "Iops": 3000, "Throughput": 125},
+      "VolumesPerInstance": 1}]}}
+]
+```
+`emr-configurations.json`: the software settings JSON above.
+
+```bash
+aws emr create-cluster \
+  --region us-east-1 \
+  --name "inf2006-<run_id>" \
+  --release-label emr-7.10.0 \
+  --applications Name=Hadoop Name=Hive Name=Spark Name=JupyterEnterpriseGateway Name=Livy \
+  --instance-groups file://emr-instance-groups.json \
+  --configurations file://emr-configurations.json \
+  --ec2-attributes KeyName=inf2006-<yourname>,SubnetId=<subnet-id>,InstanceProfile=EMR_EC2_DefaultRole \
+  --service-role EMR_DefaultRole \
+  --auto-termination-policy IdleTimeout=3600 \
+  --log-uri s3://<bucket>/emr-logs/
+```
+It prints a cluster ID (`j-...`); record it in `evidence/corpus/` as part of the run record.
 
 ### A4. Connect to the primary node
-1. Cluster page → **Security and access** → primary node's **EC2 security group** → **Edit inbound rules** → add **SSH, port 22, source My IP**.
-2. Copy the **Primary node public DNS** from the cluster summary.
-3. From your laptop:
+1. Cluster page → **Properties** / **Network and security** → **EC2 security groups (firewall)** → click the **Primary node** group (`ElasticMapReduce-master`).
+2. **Inbound rules** → **Edit inbound rules** → **Add rule**:
+
+   | Type | Protocol | Port | Source | Description |
+   |---|---|---|---|---|
+   | SSH | TCP | 22 | **My IP** | `ssh from <yourname>` |
+
+   Never use `0.0.0.0/0` (open to the whole internet). If your IP changes (new Wi-Fi), edit the rule again.
+3. Copy the **Primary node public DNS** from the cluster summary.
+4. From your laptop:
    ```bash
    ssh -i <key>.pem hadoop@<primary-dns>
    ```
+   Windows: same command in PowerShell (OpenSSH is built in), or PuTTY with the `.ppk` file.
 
 ### A5. Get the code onto the cluster
 ```bash
@@ -171,6 +264,8 @@ EMR console → cluster → **Terminate**. S3 keeps the raw files and manifests.
 | Problem | Fix |
 |---|---|
 | SSH times out | Inbound rule for port 22 missing or your IP changed (A4) |
+| Cluster fails with "no default VPC" or cannot download | Use a public subnet with auto-assign public IPv4 (A2) |
+| `EMR_DefaultRole` not found | In A3 choose **Create a service role**, or in AWS Academy pick the lab role |
 | `AccessDenied` on `aws s3 cp` | Cluster role lacks S3 access to `<bucket>`; check the EC2 instance profile role |
 | GDELT download very slow | Normal range is 20 to 40 minutes; try `--workers 8`, keep `tmux` running |
 | `raw corpus already in HDFS` | Stage was already done this session; nothing is overwritten |

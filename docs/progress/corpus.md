@@ -22,3 +22,4 @@ Provides: raw files in HDFS `/inf2006/raw/...`, manifests, data dictionary, qual
 ## Progress log
 <!-- Newest last. Format: - YYYY-MM-DD @handle: what you finished / changed / learned. One line, link evidence. -->
 - 2026-11-02 @husyGIT: Price source pinned (plotly/datasets 0c447c4, SHA-256 recorded); acquisition-to-S3, S3-to-HDFS staging and HDFS verification scripts; PySpark raw profile (dev run reconciles exactly to the brief's 605,887 accepted bars; 23 invalid rows, 13,130 rows after 2017-12-29, survivorship confirmed); data dictionary, quality findings, inventory, section 2 draft and AWS guide. EMR runs pending. Evidence: corpus/, docs/corpus/ (CORP-01 to CORP-12)
+- 2026-11-03 @husyGIT: AWS guide expanded with full S3 bucket, EC2 key pair/network/security group and EMR console settings, plus an equivalent `aws emr create-cluster` command. Evidence: docs/corpus/aws_guide.md (CORP-06, CORP-07)
