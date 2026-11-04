@@ -52,7 +52,7 @@ _Nothing blocked._
 
 ## Recent activity (newest 15 progress-log entries)
 
-- 2026-11-04 @jaecodess [TEAM]: Decision D-015: core storage finalised at 100 GiB per core node (~100 GiB logical HDFS at replication 2), superseding HANDOVER §2/§9. Evidence: docs/decisions/decision-log.md
+- 2026-11-04 @jaecodess [TEAM]: Decision D-015: core storage finalised at 100 GiB per core node (~100 GiB logical HDFS at replication 2), superseding HANDOVER §2/§9; HANDOVER §2 annotated to point to D-015. Evidence: docs/decisions/decision-log.md, HANDOVER.md
 - 2026-11-04 @husyGIT [CORP]: AWS guide B7: bundle evidence and manifests into one tar.gz, download with scp, S3 fallback. Evidence: docs/corpus/aws_guide.md (CORP-11)
 - 2026-11-03 @husyGIT [TEAM]: Regenerated .github/CODEOWNERS and STATUS.md with `make codeowners` / `make status` (stale on main after the owners change in workstreams.json). No content changes. Evidence: .github/CODEOWNERS
 - 2026-11-03 @husyGIT [CORP]: AWS guide expanded with full S3 bucket, EC2 key pair/network/security group and EMR console settings, plus an equivalent `aws emr create-cluster` command. Evidence: docs/corpus/aws_guide.md (CORP-06, CORP-07)
