@@ -8,7 +8,7 @@ Streaming job convention: `streaming/<job>/mapper.py`, `reducer.py`, `tests/samp
 ## Tasks
 - [ ] **PIPE-01** Hive DDL scripts for every table in the §9 contracts, numbered by run order, recreatable on a fresh cluster · owner: @TODO · due: 2026-11-04 · needs: TEAM-03
 - [ ] **PIPE-02** Hadoop Streaming price audit mapper/reducer (row counts, date range, null/invalid/duplicate counts, overnight-jump flags), tested locally · owner: @TODO · due: 2026-11-05 · needs: CORP-04
-- [ ] **PIPE-03** Prototype GDELT mapper on 2 to 3 archives (field count, malformed lines, daily aggregates); NLineInputFormat over an archive manifest, one mapper per archive · owner: @TODO · due: 2026-11-06 · needs: CORP-05
+- [~] **PIPE-03** Prototype GDELT mapper on 2 to 3 archives (field count, malformed lines, daily aggregates); NLineInputFormat over an archive manifest, one mapper per archive · owner: @husyGIT · due: 2026-11-06 · needs: CORP-05
 - [ ] **PIPE-04** PySpark cleaning: validity rules (§6.1), clean and rejected outputs kept separate, never fill with future observations · owner: @TODO · due: 2026-11-06 · needs: PIPE-01, CORP-04
 - [ ] **PIPE-05** Split detection (§6.2) and reviewed `config/split_events.csv`; register as Hive table · owner: @TODO · due: 2026-11-07 · needs: PIPE-04
 - [ ] **PIPE-06** Trading calendar and weekly start dates (holiday Fridays cross-check, week lengths) → `features.calendar_weeks` · owner: @TODO · due: 2026-11-06 · needs: PIPE-04
@@ -23,3 +23,4 @@ Streaming job convention: `streaming/<job>/mapper.py`, `reducer.py`, `tests/samp
 
 ## Progress log
 <!-- Newest last. Format: - YYYY-MM-DD @handle: what you finished / changed / learned. One line, link evidence. -->
+- 2026-11-02 @husyGIT: GDELT daily Streaming job (one archive per mapper, ZIP read in-stream, per-date audit + aggregates) and Hive DDL for raw.gdelt_daily_audit / clean.gdelt_daily; tested locally on one real archive and a fixture with planted errors. Remaining: EMR run on 3 archives. Evidence: streaming/gdelt_daily/, hive/10_gdelt_daily.sql (PIPE-03)
