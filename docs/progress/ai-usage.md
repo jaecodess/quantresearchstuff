@@ -8,3 +8,4 @@ Required when a PR ticks "AI assistance was used". The brief requires AI use to 
 | 2026-10-29 | @jaecodess | Planning chat in the Claude app | Project framing, review of the Final Draft, HANDOVER.md | HANDOVER.md |
 | 2026-10-29 | @jaecodess | Claude Code (cloud session) | Repo scaffold, CI/CD pipeline, progress tracking | TEAM-01, .github/, scripts/, docs/progress/ |
 | 2026-11-02 | @husyGIT | Claude (cloud session) | GDELT file profiling, Streaming mapper/reducer, Hive DDL and tests for the GDELT daily job | PIPE-03, streaming/gdelt_daily/, hive/10_gdelt_daily.sql |
+| 2026-11-02 | @husyGIT | Claude (cloud session) | Corpus scripts (acquire, stage, verify, profile), tests, data dictionary, quality findings, inventory, section 2 draft and AWS guide | CORP-01 to CORP-12, corpus/, docs/corpus/, tests/corpus/ |
