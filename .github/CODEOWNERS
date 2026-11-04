@@ -2,3 +2,26 @@
 # Lines appear only for workstreams whose owner is a real GitHub handle.
 # Cross-reviewers listed here are alternatives: any ONE code owner's approval satisfies the rule.
 
+/corpus/ @HoShangJ @r4ihn
+/manifests/ @HoShangJ @r4ihn
+/docs/corpus/ @HoShangJ @r4ihn
+/tests/corpus/ @HoShangJ @r4ihn
+/docs/progress/corpus.md @HoShangJ @r4ihn
+/streaming/ @r4ihn
+/hive/ @r4ihn
+/spark/ @r4ihn
+/config/split_events.csv @r4ihn
+/tests/pipeline/ @r4ihn
+/tests/spark/ @r4ihn
+/docs/progress/pipeline.md @r4ihn
+/modeling/ @r4ihn
+/evaluation/ @r4ihn
+/models/ @r4ihn
+/tests/model/ @r4ihn
+/docs/progress/model.md @r4ihn
+/perf/ @HoShangJ
+/evidence/ @HoShangJ
+/notebooks/ @HoShangJ
+/docs/rerun/ @HoShangJ
+/tests/perf/ @HoShangJ
+/docs/progress/performance.md @HoShangJ

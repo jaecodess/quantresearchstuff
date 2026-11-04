@@ -1,0 +1,17 @@
+# Report section 2 draft: Building the corpus (CORP-12)
+
+Target about 450 words. Figures marked [dev] must be replaced by the EMR run before submission; the input bytes are identical, so they should not change. AI assistance helped draft this text and must be declared in Appendix C.
+
+---
+
+## 2. Building the corpus
+
+**Sources and scope.** The corpus has two sources. The daily price CSV named in the brief is the core input. We acquired it from a commit-pinned URL (plotly/datasets commit 0c447c4) and identify it by SHA-256, so the same bytes can be fetched or recognised again. GDELT 1.0 daily event archives for 1 July 2015 to 30 June 2017 (731 files) are the auxiliary source. They are used for market-wide news measures, not as model features, because GDELT codes events by actor, not by ticker. SEC filings and Wikinews were not selected, as they cover few of the 505 stocks or link to them only weakly.
+
+**Storage and organisation.** Files are stored exactly as downloaded, first in S3 as the durable copy and then in HDFS for each EMR session, under `/inf2006/raw/<source>/<version>/acquired=<date>/`. The path therefore records the source, version and acquisition date, and a later download never overwrites an earlier one. The price file stays as CSV and the GDELT archives stay zipped. Expanding GDELT would take 54.71 GB, and Hadoop Streaming mappers can read each ZIP directly. Every file has a manifest row giving its URL, retrieval time, size, SHA-256 and MD5. GDELT files are checked against GDELT's published MD5 and size lists, and the HDFS copies are re-hashed after staging (Appendix B: `evidence/corpus/`).
+
+**Data dictionary.** The price file has one row per stock per trading day: date, open, high, low, close (assumed USD), volume (shares) and the ticker (`Name`), with (ticker, date) as the natural key. GDELT has one row per coded event, 58 tab-separated fields and no header. We use the event ID, `DATEADDED`, QuadClass, Goldstein score, mention and article counts, `AvgTone` and the action country. The two sources join by date only. Events are assigned to days by archive date (`DATEADDED`), not by the reported event date (`SQLDATE`), because `SQLDATE` can describe events far in the past.
+
+**Quality findings.** The price file holds 619,040 rows for 505 series [dev]. It runs to 7 February 2018, so 13,130 rows fall after the study window. Inside the window, 23 rows are invalid: 11 have a missing open (8 of those also miss high and low), and 12 have an open or close outside the day's high to low range, or a high below the low. Removing them leaves 605,887 bars, exactly the brief's reference count. There are no duplicates or unparseable values. Twenty-nine series start late and none end early, which indicates the stock list was built from end-of-period index members. This survivorship bias cannot be corrected with these sources. Six series have 51 missing trading days in total. The prices are mostly split-adjusted, but not always: Discovery's two share classes halve on 7 August 2014. In GDELT, 2% of events carry an event date different from the archive date, and actor fields are often blank [dev, one archive; replace with the 731-archive audit].
+
+**Implications for the pipeline.** The pipeline rejects invalid rows with a reason and never repairs them. It excludes out-of-window rows, preserves gaps without filling, treats stock-weeks that span a confirmed split as ineligible, and reconciles raw rows against clean plus rejected rows.
