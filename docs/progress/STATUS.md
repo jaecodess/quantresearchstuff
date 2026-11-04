@@ -10,20 +10,17 @@ Legend: `[ ]` todo, `[~]` in progress, `[x]` done, `[!]` blocked.
 | Workstream | Owner | Done | In progress | Blocked | Todo | Total |
 |---|---|---|---|---|---|---|
 | [TEAM](team.md) Shared / team | @TODO | 1 | 0 | 0 | 15 | 16 |
-| [CORP](corpus.md) Corpus (Task 1) | @HoShangJ | 5 | 7 | 0 | 1 | 13 |
+| [CORP](corpus.md) Corpus (Task 1) | @HoShangJ | 8 | 4 | 0 | 1 | 13 |
 | [PIPE](pipeline.md) Pipeline (Task 2) | @r4ihn | 9 | 4 | 0 | 1 | 14 |
 | [MODEL](model.md) Model (Task 3) | @TODO | 0 | 0 | 0 | 11 | 11 |
 | [ANLY](analytics.md) Analytics (Task 4) | @TODO | 0 | 0 | 0 | 7 | 7 |
 | [PERF](performance.md) Performance & reproducibility | @TODO | 0 | 0 | 0 | 14 | 14 |
 
-**Overall: 15/75 tasks done.**
+**Overall: 18/75 tasks done.**
 
 ## In progress
 
-- [CORP-01](corpus.md) Get the price CSV and record source reference, version identifier and acquisition time (needs teaching-team answer, §16 Q5): @husyGIT · due 2026-11-02
-- [CORP-06](corpus.md) Acquire and stage raw price CSV in HDFS unchanged under `/inf2006/raw/prices/<version>/acquired=<date>/`: @husyGIT · due 2026-11-09
 - [CORP-07](corpus.md) Acquire and stage the GDELT ZIPs (decide 731 archives vs documented subset, §16 Q4), no expanded copy in HDFS: @husyGIT · due 2026-11-09
-- [CORP-08](corpus.md) Survivorship check: series ending before 2017-12-29 and starting after 2013-02-08; report counts either way (§5): @husyGIT · due 2026-11-05
 - [CORP-09](corpus.md) Raw quality findings for price and GDELT: coverage, missing, duplicates, corrupt fields, limitations the pipeline must handle (§6.1): @husyGIT · due 2026-11-10
 - [CORP-11](corpus.md) Corpus inventory and reproducibility record: measured rows and bytes, checksums, config, evidence inputs can be re-acquired: @husyGIT · due 2026-11-12
 - [CORP-12](corpus.md) Report section 2 draft and Appendix B locators for the corpus: @husyGIT · due 2026-11-17
@@ -59,8 +56,11 @@ _Nothing blocked._
 
 - 2026-11-04 @husyGIT [TEAM]: Decision log D-015 to D-021 (pipeline rules and additive contract columns) and docs/pipeline/ (pipeline guide, EMR steps, section 3 draft, dev-run results). Evidence: docs/decisions/decision-log.md, docs/pipeline/README.md
 - 2026-11-04 @husyGIT [CORP]: AWS guide B7: bundle evidence and manifests into one tar.gz, download with scp, S3 fallback. Evidence: docs/corpus/aws_guide.md (CORP-11)
+- 2026-11-04 @husyGIT [CORP]: EMR run 20261103-2250-full-ref committed: price + 731 GDELT archives acquired (all checksums match GDELT's lists, 9,611,684,528 bytes), staged to HDFS (fsck HEALTHY, rep 2), price profile on EMR identical to dev (application_1793714742178_0002). Docs updated with EMR figures; bucket name redacted. GDELT content audit needs a rerun (mapper path bug, fixed in PIPE). Evidence: evidence/corpus/, manifests/ (CORP-01, CORP-06, CORP-07, CORP-08, CORP-09, CORP-11)
 - 2026-11-04 @husyGIT [PIPE]: Claimed the remaining Pipeline tasks (agreed in team; PIPE-04 handed over from @r4ihn's claim on ws/pipe/price-cleaning, which had no code). Branch ws/pipe/task2-pipeline. (PIPE-01 to PIPE-14)
 - 2026-11-04 @husyGIT [PIPE]: Task 2 pipeline built and run end to end locally on the full price file: Streaming price audit, PySpark cleaning (605,887 clean = brief), Hive SQL calendar (holiday Fridays match HANDOVER), split screen + reviewed split events, PySpark universe/labels/9 features/ranks (eligible train 65,086, val 25,720, test 25,531), Hive SQL weekly news, reconciliation, EMR runner. Remaining: EMR run (PIPE-13), GDELT on real archives (PIPE-11), section 3 final (PIPE-14). Evidence: spark/, hive/, streaming/price_audit/, docs/pipeline/ (PIPE-01 to PIPE-11, PIPE-14)
+- 2026-11-04 @husyGIT [PIPE]: First EMR GDELT run (job_1793714742178_0003) read no archive: the mapper only fetched paths containing `://`, but the manifest holds plain HDFS paths. Fixed (plain /paths now fetched from HDFS, tested with a fake hadoop), run.sh now fails if any archive is unreadable, mapper re-hashes every archive and hive/10 compares SHA-256 with the manifest (manifests copied to /inf2006/manifests/, since Hadoop hides `_` folders). Evidence: streaming/gdelt_daily/mapper.py, hive/10_gdelt_daily.sql, evidence/gdelt_daily_20261103-2250-full-ref.log (PIPE-03, PIPE-11)
+- 2026-11-04 @husyGIT [PERF]: Added Task 1 EMR evidence (run 20261103-2250-full-ref): staging log, price profile and log, YARN application list, software versions, first GDELT job log. Bucket name redacted. Evidence: evidence/corpus/, evidence/gdelt_daily_20261103-2250-full-ref.log
 - 2026-11-03 @husyGIT [TEAM]: Regenerated .github/CODEOWNERS and STATUS.md with `make codeowners` / `make status` (stale on main after the owners change in workstreams.json). No content changes. Evidence: .github/CODEOWNERS
 - 2026-11-03 @husyGIT [CORP]: AWS guide expanded with full S3 bucket, EC2 key pair/network/security group and EMR console settings, plus an equivalent `aws emr create-cluster` command. Evidence: docs/corpus/aws_guide.md (CORP-06, CORP-07)
 - 2026-11-03 @husyGIT [CORP]: AWS guide A1: step-by-step S3 folder creation (four folders, one at a time). Evidence: docs/corpus/aws_guide.md (CORP-06)

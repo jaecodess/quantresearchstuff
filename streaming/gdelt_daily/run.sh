@@ -53,4 +53,13 @@ fi
   set +x
   echo "finished=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
   echo "output rows: $(hdfs dfs -cat "$OUT/part-*" | wc -l) (expected $n_archives unless dates repeat)"
+  hdfs dfs -cat "$OUT/part-*" | awk -F'\t' '{a+=$2; c+=$3; l+=$4; m+=$5; b+=$6; d+=$7; e+=$8}
+    END {print "archives="a, "corrupt_archives="c, "lines="l, "malformed="m, "bad_value="b, "duplicates="d, "events="e}'
 } 2>&1 | tee "$LOG"
+
+# Fail loudly: a run where archives could not be read is not usable evidence.
+corrupt=$(hdfs dfs -cat "$OUT/part-*" | awk -F'\t' '{c+=$3} END {print c+0}')
+if [ "$corrupt" -gt 0 ]; then
+  echo "ERROR: $corrupt archive(s) could not be read; see the failed map task logs (yarn logs -applicationId <id>)" | tee -a "$LOG" >&2
+  exit 1
+fi

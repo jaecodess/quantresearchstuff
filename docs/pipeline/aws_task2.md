@@ -27,7 +27,8 @@ bash spark/run_task2.sh 20261105-1400-full-ref /inf2006/raw/prices/plotly-datase
 Stages, in order: Hive databases, price audit (Hadoop Streaming), cleaning (PySpark), price tables (Hive), calendar (Hive SQL), split screening (PySpark), split events (Hive), weekly features (PySpark), features table (Hive), GDELT daily job (Hadoop Streaming, 731 mappers), GDELT tables (Hive), weekly news (Hive SQL), reconciliation (PySpark). The GDELT job is the longest stage. To run prices only first, prefix `WITH_GDELT=0`.
 
 Expected checks at the end (same as the development run, because the input bytes are identical):
-- `evidence/pipeline/reconciliation_<run_id>.json`: prices `"reconciles": true`, 605,887 clean rows; eligible train 65,086, validation 25,720, test 25,531; GDELT `"reconciles": true`.
+- `evidence/pipeline/reconciliation_<run_id>.json`: prices `"reconciles": true`, 605,887 clean rows; eligible train 65,086, validation 25,720, test 25,531; GDELT `"reconciles": true` with `corrupt_archives: 0`.
+- `evidence/gdelt_daily_<run_id>.log` ends with `archives=731 corrupt_archives=0`; the Hive log shows `n_sha256_match = 731` (every HDFS archive identical to the acquisition manifest). The GDELT stage stops the pipeline with an ERROR if any archive cannot be read.
 - `evidence/pipeline/stage_times_<run_id>.csv`: seconds per stage; the total is printed last.
 - `evidence/pipeline/ids_<run_id>.txt`: YARN application IDs, Hadoop job IDs and Hive query IDs (execution evidence).
 

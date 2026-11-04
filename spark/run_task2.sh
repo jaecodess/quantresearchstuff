@@ -63,7 +63,11 @@ stage hive_features_weekly hive "${HV[@]}" -f hive/40_features_weekly.sql
 
 if [ "$WITH_GDELT" = "1" ]; then
   stage gdelt_streaming bash streaming/gdelt_daily/run.sh "$RUN_ID" ${GDELT_GLOB:+"$GDELT_GLOB"}
-  stage hive_gdelt_daily hive --hivevar "run_id=$RUN_ID" -f hive/10_gdelt_daily.sql
+  # Acquisition manifests for the checksum comparison. Not read from raw/_manifests: Hadoop input
+  # formats skip paths starting with "_" as hidden.
+  hdfs dfs -mkdir -p "$ROOT/manifests/corpus/$RUN_ID"
+  hdfs dfs -put -f manifests/*_acquired=*.csv "$ROOT/manifests/corpus/$RUN_ID/"
+  stage hive_gdelt_daily hive "${HV[@]}" --hivevar "manifest_dir=$ROOT/manifests/corpus/$RUN_ID" -f hive/10_gdelt_daily.sql
   stage hive_weekly_news hive "${HV[@]}" -f hive/41_weekly_news.sql
 fi
 

@@ -1,13 +1,13 @@
 # Data dictionary (CORP-04, CORP-05, CORP-10)
 
-Scope, versions, schemas, units, time semantics and relationships for the raw corpus. Numbers marked *dev* come from a local profile of the pinned file ([dev_profile_2026-11-02](dev_profile_2026-11-02/summary.json)); the assessed figures are the EMR rerun in `evidence/corpus/`.
+Scope, versions, schemas, units, time semantics and relationships for the raw corpus. Numbers marked *EMR* come from the EMR profile of the pinned file (run `20261103-2250-full-ref`, [summary.json](../../evidence/corpus/prices_profile_20261103-2250-full-ref/summary.json)), identical to the earlier local profile.
 
 ## 1. Selected sources
 
 | Source | Version / identifier | Where from | Coverage used | Raw size | Role |
 |---|---|---|---|---|---|
 | Daily price CSV | `plotly-datasets-0c447c4`: git commit `0c447c47b757ad74edecab31f0d72f849d2e67c2`, git blob `2a1f02e3675ad8bb6f3a8e536e15f601cfe32fbf`, SHA-256 `6aea253c…e716cf` | Brief link `https://raw.githubusercontent.com/plotly/datasets/master/all_stocks_5yr.csv`, acquired from the commit-pinned URL so the same bytes can be fetched again | File: 2013-02-08 to 2018-02-07. Study window (brief): 2013-02-08 to 2017-12-29 | 1 file, 29,580,549 bytes, 619,041 lines | Labels and all model features |
-| GDELT 1.0 Events | `v1-daily`, one archive per day, `YYYYMMDD.export.CSV.zip`; GDELT's own `md5sums` and `filesizes` lists saved as provenance | `http://data.gdeltproject.org/events/` | 731 archives, 2015-07-01 to 2017-06-30 | Brief: 9.61 GB ZIP, 54.71 GB expanded (measure on EMR) | Market-wide daily news measures; not a model feature (D-008) |
+| GDELT 1.0 Events | `v1-daily`, one archive per day, `YYYYMMDD.export.CSV.zip`; GDELT's own `md5sums` and `filesizes` lists saved as provenance | `http://data.gdeltproject.org/events/` | 731 archives, 2015-07-01 to 2017-06-30 | 731 files, 9,611,684,528 bytes measured (brief: 9.61 GB ZIP, 54.71 GB expanded) | Market-wide daily news measures; not a model feature (D-008) |
 | SEC EDGAR, Wikinews | Not selected | | | | Weak links to individual stocks (HANDOVER section 5) |
 
 Storage: raw files kept byte-for-byte as acquired, in S3 (durable) and copied to HDFS each session. CSV stays CSV and ZIPs stay zipped (no expanded GDELT copy, D-010). Everything downstream is Parquet (PIPE).
@@ -27,16 +27,16 @@ Comma-separated, one header line, UTF-8, `\n` line endings. One row = one stock 
 | Column | Type (raw) | Type (meaning) | Unit | Meaning and notes |
 |---|---|---|---|---|
 | `date` | text `yyyy-MM-dd` | date | US trading day | Exchange trading date (no time, no time zone). Open is the first trade of that day, close the last |
-| `open` | text | decimal | USD per share (assumed; the source does not state currency) | Opening price. 11 blanks *dev* |
-| `high` | text | decimal | USD per share | Highest price of the day. 8 blanks *dev* |
-| `low` | text | decimal | USD per share | Lowest price of the day. 8 blanks *dev* |
-| `close` | text | decimal | USD per share | Closing price. No blanks *dev* |
-| `volume` | text | integer | shares | Shares traded that day. 4 zero values *dev* |
-| `Name` | text | identifier | | Ticker symbol, the series identifier (505 distinct *dev*). Called `ticker` downstream |
+| `open` | text | decimal | USD per share (assumed; the source does not state currency) | Opening price. 11 blanks *EMR* |
+| `high` | text | decimal | USD per share | Highest price of the day. 8 blanks *EMR* |
+| `low` | text | decimal | USD per share | Lowest price of the day. 8 blanks *EMR* |
+| `close` | text | decimal | USD per share | Closing price. No blanks *EMR* |
+| `volume` | text | integer | shares | Shares traded that day. 4 zero values *EMR* |
+| `Name` | text | identifier | | Ticker symbol, the series identifier (505 distinct *EMR*). Called `ticker` downstream |
 
-- **Natural key:** (`Name`, `date`). No duplicate keys *dev*.
+- **Natural key:** (`Name`, `date`). No duplicate keys *EMR*.
 - **Price adjustment:** mostly split-adjusted (AAPL 7-for-1 in June 2014 and NFLX 7-for-1 in July 2015 show no jump; pre-split values carry 4 decimals, a sign of back-adjustment), but not always: DISCA and DISCK halve on 2014-08-07. Spin-offs are not adjusted. Dividends: unknown, assume unadjusted. Handled by split detection (PIPE-05).
-- **Calendar:** 1,259 market days in the file, 1,233 inside the study window *dev* (a market day = a date where at least half of the series have a bar). The study window starts and ends on a Friday.
+- **Calendar:** 1,259 market days in the file, 1,233 inside the study window *EMR* (a market day = a date where at least half of the series have a bar). The study window starts and ends on a Friday.
 - **Not in the source:** company name, sector, exchange, currency field, adjustment factors, delisted stocks.
 
 ## 3. GDELT 1.0 daily event export
