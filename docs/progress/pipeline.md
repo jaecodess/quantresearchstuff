@@ -6,21 +6,22 @@ Provides: the `features.weekly` contract (publish a stub early so MODEL and ANLY
 Streaming job convention: `streaming/<job>/mapper.py`, `reducer.py`, `tests/sample.in`, `tests/expected.out` (CI runs `cat sample.in | mapper | sort | reducer` and diffs; see `streaming/_template/`).
 
 ## Tasks
-- [ ] **PIPE-01** Hive DDL scripts for every table in the §9 contracts, numbered by run order, recreatable on a fresh cluster · owner: @TODO · due: 2026-11-04 · needs: TEAM-03
-- [ ] **PIPE-02** Hadoop Streaming price audit mapper/reducer (row counts, date range, null/invalid/duplicate counts, overnight-jump flags), tested locally · owner: @TODO · due: 2026-11-05 · needs: CORP-04
+- [~] **PIPE-01** Hive DDL scripts for every table in the §9 contracts, numbered by run order, recreatable on a fresh cluster · owner: @husyGIT · due: 2026-11-04 · needs: TEAM-03
+- [~] **PIPE-02** Hadoop Streaming price audit mapper/reducer (row counts, date range, null/invalid/duplicate counts, overnight-jump flags), tested locally · owner: @husyGIT · due: 2026-11-05 · needs: CORP-04
 - [~] **PIPE-03** Prototype GDELT mapper on 2 to 3 archives (field count, malformed lines, daily aggregates); NLineInputFormat over an archive manifest, one mapper per archive · owner: @husyGIT · due: 2026-11-06 · needs: CORP-05
-- [ ] **PIPE-04** PySpark cleaning: validity rules (§6.1), clean and rejected outputs kept separate, never fill with future observations · owner: @TODO · due: 2026-11-06 · needs: PIPE-01, CORP-04
-- [ ] **PIPE-05** Split detection (§6.2) and reviewed `config/split_events.csv`; register as Hive table · owner: @TODO · due: 2026-11-07 · needs: PIPE-04
-- [ ] **PIPE-06** Trading calendar and weekly start dates (holiday Fridays cross-check, week lengths) → `features.calendar_weeks` · owner: @TODO · due: 2026-11-06 · needs: PIPE-04
-- [ ] **PIPE-07** Weekly universe (eligibility incl. split exclusion) and labels (median over eligible stocks, ratio never a feature) · owner: @TODO · due: 2026-11-07 · needs: PIPE-05, PIPE-06
-- [ ] **PIPE-08** Features F1/F2 and within-week percentile ranks (§7.4, §7.5) → `features.weekly` · owner: @TODO · due: 2026-11-08 · needs: PIPE-07
-- [ ] **PIPE-09** Publish a STUB `features.weekly` from the dev sample with the agreed columns, so MODEL and ANLY can build against the contract · owner: @TODO · due: 2026-11-03 · needs: TEAM-03
-- [ ] **PIPE-10** Reconciliation: raw = clean + rejected (+ documented duplicates) per source and per split; eligible stocks per week; split exclusion counts · owner: @TODO · due: 2026-11-08 · needs: PIPE-08
-- [ ] **PIPE-11** GDELT: full Streaming job → `clean.gdelt_daily`; `features.weekly_news` (`news_abn`, `tone_mean`, `conflict_share`) with the conservative timing rule (§8.9) · owner: @TODO · due: 2026-11-10 · needs: PIPE-03, CORP-07
+- [~] **PIPE-04** PySpark cleaning: validity rules (§6.1), clean and rejected outputs kept separate, never fill with future observations · owner: @husyGIT · due: 2026-11-06 · needs: PIPE-01, CORP-04
+- [~] **PIPE-05** Split detection (§6.2) and reviewed `config/split_events.csv`; register as Hive table · owner: @husyGIT · due: 2026-11-07 · needs: PIPE-04
+- [~] **PIPE-06** Trading calendar and weekly start dates (holiday Fridays cross-check, week lengths) → `features.calendar_weeks` · owner: @husyGIT · due: 2026-11-06 · needs: PIPE-04
+- [~] **PIPE-07** Weekly universe (eligibility incl. split exclusion) and labels (median over eligible stocks, ratio never a feature) · owner: @husyGIT · due: 2026-11-07 · needs: PIPE-05, PIPE-06
+- [~] **PIPE-08** Features F1/F2 and within-week percentile ranks (§7.4, §7.5) → `features.weekly` · owner: @husyGIT · due: 2026-11-08 · needs: PIPE-07
+- [~] **PIPE-09** Publish a STUB `features.weekly` from the dev sample with the agreed columns, so MODEL and ANLY can build against the contract · owner: @husyGIT · due: 2026-11-03 · needs: TEAM-03
+- [~] **PIPE-10** Reconciliation: raw = clean + rejected (+ documented duplicates) per source and per split; eligible stocks per week; split exclusion counts · owner: @husyGIT · due: 2026-11-08 · needs: PIPE-08
+- [~] **PIPE-11** GDELT: full Streaming job → `clean.gdelt_daily`; `features.weekly_news` (`news_abn`, `tone_mean`, `conflict_share`) with the conservative timing rule (§8.9) · owner: @husyGIT · due: 2026-11-10 · needs: PIPE-03, CORP-07
 - [ ] **PIPE-12** Leakage cross-review of MODEL evaluation and training code (§12) · owner: @TODO · due: 2026-11-10 · needs: MODEL-01
-- [ ] **PIPE-13** Full pipeline run on EMR with job and query IDs, mapper/reducer scripts, configs and output schemas as evidence · owner: @TODO · due: 2026-11-13 · needs: PIPE-10, PIPE-11
-- [ ] **PIPE-14** Report section 3 draft and Appendix B locators for the pipeline · owner: @TODO · due: 2026-11-17 · needs: PIPE-13
+- [~] **PIPE-13** Full pipeline run on EMR with job and query IDs, mapper/reducer scripts, configs and output schemas as evidence · owner: @husyGIT · due: 2026-11-13 · needs: PIPE-10, PIPE-11
+- [~] **PIPE-14** Report section 3 draft and Appendix B locators for the pipeline · owner: @husyGIT · due: 2026-11-17 · needs: PIPE-13
 
 ## Progress log
 <!-- Newest last. Format: - YYYY-MM-DD @handle: what you finished / changed / learned. One line, link evidence. -->
 - 2026-11-02 @husyGIT: GDELT daily Streaming job (one archive per mapper, ZIP read in-stream, per-date audit + aggregates) and Hive DDL for raw.gdelt_daily_audit / clean.gdelt_daily; tested locally on one real archive and a fixture with planted errors. Remaining: EMR run on 3 archives. Evidence: streaming/gdelt_daily/, hive/10_gdelt_daily.sql (PIPE-03)
+- 2026-11-04 @husyGIT: Claimed the remaining Pipeline tasks (agreed in team; PIPE-04 handed over from @r4ihn's claim on ws/pipe/price-cleaning, which had no code). Branch ws/pipe/task2-pipeline. (PIPE-01 to PIPE-14)

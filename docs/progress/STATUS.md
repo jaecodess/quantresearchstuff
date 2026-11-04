@@ -11,7 +11,7 @@ Legend: `[ ]` todo, `[~]` in progress, `[x]` done, `[!]` blocked.
 |---|---|---|---|---|---|---|
 | [TEAM](team.md) Shared / team | @TODO | 1 | 0 | 0 | 15 | 16 |
 | [CORP](corpus.md) Corpus (Task 1) | @HoShangJ | 5 | 7 | 0 | 1 | 13 |
-| [PIPE](pipeline.md) Pipeline (Task 2) | @r4ihn | 0 | 1 | 0 | 13 | 14 |
+| [PIPE](pipeline.md) Pipeline (Task 2) | @r4ihn | 0 | 13 | 0 | 1 | 14 |
 | [MODEL](model.md) Model (Task 3) | @TODO | 0 | 0 | 0 | 11 | 11 |
 | [ANLY](analytics.md) Analytics (Task 4) | @TODO | 0 | 0 | 0 | 7 | 7 |
 | [PERF](performance.md) Performance & reproducibility | @TODO | 0 | 0 | 0 | 14 | 14 |
@@ -27,7 +27,19 @@ Legend: `[ ]` todo, `[~]` in progress, `[x]` done, `[!]` blocked.
 - [CORP-09](corpus.md) Raw quality findings for price and GDELT: coverage, missing, duplicates, corrupt fields, limitations the pipeline must handle (§6.1): @husyGIT · due 2026-11-10
 - [CORP-11](corpus.md) Corpus inventory and reproducibility record: measured rows and bytes, checksums, config, evidence inputs can be re-acquired: @husyGIT · due 2026-11-12
 - [CORP-12](corpus.md) Report section 2 draft and Appendix B locators for the corpus: @husyGIT · due 2026-11-17
+- [PIPE-01](pipeline.md) Hive DDL scripts for every table in the §9 contracts, numbered by run order, recreatable on a fresh cluster: @husyGIT · due 2026-11-04
+- [PIPE-02](pipeline.md) Hadoop Streaming price audit mapper/reducer (row counts, date range, null/invalid/duplicate counts, overnight-jump flags), tested locally: @husyGIT · due 2026-11-05
 - [PIPE-03](pipeline.md) Prototype GDELT mapper on 2 to 3 archives (field count, malformed lines, daily aggregates); NLineInputFormat over an archive manifest, one mapper per archive: @husyGIT · due 2026-11-06
+- [PIPE-04](pipeline.md) PySpark cleaning: validity rules (§6.1), clean and rejected outputs kept separate, never fill with future observations: @husyGIT · due 2026-11-06
+- [PIPE-05](pipeline.md) Split detection (§6.2) and reviewed `config/split_events.csv`; register as Hive table: @husyGIT · due 2026-11-07
+- [PIPE-06](pipeline.md) Trading calendar and weekly start dates (holiday Fridays cross-check, week lengths) → `features.calendar_weeks`: @husyGIT · due 2026-11-06
+- [PIPE-07](pipeline.md) Weekly universe (eligibility incl. split exclusion) and labels (median over eligible stocks, ratio never a feature): @husyGIT · due 2026-11-07
+- [PIPE-08](pipeline.md) Features F1/F2 and within-week percentile ranks (§7.4, §7.5) → `features.weekly`: @husyGIT · due 2026-11-08
+- [PIPE-09](pipeline.md) Publish a STUB `features.weekly` from the dev sample with the agreed columns, so MODEL and ANLY can build against the contract: @husyGIT · due 2026-11-03
+- [PIPE-10](pipeline.md) Reconciliation: raw = clean + rejected (+ documented duplicates) per source and per split; eligible stocks per week; split exclusion counts: @husyGIT · due 2026-11-08
+- [PIPE-11](pipeline.md) GDELT: full Streaming job → `clean.gdelt_daily`; `features.weekly_news` (`news_abn`, `tone_mean`, `conflict_share`) with the conservative timing rule (§8.9): @husyGIT · due 2026-11-10
+- [PIPE-13](pipeline.md) Full pipeline run on EMR with job and query IDs, mapper/reducer scripts, configs and output schemas as evidence: @husyGIT · due 2026-11-13
+- [PIPE-14](pipeline.md) Report section 3 draft and Appendix B locators for the pipeline: @husyGIT · due 2026-11-17
 
 ## Blocked
 
@@ -43,7 +55,6 @@ _Nothing blocked._
 - [TEAM-07](team.md) Send the teaching-team questions (§16) and record answers in the decision log: @TODO · due 2026-11-01
 - [TEAM-08](team.md) Copy the brief PDF to `docs/brief/` and the Final Draft export to `docs/decisions/`: @TODO · due 2026-11-01
 - [PERF-01](performance.md) Shared logging helper → `evidence/timings.csv`, application/job/query IDs: @TODO · due 2026-11-04
-- [PIPE-02](pipeline.md) Hadoop Streaming price audit mapper/reducer (row counts, date range, null/invalid/duplicate counts, overnight-jump flags), tested locally: @TODO · due 2026-11-05
 - [PERF-04](performance.md) EMR bring-up: reference cluster config (emr-7.10.0, 1 + 2 m5.xlarge, replication 2, Spark 2 x 2 x 6 GiB, dynamic allocation off); confirm with teaching team: @TODO · due 2026-11-06
 - [MODEL-03](model.md) GATE: write the 8-config grid into the decision log before running validation: @TODO · due 2026-11-08
 - [TEAM-12](team.md) References with versions: @TODO · due 2026-11-19
@@ -53,6 +64,7 @@ _Nothing blocked._
 ## Recent activity (newest 15 progress-log entries)
 
 - 2026-11-04 @husyGIT [CORP]: AWS guide B7: bundle evidence and manifests into one tar.gz, download with scp, S3 fallback. Evidence: docs/corpus/aws_guide.md (CORP-11)
+- 2026-11-04 @husyGIT [PIPE]: Claimed the remaining Pipeline tasks (agreed in team; PIPE-04 handed over from @r4ihn's claim on ws/pipe/price-cleaning, which had no code). Branch ws/pipe/task2-pipeline. (PIPE-01 to PIPE-14)
 - 2026-11-03 @husyGIT [TEAM]: Regenerated .github/CODEOWNERS and STATUS.md with `make codeowners` / `make status` (stale on main after the owners change in workstreams.json). No content changes. Evidence: .github/CODEOWNERS
 - 2026-11-03 @husyGIT [CORP]: AWS guide expanded with full S3 bucket, EC2 key pair/network/security group and EMR console settings, plus an equivalent `aws emr create-cluster` command. Evidence: docs/corpus/aws_guide.md (CORP-06, CORP-07)
 - 2026-11-03 @husyGIT [CORP]: AWS guide A1: step-by-step S3 folder creation (four folders, one at a time). Evidence: docs/corpus/aws_guide.md (CORP-06)
