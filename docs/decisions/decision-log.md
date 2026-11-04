@@ -53,3 +53,4 @@ Locked on: ____ by: ____ in commit: ____
 ## Other decisions
 
 <!-- Newest last. Format: D-0xx · date · @handle · decision · why · affected tasks -->
+- D-015 · 2026-11-04 · @jaecodess · ACCEPTED: core storage is final at one 100 GiB gp3 volume per core node (3,000 IOPS, 125 MiB/s), 2 core nodes = 200 GiB physical, about 100 GiB logical HDFS at replication 2, before HDFS overhead and YARN shuffle/temp space. Supersedes the 200 GiB per node in HANDOVER §2 and §9. · Brief update for Learner Lab limits (logged by @husyGIT, 2026-11-03). GDELT ZIPs (~19.2 GB physical) still fit; an expanded GDELT copy (~109 GB physical) does not, reinforcing D-010. Hardware stays fixed across all timed runs. · CORP-06, CORP-07, CORP-11, PERF-04, PERF-10

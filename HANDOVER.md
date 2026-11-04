@@ -82,11 +82,12 @@ Available sources (reference sizes from the brief):
 |---|---|
 | EMR release | emr-7.10.0 |
 | Cluster | 1 primary + 2 core **m5.xlarge**; no task nodes, no autoscaling |
-| Worker storage | One 200 GiB gp3 volume per core node (3,000 IOPS, 125 MiB/s) |
+| Worker storage | One 200 GiB gp3 volume per core node (3,000 IOPS, 125 MiB/s). **Superseded by D-015: 100 GiB per core node** |
 | HDFS replication | `dfs.replication=2` (set explicitly) |
 | Spark | 2 executors × 2 cores × 6 GiB heap; **dynamic allocation off** |
 | Memory allowance | 2 GiB overhead per executor; 2 GiB driver heap |
 
+- **Update (D-015, `docs/decisions/decision-log.md`):** core storage is final at 100 GiB per core node, so 200 GiB physical = nominal **100 GiB logical HDFS ceiling** at replication 2. The original figures follow for reference.
 - 400 GiB physical worker storage = nominal **200 GiB logical HDFS ceiling** at replication 2, before overhead and working space. Do not count primary/root storage. Compressed ≠ expanded sizes.
 - Compare the reference config with **one justified alternative** on identical input manifests and output checks. Keep hardware, release, replication and storage performance fixed when testing software changes; evaluate storage-size changes separately.
 - Local development is allowed but **is not evidence** of the assessed EMR run. Develop on a small sample until the teaching team confirms the workload.
