@@ -54,7 +54,8 @@ _Nothing blocked._
 
 ## Recent activity (newest 15 progress-log entries)
 
-- 2026-11-04 @husyGIT [TEAM]: Decision log D-015 to D-021 (pipeline rules and additive contract columns) and docs/pipeline/ (pipeline guide, EMR steps, section 3 draft, dev-run results). Evidence: docs/decisions/decision-log.md, docs/pipeline/README.md
+- 2026-11-04 @jaecodess [TEAM]: Decision D-015: core storage finalised at 100 GiB per core node (~100 GiB logical HDFS at replication 2), superseding HANDOVER §2/§9; HANDOVER §2 annotated to point to D-015. Evidence: docs/decisions/decision-log.md, HANDOVER.md
+- 2026-11-04 @husyGIT [TEAM]: Decision log D-016 to D-022 (pipeline rules and additive contract columns) and docs/pipeline/ (pipeline guide, EMR steps, section 3 draft, dev-run results). Evidence: docs/decisions/decision-log.md, docs/pipeline/README.md
 - 2026-11-04 @husyGIT [CORP]: AWS guide B7: bundle evidence and manifests into one tar.gz, download with scp, S3 fallback. Evidence: docs/corpus/aws_guide.md (CORP-11)
 - 2026-11-04 @husyGIT [CORP]: EMR run 20261103-2250-full-ref committed: price + 731 GDELT archives acquired (all checksums match GDELT's lists, 9,611,684,528 bytes), staged to HDFS (fsck HEALTHY, rep 2), price profile on EMR identical to dev (application_1793714742178_0002). Docs updated with EMR figures; bucket name redacted. GDELT content audit needs a rerun (mapper path bug, fixed in PIPE). Evidence: evidence/corpus/, manifests/ (CORP-01, CORP-06, CORP-07, CORP-08, CORP-09, CORP-11)
 - 2026-11-04 @husyGIT [PIPE]: Claimed the remaining Pipeline tasks (agreed in team; PIPE-04 handed over from @r4ihn's claim on ws/pipe/price-cleaning, which had no code). Branch ws/pipe/task2-pipeline. (PIPE-01 to PIPE-14)
@@ -68,4 +69,3 @@ _Nothing blocked._
 - 2026-11-03 @husyGIT [CORP]: AWS guide B3: spark-submit profile command written out on one line with the 2026-11-03 run_id. Evidence: docs/corpus/aws_guide.md (CORP-09)
 - 2026-11-02 @husyGIT [CORP]: Price source pinned (plotly/datasets 0c447c4, SHA-256 recorded); acquisition-to-S3, S3-to-HDFS staging and HDFS verification scripts; PySpark raw profile (dev run reconciles exactly to the brief's 605,887 accepted bars; 23 invalid rows, 13,130 rows after 2017-12-29, survivorship confirmed); data dictionary, quality findings, inventory, section 2 draft and AWS guide. EMR runs pending. Evidence: corpus/, docs/corpus/ (CORP-01 to CORP-12)
 - 2026-11-02 @husyGIT [PIPE]: GDELT daily Streaming job (one archive per mapper, ZIP read in-stream, per-date audit + aggregates) and Hive DDL for raw.gdelt_daily_audit / clean.gdelt_daily; tested locally on one real archive and a fixture with planted errors. Remaining: EMR run on 3 archives. Evidence: streaming/gdelt_daily/, hive/10_gdelt_daily.sql (PIPE-03)
-- 2026-10-29 @jaecodess [TEAM]: Repo scaffolded with CI/CD, per-workstream task files, STATUS.md generator and PR progress gate (TEAM-01).
