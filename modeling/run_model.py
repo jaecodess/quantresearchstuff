@@ -30,13 +30,14 @@ from datetime import datetime, timezone
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, REPO)
 
+from pyspark import SparkContext  # noqa: E402
 from pyspark.ml import Pipeline, PipelineModel  # noqa: E402
 from pyspark.ml.classification import LogisticRegression, RandomForestClassifier  # noqa: E402
 from pyspark.ml.evaluation import BinaryClassificationEvaluator  # noqa: E402
 from pyspark.ml.feature import Imputer, StandardScaler, VectorAssembler  # noqa: E402
 from pyspark.sql import SparkSession  # noqa: E402
 from pyspark.sql import functions as F  # noqa: E402
-from pyspark.sql.types import DoubleType  # noqa: E402
+from pyspark.sql.column import Column  # noqa: E402
 
 from evaluation import metrics as M  # noqa: E402
 
@@ -84,14 +85,21 @@ def build_pipeline(config_id):
     return Pipeline(stages=stages)
 
 
-# Probability of label 1 from Spark's probability vector. A small UDF instead of
-# pyspark.ml.functions.vector_to_array, which imports pandas (not needed anywhere else, maybe absent on EMR).
-P1 = F.udf(lambda v: float(v[1]), DoubleType())
+def p1(col_name):
+    """Probability of label 1 from Spark's probability vector, computed entirely in the JVM.
+
+    Calls org.apache.spark.ml.functions.vector_to_array directly. A Python UDF would run on the core
+    nodes, which need numpy to unpickle ML vectors (EMR core nodes lack it), and the Python wrapper
+    pyspark.ml.functions imports pandas. This keeps every model step on the JVM side.
+    """
+    jvm = SparkContext._active_spark_context._jvm
+    arr = Column(jvm.org.apache.spark.ml.functions.vector_to_array(F.col(col_name)._jc, "float64"))
+    return arr.getItem(1)
 
 
 def score(model, df, name):
     """Probability of label 1 as column `name`."""
-    out = model.transform(df).withColumn(name, P1("probability"))
+    out = model.transform(df).withColumn(name, p1("probability"))
     return out.select(*[c for c in df.columns], name)
 
 
