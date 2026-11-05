@@ -12,11 +12,11 @@ Legend: `[ ]` todo, `[~]` in progress, `[x]` done, `[!]` blocked.
 | [TEAM](team.md) Shared / team | @TODO | 1 | 0 | 0 | 15 | 16 |
 | [CORP](corpus.md) Corpus (Task 1) | @HoShangJ | 8 | 4 | 0 | 1 | 13 |
 | [PIPE](pipeline.md) Pipeline (Task 2) | @r4ihn | 9 | 4 | 0 | 1 | 14 |
-| [MODEL](model.md) Model (Task 3) | @TODO | 0 | 0 | 0 | 11 | 11 |
+| [MODEL](model.md) Model (Task 3) | @TODO | 4 | 6 | 0 | 1 | 11 |
 | [ANLY](analytics.md) Analytics (Task 4) | @TODO | 0 | 0 | 0 | 7 | 7 |
 | [PERF](performance.md) Performance & reproducibility | @TODO | 0 | 0 | 0 | 14 | 14 |
 
-**Overall: 18/75 tasks done.**
+**Overall: 22/75 tasks done.**
 
 ## In progress
 
@@ -28,6 +28,12 @@ Legend: `[ ]` todo, `[~]` in progress, `[x]` done, `[!]` blocked.
 - [PIPE-11](pipeline.md) GDELT: full Streaming job → `clean.gdelt_daily`; `features.weekly_news` (`news_abn`, `tone_mean`, `conflict_share`) with the conservative timing rule (§8.9): @husyGIT · due 2026-11-10
 - [PIPE-13](pipeline.md) Full pipeline run on EMR with job and query IDs, mapper/reducer scripts, configs and output schemas as evidence: @husyGIT · due 2026-11-13
 - [PIPE-14](pipeline.md) Report section 3 draft and Appendix B locators for the pipeline: @husyGIT · due 2026-11-17
+- [MODEL-05](model.md) Validation comparison of the 8 configs on 2016; measure week-to-week AUC spread; apply the one-standard-error simplicity rule: @husyGIT · due 2026-11-11
+- [MODEL-06](model.md) GATE: freeze the chosen config and write the success rule (§8.6) into the decision log: @husyGIT · due 2026-11-11
+- [MODEL-07](model.md) Single evaluation on 2017 test: mean weekly AUC, paired difference vs B3, balanced accuracy, precision, recall, rank IC, decile spread, turnover: @husyGIT · due 2026-11-12
+- [MODEL-08](model.md) Output weights: top 10% equal weight per week, described as hypothetical selection output: @husyGIT · due 2026-11-12
+- [MODEL-09](model.md) Save complete PipelineModel; fresh-session reload reproduces predictions within 1e-9: @husyGIT · due 2026-11-13
+- [MODEL-11](model.md) Report section 4 draft and Appendix B locators for the model: @husyGIT · due 2026-11-17
 
 ## Blocked
 
@@ -44,9 +50,8 @@ _Nothing blocked._
 - [TEAM-08](team.md) Copy the brief PDF to `docs/brief/` and the Final Draft export to `docs/decisions/`: @TODO · due 2026-11-01
 - [PERF-01](performance.md) Shared logging helper → `evidence/timings.csv`, application/job/query IDs: @TODO · due 2026-11-04
 - [PERF-04](performance.md) EMR bring-up: reference cluster config (emr-7.10.0, 1 + 2 m5.xlarge, replication 2, Spark 2 x 2 x 6 GiB, dynamic allocation off); confirm with teaching team: @TODO · due 2026-11-06
-- [MODEL-01](model.md) Evaluation module: tie-aware weekly AUC (rank-sum), week-level bootstrap (10,000 resamples, fixed seed), paired difference; tested on stub features: @TODO · due 2026-11-07
-- [MODEL-03](model.md) GATE: write the 8-config grid into the decision log before running validation: @TODO · due 2026-11-08
 - [MODEL-10](model.md) Leakage cross-review of PIPE feature, universe and split code (§12): @TODO · due 2026-11-10
+- [PIPE-12](pipeline.md) Leakage cross-review of MODEL evaluation and training code (§12): @TODO · due 2026-11-10
 - [ANLY-01](analytics.md) Q1 (Hive): within-week quintiles of `rel_volume` vs next-week outcomes, with group sizes and intervals; training years only until the model is frozen: @TODO · due 2026-11-14
 - [TEAM-12](team.md) References with versions: @TODO · due 2026-11-19
 - [TEAM-13](team.md) Appendix C: use of AI assistance, compiled from `ai-usage.md`: @TODO · due 2026-11-19
@@ -54,6 +59,12 @@ _Nothing blocked._
 
 ## Recent activity (newest 15 progress-log entries)
 
+- 2026-11-05 @husyGIT [TEAM]: Gate 1 (MODEL-03) locked in docs/decisions/decision-log.md before any validation run. Evidence: docs/decisions/decision-log.md
+- 2026-11-05 @husyGIT [TEAM]: docs/model/ (Task 3 approach, EMR steps, section 4 draft, local validation results). Evidence: docs/model/README.md
+- 2026-11-05 @husyGIT [TEAM]: requirements-spark.txt: added numpy==1.26.4 (pyspark.ml needs it in the CI Spark job; EMR ships numpy). Evidence: requirements-spark.txt
+- 2026-11-05 @husyGIT [TEAM]: docs/model/aws_task3.md: full cluster setup commands (fetch and switch to ws/model/task3, "invalid reference" fix). Evidence: docs/model/aws_task3.md
+- 2026-11-05 @husyGIT [MODEL]: Claimed Task 3 (MODEL-01 to -09, -11). Gate 1 locked in the decision log before any validation run: HANDOVER 8.2 grid as written, rank inputs, seed 2026, simplicity order and SE definition. MODEL-10 (leakage review of PIPE code) left for a teammate, since I wrote the PIPE code. Evidence: docs/decisions/decision-log.md (MODEL-03)
+- 2026-11-05 @husyGIT [MODEL]: Task 3 code: evaluation module (tie-aware weekly AUC, rank IC, decile spread, week bootstrap), baselines B0-B3, 8-config Spark ML pipelines, validate/test/reload modes with code-enforced Gate 2 and test-once guards, Hive model tables, EMR runner. Local validation on train+validation only (test never read): all configs mean weekly AUC 0.494-0.500, intervals span 0.5; 1-SE rule recommends lr_f1_r001. Synthetic end-to-end test passes (guards, success path, reload diff <= 1e-9). Remaining: EMR validation, Gate 2 lock, single EMR test run. Evidence: modeling/, evaluation/, tests/model/, docs/model/ (MODEL-01 to MODEL-09, MODEL-11)
 - 2026-11-04 @jaecodess [TEAM]: Decision D-015: core storage finalised at 100 GiB per core node (~100 GiB logical HDFS at replication 2), superseding HANDOVER §2/§9; HANDOVER §2 annotated to point to D-015. Evidence: docs/decisions/decision-log.md, HANDOVER.md
 - 2026-11-04 @husyGIT [TEAM]: Decision log D-016 to D-022 (pipeline rules and additive contract columns) and docs/pipeline/ (pipeline guide, EMR steps, section 3 draft, dev-run results). Evidence: docs/decisions/decision-log.md, docs/pipeline/README.md
 - 2026-11-04 @husyGIT [CORP]: AWS guide B7: bundle evidence and manifests into one tar.gz, download with scp, S3 fallback. Evidence: docs/corpus/aws_guide.md (CORP-11)
@@ -63,9 +74,3 @@ _Nothing blocked._
 - 2026-11-04 @husyGIT [PIPE]: First EMR GDELT run (job_1793714742178_0003) read no archive: the mapper only fetched paths containing `://`, but the manifest holds plain HDFS paths. Fixed (plain /paths now fetched from HDFS, tested with a fake hadoop), run.sh now fails if any archive is unreadable, mapper re-hashes every archive and hive/10 compares SHA-256 with the manifest (manifests copied to /inf2006/manifests/, since Hadoop hides `_` folders). Evidence: streaming/gdelt_daily/mapper.py, hive/10_gdelt_daily.sql, evidence/gdelt_daily_20261103-2250-full-ref.log (PIPE-03, PIPE-11)
 - 2026-11-04 @husyGIT [PERF]: Added Task 1 EMR evidence (run 20261103-2250-full-ref): staging log, price profile and log, YARN application list, software versions, first GDELT job log. Bucket name redacted. Evidence: evidence/corpus/, evidence/gdelt_daily_20261103-2250-full-ref.log
 - 2026-11-03 @husyGIT [TEAM]: Regenerated .github/CODEOWNERS and STATUS.md with `make codeowners` / `make status` (stale on main after the owners change in workstreams.json). No content changes. Evidence: .github/CODEOWNERS
-- 2026-11-03 @husyGIT [CORP]: AWS guide expanded with full S3 bucket, EC2 key pair/network/security group and EMR console settings, plus an equivalent `aws emr create-cluster` command. Evidence: docs/corpus/aws_guide.md (CORP-06, CORP-07)
-- 2026-11-03 @husyGIT [CORP]: AWS guide A1: step-by-step S3 folder creation (four folders, one at a time). Evidence: docs/corpus/aws_guide.md (CORP-06)
-- 2026-11-03 @husyGIT [CORP]: Brief update applied: core EBS data volume now 100 GiB per node (200 GiB physical, ~100 GiB logical at replication 2). Updated AWS guide console settings, CLI JSON and storage budget, and the inventory record. HANDOVER §2/§9 still say 200 GiB per node (TEAM file). Evidence: docs/corpus/aws_guide.md, docs/corpus/inventory.md (CORP-06, CORP-11)
-- 2026-11-03 @husyGIT [CORP]: AWS guide B3: spark-submit profile command written out on one line with the 2026-11-03 run_id. Evidence: docs/corpus/aws_guide.md (CORP-09)
-- 2026-11-02 @husyGIT [CORP]: Price source pinned (plotly/datasets 0c447c4, SHA-256 recorded); acquisition-to-S3, S3-to-HDFS staging and HDFS verification scripts; PySpark raw profile (dev run reconciles exactly to the brief's 605,887 accepted bars; 23 invalid rows, 13,130 rows after 2017-12-29, survivorship confirmed); data dictionary, quality findings, inventory, section 2 draft and AWS guide. EMR runs pending. Evidence: corpus/, docs/corpus/ (CORP-01 to CORP-12)
-- 2026-11-02 @husyGIT [PIPE]: GDELT daily Streaming job (one archive per mapper, ZIP read in-stream, per-date audit + aggregates) and Hive DDL for raw.gdelt_daily_audit / clean.gdelt_daily; tested locally on one real archive and a fixture with planted errors. Remaining: EMR run on 3 archives. Evidence: streaming/gdelt_daily/, hive/10_gdelt_daily.sql (PIPE-03)

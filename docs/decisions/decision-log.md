@@ -40,7 +40,10 @@ Pre-declared grid (HANDOVER §8.2). Confirm or edit, then fill "Locked":
 - LogisticRegression on F1 and F2, `regParam` in {0.0, 0.01}: 4 configs
 - RandomForestClassifier on F1 and F2, `numTrees` = 200, `maxDepth` in {4, 8}, fixed `seed`: 4 configs
 
-Locked on: ____ by: ____ in commit: ____
+Inputs: the within-week `*_rank` columns of the feature set (F1: mom_4w, mom_12w, vol_20d, rel_volume; F2: rev_1w, mom_4w, mom_12w_skip, vol_20d, vol_ratio, max_move_20d, rel_volume, dollar_volume). Seed 2026 for every random step. Pipeline: Imputer (median) → VectorAssembler → StandardScaler → model, fitted on 2013-2015 train rows only.
+Simplicity order for the one-standard-error rule (simplest first), with config IDs: LR F1 regParam 0.01 (`lr_f1_r001`), LR F1 0.0 (`lr_f1_r0`), LR F2 0.01 (`lr_f2_r001`), LR F2 0.0 (`lr_f2_r0`), RF F1 depth 4 (`rf_f1_d4`), RF F1 depth 8 (`rf_f1_d8`), RF F2 depth 4 (`rf_f2_d4`), RF F2 depth 8 (`rf_f2_d8`). Standard error = standard deviation of the best config's weekly validation AUCs / sqrt(number of weeks); the simplest config within one SE of the best is chosen.
+
+Locked on: 2026-11-05 by: @husyGIT in commit: (the commit that adds this line, on branch ws/model/task3, before any validation run)
 
 ## Gate 2: frozen model and success rule (MODEL-06). Lock BEFORE the test set is touched
 
