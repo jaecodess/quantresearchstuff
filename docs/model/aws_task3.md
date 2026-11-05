@@ -22,6 +22,32 @@ tmux new -s task3
 cd ~/quantresearchstuff
 ```
 
+## D0. New cluster only: rebuild `features.weekly` (Task 2 C2 and C3)
+HDFS and the Hive tables are empty on a new cluster. Check first whether the Task 2 features were saved to S3:
+```bash
+aws s3 ls s3://<bucket>/inf2006/features/
+```
+- **It lists your Task 2 run_id** (e.g. `PRE 20261105-1430-full-ref/`): skip D0 and pass that S3 path in D1 and D3.
+- **It lists nothing**: rebuild the features on this cluster first (same steps as Task 2, all in the tmux window).
+
+**C2. Stage the raw corpus from S3 into HDFS** (about 2 minutes):
+```bash
+bash corpus/stage_to_hdfs.sh s3://<bucket>/inf2006/raw 20261106-1400-full-ref
+hdfs dfs -ls /inf2006/raw/prices/plotly-datasets-0c447c4/
+```
+The last command shows the `acquired=YYYY-MM-DD` folder (from Task 1: `acquired=2026-11-03`).
+
+**C3. Run the Task 2 pipeline** (prices only: about 10 to 20 minutes):
+```bash
+WITH_GDELT=0 bash spark/run_task2.sh 20261106-1400-full-ref /inf2006/raw/prices/plotly-datasets-0c447c4/acquired=2026-11-03
+```
+`WITH_GDELT=0` skips the GDELT job (about an hour), which Task 3 does not need; leave it out only if you also want a full Task 2 evidence run here. Check the end of the output: `"reconciles": true` and eligible rows train 65,086, validation 25,720, test 25,531 in `evidence/pipeline/reconciliation_20261106-1400-full-ref.json`.
+
+`features.weekly` now exists as a Hive table in this session, so **leave the features argument out** of D1 and D3. Optionally save the features to S3 so a later session can skip D0:
+```bash
+s3-dist-cp --src hdfs:///inf2006/features/20261106-1400-full-ref --dest s3://<bucket>/inf2006/features/20261106-1400-full-ref
+```
+
 ## D1. Phase 1: validation (about 10 to 20 minutes)
 ```bash
 bash modeling/run_task3.sh validate 20261106-1400-full-ref s3://<bucket>/inf2006/features/<task2_run_id>/weekly

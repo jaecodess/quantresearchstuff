@@ -35,3 +35,4 @@ Format and rules: [README.md](README.md). Edit only your own task lines; add a l
 - 2026-11-05 @husyGIT: docs/model/ (Task 3 approach, EMR steps, section 4 draft, local validation results). Evidence: docs/model/README.md
 - 2026-11-05 @husyGIT: requirements-spark.txt: added numpy==1.26.4 (pyspark.ml needs it in the CI Spark job; EMR ships numpy). Evidence: requirements-spark.txt
 - 2026-11-05 @husyGIT: docs/model/aws_task3.md: full cluster setup commands (fetch and switch to ws/model/task3, "invalid reference" fix). Evidence: docs/model/aws_task3.md
+- 2026-11-05 @husyGIT: docs/model/aws_task3.md: D0 section for a new cluster (check S3 for saved features, otherwise Task 2 C2 and C3 with WITH_GDELT=0). Evidence: docs/model/aws_task3.md
