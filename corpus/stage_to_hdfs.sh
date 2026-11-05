@@ -25,7 +25,7 @@ mkdir -p "$OUT_DIR"
   echo "copy finished=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
   hdfs dfs -count -h "$HDFS_RAW/prices" "$HDFS_RAW/gdelt" 2>/dev/null || true
   hdfs dfs -du -s -h "$HDFS_RAW/prices" "$HDFS_RAW/gdelt" 2>/dev/null || true
-  hdfs fsck "$HDFS_RAW" | tail -n 25
+  hdfs fsck "$HDFS_RAW" | tail -n 25 || true
 } 2>&1 | tee "$LOG"
 
 # Use the committed manifests; on a fresh clone before they are committed, use the copies from S3.
@@ -36,4 +36,5 @@ if [ ${#manifests[@]} -eq 0 ]; then
   hdfs dfs -get "$HDFS_RAW/_manifests/"*.csv manifests/
   manifests=(manifests/*_acquired=*.csv)
 fi
-python3 corpus/verify_hdfs.py --manifests "${manifests[@]}" --run-id "$RUN_ID" --out "$OUT_DIR" | tee -a "$LOG"
+echo "verify started=$(date -u +%Y-%m-%dT%H:%M:%SZ) (sizes for all files, SHA-256 for the price CSV)" | tee -a "$LOG"
+python3 corpus/verify_hdfs.py --manifests "${manifests[@]}" --run-id "$RUN_ID" --out "$OUT_DIR" 2>&1 | tee -a "$LOG"

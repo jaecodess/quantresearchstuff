@@ -1,0 +1,20 @@
+{
+  "run_id": "local-dev",
+  "application_id": "local-1793782385303",
+  "input": "<local work dir>/rawprices/all_stocks_5yr.csv",
+  "ticker_mod": null,
+  "raw_lines_including_header": 619041,
+  "raw_data_rows_profiled": 619040,
+  "clean_rows": 605887,
+  "rejected_rows": 13153,
+  "rejected_by_reason": {
+    "close_outside_range": 8,
+    "high_below_low": 1,
+    "missing_open": 11,
+    "open_outside_range": 3,
+    "outside_study_period": 13130
+  },
+  "reconciles": true,
+  "clean_path": "<local work dir>/inf2006/clean/prices_daily/local-dev",
+  "rejected_path": "<local work dir>/inf2006/rejected/prices_daily/local-dev"
+}

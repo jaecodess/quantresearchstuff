@@ -2,11 +2,11 @@
 
 What is wrong or missing in the raw sources, with counts, and what the pipeline must do about it. Raw files are never edited; every handling rule below belongs to PIPE (cleaning, split detection, calendar).
 
-Status: price numbers are from a **local development profile** of the pinned file ([dev_profile_2026-11-02](dev_profile_2026-11-02/summary.json)), produced by `corpus/profile_prices.py`. Rerun the same script on EMR and replace the figures with the EMR output (`evidence/corpus/prices_profile_<run_id>/`); they should be identical because the input bytes are identical (same SHA-256). GDELT numbers come from the `streaming/gdelt_daily` audit job once the archives are staged.
+Status: **price figures are confirmed on EMR** (run `20261103-2250-full-ref`, Spark application `application_1793714742178_0002`, [summary.json](../../evidence/corpus/prices_profile_20261103-2250-full-ref/summary.json)). They are identical to the earlier local development profile, as expected for the same input bytes. GDELT acquisition and staging are confirmed on EMR (section 2); the GDELT content audit has to be rerun (section 2.2).
 
 ## 1. Daily price CSV
 
-### 1.1 Headline counts *(dev)*
+### 1.1 Headline counts *(EMR)*
 
 - 619,041 lines = 1 header + 619,040 data rows, 7 fields on every line, header `date,open,high,low,close,volume,Name`.
 - 505 series, 2013-02-08 to **2018-02-07**. The brief's window ends 2017-12-29: **13,130 rows** (about 5.5 weeks) fall after it.
@@ -20,7 +20,7 @@ Status: price numbers are from a **local development profile** of the pinned fil
 | minus rows with a hard problem (all 23 are inside the window) | −23 |
 | = accepted bars (matches brief) | **605,887** |
 
-### 1.2 Problems found *(dev)*
+### 1.2 Problems found *(EMR)*
 
 | Check | Rows | Example | Pipeline handling (PIPE-04) |
 |---|---|---|---|
@@ -29,26 +29,26 @@ Status: price numbers are from a **local development profile** of the pinned fil
 | `close` outside `[low, high]` | 9 | `2016-05-19,35.19,35.785,35.085,17.87,1231722,LNT` (close is about half of every other price that day) | Reject; do not repair |
 | `open` outside `[low, high]` | 4 | `2014-05-19,18.77,33.9525,33.695,33.895,1078888,CHD` | Reject |
 | `high < low` | 1 | `2014-05-19,23.89,23.595,23.85,24.445,1944854,AOS` | Reject |
-| Rows with any hard problem | **23** | full list: [problem_rows.csv](dev_profile_2026-11-02/problem_rows.csv) | Reject, keep in `clean.prices_rejected` with the reason |
+| Rows with any hard problem | **23** | full list: [problem_rows.csv](../../evidence/corpus/prices_profile_20261103-2250-full-ref/problem_rows.csv) | Reject, keep in `clean.prices_rejected` with the reason |
 | Zero volume | 4 | all 4 are also missing prices | Rejected anyway |
 | Duplicate (ticker, date) | 0 | | Rule still needed: keep none silently, report |
 | Non-numeric values, bad dates, wrong field count | 0 | | Rule still needed for reruns |
 | Price ≤ 0, negative volume | 0 | | |
 
-### 1.3 Coverage and gaps *(dev)*
+### 1.3 Coverage and gaps *(EMR)*
 
 - Full grid inside the study window would be 505 series × 1,233 market days = 622,665 bars; 605,910 present ≈ 97.3%. Almost all of the shortfall is series that start late, not holes.
 - **29 series start after 2013-02-08** (e.g. GOOG 2014-03-27, PYPL 2015-07-06, HPE 2015-10-19, APTV 2017-12-05). **0 series end early.** Every series runs to the last date in the file.
 - **6 series have holes** inside their own date range, 51 missing market days in total: DHR 16, O 16, ES 10, ICE 5, BMY 2, ORCL 2. Some dates are shared (2013-04-26, 2013-09-09/10), which suggests gaps in the source's collection rather than trading halts. Handling: keep the gap (never fill from later data); weeks that need a missing bar become ineligible (PIPE-07).
 - No dates where fewer than half of the series trade, so the market calendar is clean.
 
-### 1.4 Survivorship (CORP-08) *(dev)*
+### 1.4 Survivorship (CORP-08) *(EMR)*
 
 Series ending before the last date: **0**. Series starting after the first date: **29**. A list where stocks only ever join and never leave was built from the index members at the end of the period (early 2018). Stocks that were dropped or delisted between 2013 and 2017 are missing. **Survivorship bias is confirmed**, and it goes in the report limitations. It affects the weekly median (computed only over survivors) and makes any result look better than it would have in real time.
 
-### 1.5 Splits and other large overnight moves (input to PIPE-05) *(dev)*
+### 1.5 Splits and other large overnight moves (input to PIPE-05) *(EMR)*
 
-32 overnight moves with |ln(open / previous close)| > 0.25 in rows without a hard problem ([overnight_jumps.csv](dev_profile_2026-11-02/overnight_jumps.csv)):
+32 overnight moves with |ln(open / previous close)| > 0.25 in rows without a hard problem ([overnight_jumps.csv](../../evidence/corpus/prices_profile_20261103-2250-full-ref/overnight_jumps.csv)):
 
 - The source is **mostly split-adjusted**: AAPL (7-for-1, June 2014) and NFLX (7-for-1, July 2015) show no jump, and their pre-split prices carry 4 decimals (a sign of back-adjustment).
 - **But not always**: DISCA and DISCK both halve on 2014-08-07 with volume up, which looks like an unadjusted 2-for-1 split. DISCK matches the price rule (ratio 0.507); DISCA misses the ±3% tolerance (0.521) and needs the volume check.
@@ -67,6 +67,17 @@ Series ending before the last date: **0**. Series starting after the first date:
 
 ## 2. GDELT 1.0 events
 
+### 2.1 Acquisition and staging (EMR, run `20261103-2250-full-ref`)
+
+- **731 of 731** daily archives (2015-07-01 to 2017-06-30) acquired, none missing. Every archive matches GDELT's published MD5 and file size ([manifest](../../manifests/gdelt_acquired=2026-11-03.csv)). Total 9,611,684,528 bytes (brief: 9.61 GB); archives range from 1.7 MB to 18.4 MB.
+- Staged into HDFS with S3DistCp (`application_1793714742178_0001`): 733 files (731 archives plus GDELT's `md5sums` and `filesizes` lists), 9.0 GB logical, 17.9 GB physical at replication 2; `hdfs fsck` HEALTHY, 0 missing or corrupt blocks ([stage log](../../evidence/corpus/stage_20261103-2250-full-ref.log)).
+
+### 2.2 Content audit: rerun needed
+
+The first EMR run of the GDELT Streaming job (`job_1793714742178_0003`, [log](../../evidence/gdelt_daily_20261103-2250-full-ref.log)) finished but read **no** archive: all 731 were reported unreadable (`corrupt_archive=731`). Cause: a mapper bug, not the data. The archive list holds plain HDFS paths (`/inf2006/...`), which the mapper only fetched from HDFS when they contained `://`. Fixed in PR #4 (`streaming/gdelt_daily/mapper.py`), with a test of the HDFS path case; the job now also fails loudly if any archive is unreadable, and re-hashes every archive so Hive can compare it with this manifest. The table below is filled from the rerun.
+
+### 2.3 Format check on one archive
+
 From one real archive inspected locally (2026-10-02 export, outside our window, used only to confirm the format):
 
 - 58 tab-separated fields on every line, no header, no malformed lines, no duplicate event IDs.
@@ -75,11 +86,12 @@ From one real archive inspected locally (2026-10-02 export, outside our window, 
 - One article gives several events (109,627 events from 21,687 URLs).
 - Automatic coding errors exist (see data dictionary section 3).
 
-To fill in from the EMR audit run (`hive/10_gdelt_daily.sql` reconciliation, missing-date and overlap queries):
+To fill in from the EMR rerun (`hive/10_gdelt_daily.sql`: reconciliation, missing dates, overlaps, SHA-256 against the manifest):
 
 | Measure | Value |
 |---|---|
-| Archives expected / acquired / failed checksum | 731 / … / … |
+| Archives expected / acquired / failed checksum at download | 731 / 731 / 0 |
+| Archives whose HDFS copy matches the manifest SHA-256 | … (rerun) |
 | Total lines, events kept, malformed, bad values, duplicates | … |
 | Missing archive dates | … |
 | Archives with overlapping event-ID ranges | … |

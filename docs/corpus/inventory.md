@@ -1,6 +1,6 @@
 # Raw-corpus inventory and reproducibility record (CORP-11)
 
-Everything needed to get exactly the same raw inputs again, or to prove which inputs were used. Fill the `…` cells from the EMR run (`evidence/corpus/inventory_<run_id>.json`, `stage_<run_id>.log`).
+Everything needed to get exactly the same raw inputs again, or to prove which inputs were used. Measured on EMR in run `20261103-2250-full-ref` (evidence in [`evidence/corpus/`](../../evidence/corpus/)). The bucket name is replaced by `<bucket>` in committed files.
 
 ## 1. Sources and how to re-acquire them
 
@@ -17,8 +17,8 @@ One manifest per acquisition run, committed under [`manifests/`](../../manifests
 
 | Source | Manifest | Acquired (UTC) | Files ok / expected | Bytes |
 |---|---|---|---|---|
-| Daily price CSV | `manifests/prices_acquired=<date>.csv` | … | … / 1 | 29,580,549 |
-| GDELT | `manifests/gdelt_acquired=<date>.csv` | … | … / 731 | … (brief: 9.61 GB) |
+| Daily price CSV | [`manifests/prices_acquired=2026-11-03.csv`](../../manifests/prices_acquired=2026-11-03.csv) | 2026-11-03 14:30:43 | 1 / 1 (SHA-256 matches the pinned value) | 29,580,549 |
+| GDELT | [`manifests/gdelt_acquired=2026-11-03.csv`](../../manifests/gdelt_acquired=2026-11-03.csv) | 2026-11-03 14:32:17 to 14:37:08 | 731 / 731 (MD5 and size match GDELT's lists for all) | 9,611,684,528 |
 
 ## 3. Storage and configuration
 
@@ -26,13 +26,15 @@ One manifest per acquisition run, committed under [`manifests/`](../../manifests
 - Session copy: `s3-dist-cp` into HDFS `/inf2006/raw/`, then made read-only (`corpus/stage_to_hdfs.sh`).
 - HDFS replication: `dfs.replication=2` (cluster config, PERF-04). Core storage: one 100 GiB gp3 data volume per core node (brief update for Learner Lab limits), 200 GiB physical in total, so a nominal **100 GiB logical** HDFS ceiling at replication 2, before HDFS overhead and YARN shuffle/temp space. Root volumes are separate and not counted. Physical HDFS use ≈ 2 × logical bytes: GDELT ZIPs ≈ 19.2 GB physical (about 10% of physical capacity); an expanded copy (≈ 109 GB physical) would not fit, which is a second reason for D-010.
 - Formats: raw CSV and ZIP unchanged. No expanded GDELT copy is ever stored (D-010).
-- Software: EMR release …, Hadoop …, Spark …, Python … (from the cluster; record in Appendix A).
+- Software ([versions](../../evidence/corpus/versions_20261103-2250-full-ref.txt)): EMR emr-7.10.0, Hadoop 3.4.1-amzn-2, Spark 3.5.5-amzn-1, Hive 3.1.3-amzn-19, Python 3.9.25.
 
 ## 4. Measured inventory in HDFS (EMR)
 
 | Source | Files | Bytes (logical) | Bytes (physical, `hdfs dfs -du`) | Rows | Verification |
 |---|---|---|---|---|---|
-| Daily price CSV | 1 | 29,580,549 | … | 619,040 data rows + 1 header (dev, same bytes) | size + SHA-256 of the HDFS copy: … |
-| GDELT | … | … | … | … events (streaming audit `n_lines`) | size + SHA-256 per archive: … |
+| Daily price CSV | 1 | 29,580,549 (28.2 M) | 56.4 M | 619,040 data rows + 1 header (EMR profile, `application_1793714742178_0002`) | size + SHA-256 of the HDFS copy: rerun with the fixed verifier |
+| GDELT | 731 archives + 2 provenance lists | 9,611,684,528 (9.0 G) | 17.9 G | … events (rerun of the Streaming audit) | SHA-256 of every HDFS copy against the manifest, computed by the Streaming job (rerun) |
+
+HDFS health: `hdfs fsck /inf2006/raw` HEALTHY, replication 2.0, 0 missing or corrupt blocks. The first verifier run re-hashed each file with its own `hdfs dfs -cat` (about 35 minutes for 732 files) and was stopped before writing results; it now hashes the price CSV only and leaves the archives to the parallel Streaming job.
 
 Evidence: `evidence/corpus/hdfs_verify_<run_id>.csv`, `evidence/corpus/inventory_<run_id>.json`, `evidence/corpus/stage_<run_id>.log`, `evidence/corpus/prices_profile_<run_id>/`.

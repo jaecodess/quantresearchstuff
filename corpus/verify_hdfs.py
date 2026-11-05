@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
 """Check that every file in the acquisition manifests is in HDFS, unchanged (CORP-06, CORP-07, CORP-11).
 
-For each manifest row with check=ok: the HDFS file exists, its size matches, and (unless --no-hash)
-its SHA-256, recomputed by streaming the HDFS copy, matches the hash taken at download time.
+For each manifest row with check=ok: the HDFS file exists and its size matches. SHA-256 is recomputed
+from the HDFS copy for non-ZIP files (the price CSV). ZIP archives are re-hashed in parallel by the
+GDELT Streaming job and compared with the manifest in Hive (hive/10_gdelt_daily.sql, part 6), because
+one `hdfs dfs -cat` per archive costs a JVM start each (about 35 minutes for 731 files).
+--hash-zips hashes the archives here as well (slow); --no-hash skips hashing entirely.
 Writes evidence/corpus/hdfs_verify_<run_id>.csv (one row per file) and inventory_<run_id>.json
 (files, bytes and rows per source) for the raw-corpus inventory.
 
@@ -48,6 +51,7 @@ def main(argv=None):
     p.add_argument("--run-id", required=True)
     p.add_argument("--out", default="evidence/corpus")
     p.add_argument("--no-hash", action="store_true", help="size check only (faster)")
+    p.add_argument("--hash-zips", action="store_true", help="also re-hash ZIP archives here (slow)")
     a = p.parse_args(argv)
 
     rows = []
@@ -68,7 +72,8 @@ def main(argv=None):
         elif str(size) != r["bytes"]:
             status.append("size_mismatch")
         sha, n_lines = "", ""
-        if size is not None and not a.no_hash:
+        hash_this = not a.no_hash and (a.hash_zips or not path.endswith(".zip"))
+        if size is not None and hash_this:
             sha, lines = hdfs_sha256_and_lines(path)
             if sha != r["sha256"]:
                 status.append("sha256_mismatch")
@@ -102,7 +107,7 @@ def main(argv=None):
     inventory = {
         "run_id": a.run_id,
         "checked_at_utc": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
-        "hash_checked": not a.no_hash,
+        "hash_checked": "none" if a.no_hash else ("all" if a.hash_zips else "non-zip files (zips: Streaming job)"),
         "manifests": sorted({r["manifest"] for r in rows}),
         "per_source": per_source,
         "not_acquired": [{"file_name": r["file_name"], "check": r["check"]} for r in not_acquired],

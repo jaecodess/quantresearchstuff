@@ -1,0 +1,5 @@
+Total number of applications (application-types: [], states: [FINISHED, FAILED, KILLED] and tags: []):3
+                Application-Id	    Application-Name	    Application-Type	      User	     Queue	             State	       Final-State	       Progress	                       Tracking-URL	Tags
+application_1793714742178_0003	gdelt_daily_20261103-2250-full-ref	           MAPREDUCE	    hadoop	root.default	          FINISHED	         SUCCEEDED	           100%	http://ip-172-31-73-210.ec2.internal:19888/jobhistory/job/job_1793714742178_0003	[]
+application_1793714742178_0002	      profile_prices	               SPARK	    hadoop	root.default	          FINISHED	         SUCCEEDED	           100%	ip-172-31-73-210.ec2.internal:18080/history/application_1793714742178_0002/1	[]
+application_1793714742178_0001	S3DistCp: s3://<bucket>/inf2006/raw -> hdfs:/inf2006/raw	           MAPREDUCE	    hadoop	root.default	          FINISHED	         SUCCEEDED	           100%	http://ip-172-31-73-210.ec2.internal:19888/jobhistory/job/job_1793714742178_0001	[]

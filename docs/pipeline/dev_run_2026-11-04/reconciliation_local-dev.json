@@ -1,0 +1,111 @@
+{
+  "run_id": "local-dev",
+  "application_id": "local-1793782551886",
+  "prices": {
+    "raw_rows": 619040,
+    "clean_rows": 605887,
+    "rejected_rows": 13153,
+    "reconciles": true,
+    "rejected_by_reason": {
+      "missing_open": 11,
+      "outside_study_period": 13130,
+      "open_outside_range": 3,
+      "close_outside_range": 8,
+      "high_below_low": 1
+    },
+    "clean_coverage": {
+      "first": "2013-02-08",
+      "last": "2017-12-29",
+      "series": 505
+    }
+  },
+  "calendar": {
+    "market_days": 1233,
+    "weeks_by_split": {
+      "train": 148,
+      "validation": 52,
+      "no_outcome": 1,
+      "boundary_excluded": 4,
+      "test": 51
+    },
+    "holiday_friday_weeks": [
+      "2013-03-29",
+      "2014-04-18",
+      "2014-07-04",
+      "2015-04-03",
+      "2015-07-03",
+      "2015-12-25",
+      "2016-01-01",
+      "2016-03-25",
+      "2017-04-14"
+    ],
+    "weeks_not_5_days": 43
+  },
+  "features_weekly": {
+    "train": {
+      "weeks": 148,
+      "ticker_weeks": 74740,
+      "eligible": 65086,
+      "label_share_1": 0.4995083428079771,
+      "first_start": "2013-02-08",
+      "last_start": "2015-12-18",
+      "first_cutoff": "2013-02-14",
+      "last_outcome_end": "2015-12-28",
+      "excluded_by_reason": {
+        "missing_next_open": 6,
+        "missing_start_open": 3,
+        "no_bar_at_cutoff": 3350,
+        "insufficient_history": 6267,
+        "split_in_window": 28
+      },
+      "eligible_per_week": {
+        "weeks_with_eligible": 135,
+        "min": 471,
+        "median": 483,
+        "max": 492
+      }
+    },
+    "validation": {
+      "weeks": 52,
+      "ticker_weeks": 26260,
+      "eligible": 25720,
+      "label_share_1": 0.49972783825816486,
+      "first_start": "2016-01-04",
+      "last_start": "2016-12-23",
+      "first_cutoff": "2015-12-31",
+      "last_outcome_end": "2016-12-30",
+      "excluded_by_reason": {
+        "insufficient_history": 133,
+        "no_bar_at_cutoff": 405,
+        "missing_start_open": 1,
+        "missing_next_open": 1
+      },
+      "eligible_per_week": {
+        "weeks_with_eligible": 52,
+        "min": 492,
+        "median": 494,
+        "max": 498
+      }
+    },
+    "test": {
+      "weeks": 51,
+      "ticker_weeks": 25755,
+      "eligible": 25531,
+      "label_share_1": 0.4995495671928244,
+      "first_start": "2017-01-06",
+      "last_start": "2017-12-22",
+      "first_cutoff": "2017-01-05",
+      "last_outcome_end": "2017-12-29",
+      "excluded_by_reason": {
+        "no_bar_at_cutoff": 150,
+        "insufficient_history": 74
+      },
+      "eligible_per_week": {
+        "weeks_with_eligible": 51,
+        "min": 498,
+        "median": 501,
+        "max": 504
+      }
+    }
+  }
+}

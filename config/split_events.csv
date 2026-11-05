@@ -1,0 +1,6 @@
+ticker,date,ratio_est,k,decision,evidence
+DISCK,2014-08-07,0.5069,2,confirmed,open/prev close 0.507 (1.4% from 1/2); 20-day volume x4.24; same date as DISCA; consistent with a 2-for-1 share distribution (verify in company filings)
+DISCA,2014-08-07,0.5210,2,confirmed,open/prev close 0.521 (4.2% from 1/2) on the same date as DISCK; volume x1.17 (share count unchanged); price halves because holders received new shares; treated like a split for eligibility (verify in company filings)
+VRTX,2013-04-19,1.5425,1.5,rejected,+54% gap; a 1-for-1.5 reverse split would cut volume to about x0.67 but volume rose x2.31; news-driven move; kept as a genuine price change
+VRTX,2014-06-24,1.4716,1.5,rejected,+47% gap; volume x2.22 instead of about x0.67 for a reverse split; news-driven move; kept as a genuine price change
+BBY,2014-01-16,0.6896,1.5,rejected,-31% gap is 3.5% from 2/3; volume x3.05 against about x1.5 for a 3-for-2 split; news-driven repricing; kept as a genuine price change

@@ -16,6 +16,7 @@ Output (tab-separated, key first): see OUT_FIELDS. Sums only, so the reducer can
 Counters (reporter:counter:gdelt,*) appear in the job history as execution evidence.
 """
 
+import hashlib
 import io
 import os
 import re
@@ -61,6 +62,7 @@ OUT_FIELDS = [
     "min_event_id",
     "max_event_id",
     "source_file",
+    "sha256",  # of the archive bytes as read from HDFS; compared with the acquisition manifest in Hive
 ]
 
 DATE_RE = re.compile(r"(\d{8})")
@@ -79,12 +81,26 @@ def parse_yyyymmdd(s):
         return None
 
 
-def open_lines(path, tmpdir):
-    """Yield decoded lines of the archive at `path`."""
-    if "://" in path:
+def fetch(path, tmpdir):
+    """Return a local path for the archive. HDFS/S3 paths (with a scheme, or a plain /path that is not a
+    local file, which is how `hdfs dfs -ls -C` prints them) are copied to local temp first."""
+    if "://" in path or not os.path.exists(path):
         local = os.path.join(tmpdir, os.path.basename(path))
         subprocess.run(["hadoop", "fs", "-copyToLocal", path, local], check=True)
-        path = local
+        return local
+    return path
+
+
+def sha256_of(path):
+    h = hashlib.sha256()
+    with open(path, "rb") as fh:
+        for chunk in iter(lambda: fh.read(1 << 20), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def open_lines(path):
+    """Yield decoded lines of the local archive at `path` (.zip, or plain text for the test fixture)."""
     if path.lower().endswith(".zip"):
         with zipfile.ZipFile(path) as zf:
             for member in zf.namelist():
@@ -99,7 +115,7 @@ def open_lines(path, tmpdir):
 
 def empty_row():
     row = {k: 0 for k in OUT_FIELDS}
-    row["min_event_id"], row["max_event_id"] = "", ""
+    row["min_event_id"], row["max_event_id"], row["sha256"] = "", "", ""
     return row
 
 
@@ -114,7 +130,9 @@ def process(path, tmpdir):
     seen = set()
     min_id, max_id = None, None
     try:
-        for line in open_lines(path, tmpdir):
+        local = fetch(path, tmpdir)
+        row["sha256"] = sha256_of(local)
+        for line in open_lines(local):
             line = line.rstrip("\r\n")
             if not line:
                 continue

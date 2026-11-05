@@ -208,7 +208,7 @@ Start a cluster as in A3 to A5 if you terminated the previous one. Pick a new `<
 cd ~/quantresearchstuff
 bash corpus/stage_to_hdfs.sh s3://<bucket>/inf2006/raw <run_id>
 ```
-This copies with `s3-dist-cp`, makes the raw folders read-only, prints counts, sizes and an `fsck` summary, then re-hashes every HDFS file against the manifests. Expected last lines: `"files_ok": 732, "files_checked": 732` (1 price file + 731 archives). Outputs: `evidence/corpus/stage_<run_id>.log`, `hdfs_verify_<run_id>.csv`, `inventory_<run_id>.json`.
+This copies with `s3-dist-cp` (about 1 to 2 minutes), makes the raw folders read-only, prints counts, sizes and an `fsck` summary, then checks every HDFS file's size against the manifests and re-hashes the price CSV (under a minute). The 731 archives are re-hashed in parallel by the GDELT job in B4. Expected last lines: `"files_ok": 732, "files_checked": 732` (1 price file + 731 archives). Outputs: `evidence/corpus/stage_<run_id>.log`, `hdfs_verify_<run_id>.csv`, `inventory_<run_id>.json`. If the raw corpus is already in HDFS (same session), the copy is skipped and only the check runs.
 
 ### B2. Check the HDFS layout
 ```bash
@@ -237,12 +237,16 @@ EOF
 ```
 Expected: `identical to dev profile` (key numbers: 619,040 rows, 505 series, 23 hard-problem rows, 605,887 accepted in the study window).
 
-### B4. GDELT quality audit (needs the PIPE-03 branch `ws/pipe/gdelt-streaming-prototype` merged)
+### B4. GDELT quality audit
 ```bash
 bash streaming/gdelt_daily/run.sh <run_id>
-hive --hivevar run_id=<run_id> -f hive/10_gdelt_daily.sql 2>&1 | tee evidence/corpus/gdelt_audit_<run_id>.txt
+hdfs dfs -mkdir -p /inf2006/manifests/corpus/<run_id>
+hdfs dfs -put -f manifests/*_acquired=*.csv /inf2006/manifests/corpus/<run_id>/
+hive --hivevar root=/inf2006 --hivevar run_id=<run_id> --hivevar manifest_dir=/inf2006/manifests/corpus/<run_id> -f hive/10_gdelt_daily.sql 2>&1 | tee evidence/corpus/gdelt_audit_<run_id>.txt
 ```
-The Hive output gives the totals for `quality_findings.md` section 2: lines, events, malformed, bad values, duplicates, missing dates, overlapping ID ranges. The job ID is in `evidence/gdelt_daily_<run_id>.log`.
+The job starts 731 map tasks (one per archive) and takes roughly 20 to 35 minutes. Its last lines print `archives=731 corrupt_archives=0 ... events=...`; if any archive could not be read it stops with an ERROR instead of finishing quietly. The Hive output gives the totals for `quality_findings.md` section 2: lines, events, malformed, bad values, duplicates, missing dates, overlapping ID ranges, and the SHA-256 check (expected: no mismatching rows, `n_sha256_match = 731`). The manifests go to `/inf2006/manifests/` because Hadoop skips folders whose names start with `_` (such as `raw/_manifests`). The job ID is in `evidence/gdelt_daily_<run_id>.log`.
+
+If you are running Task 2 in the same session, skip B4: `spark/run_task2.sh` runs the GDELT job and these Hive checks too.
 
 ### B5. Record job IDs and versions
 ```bash
