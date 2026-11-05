@@ -5,10 +5,21 @@ Needs `features.weekly` from Task 2. Two ways to get it:
 - **New cluster**: if you saved the features to S3 in Task 2 step C5, pass that path, e.g.
   `s3://<bucket>/inf2006/features/<task2_run_id>/weekly`. Otherwise rerun Task 2 C2 and C3 first.
 
-Use a new run_id, e.g. `20261106-1400-full-ref`, for both phases. Start a cluster and connect as in Task 1 A3 to A5, then:
+Use a new run_id, e.g. `20261106-1400-full-ref`, for both phases. Start a cluster and connect as in Task 1 A3 and A4, then get the code onto the cluster (in the connected window, at the `[hadoop@ip-... ~]$` prompt):
 ```bash
-cd ~/quantresearchstuff && git switch main && git pull
+sudo yum install -y git tmux
+git clone https://github.com/jaecodess/quantresearchstuff.git   # skip if the folder already exists
+cd ~/quantresearchstuff
+git fetch origin
+git switch -c ws/model/task3 --track origin/ws/model/task3
+ls modeling/run_task3.sh
+```
+`ls` must print `modeling/run_task3.sh`. Until PR #6 is merged, the Task 3 code is only on the `ws/model/task3` branch; `git fetch origin` first, otherwise `git switch` reports "invalid reference" (the copy does not know the branch yet). After PR #6 is merged, use `git switch main && git pull` instead. If the branch already exists in your copy, use `git switch ws/model/task3 && git pull`.
+
+Then start tmux so the runs survive a dropped connection (detach Ctrl-b then d; reattach `tmux attach -t task3`):
+```bash
 tmux new -s task3
+cd ~/quantresearchstuff
 ```
 
 ## D1. Phase 1: validation (about 10 to 20 minutes)

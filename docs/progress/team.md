@@ -34,3 +34,4 @@ Format and rules: [README.md](README.md). Edit only your own task lines; add a l
 - 2026-11-05 @husyGIT: Gate 1 (MODEL-03) locked in docs/decisions/decision-log.md before any validation run. Evidence: docs/decisions/decision-log.md
 - 2026-11-05 @husyGIT: docs/model/ (Task 3 approach, EMR steps, section 4 draft, local validation results). Evidence: docs/model/README.md
 - 2026-11-05 @husyGIT: requirements-spark.txt: added numpy==1.26.4 (pyspark.ml needs it in the CI Spark job; EMR ships numpy). Evidence: requirements-spark.txt
+- 2026-11-05 @husyGIT: docs/model/aws_task3.md: full cluster setup commands (fetch and switch to ws/model/task3, "invalid reference" fix). Evidence: docs/model/aws_task3.md
