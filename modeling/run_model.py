@@ -34,9 +34,9 @@ from pyspark.ml import Pipeline, PipelineModel  # noqa: E402
 from pyspark.ml.classification import LogisticRegression, RandomForestClassifier  # noqa: E402
 from pyspark.ml.evaluation import BinaryClassificationEvaluator  # noqa: E402
 from pyspark.ml.feature import Imputer, StandardScaler, VectorAssembler  # noqa: E402
-from pyspark.ml.functions import vector_to_array  # noqa: E402
 from pyspark.sql import SparkSession  # noqa: E402
 from pyspark.sql import functions as F  # noqa: E402
+from pyspark.sql.types import DoubleType  # noqa: E402
 
 from evaluation import metrics as M  # noqa: E402
 
@@ -84,9 +84,14 @@ def build_pipeline(config_id):
     return Pipeline(stages=stages)
 
 
+# Probability of label 1 from Spark's probability vector. A small UDF instead of
+# pyspark.ml.functions.vector_to_array, which imports pandas (not needed anywhere else, maybe absent on EMR).
+P1 = F.udf(lambda v: float(v[1]), DoubleType())
+
+
 def score(model, df, name):
     """Probability of label 1 as column `name`."""
-    out = model.transform(df).withColumn(name, vector_to_array("probability")[1])
+    out = model.transform(df).withColumn(name, P1("probability"))
     return out.select(*[c for c in df.columns], name)
 
 
