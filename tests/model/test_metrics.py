@@ -42,11 +42,9 @@ def test_turnover():
     assert metrics.turnover(rows) == pytest.approx((0.5 + 0.0) / 2)
 
 
-pytest.importorskip("pyspark")
-
-
 @pytest.mark.spark
 def test_weekly_auc_matches_bruteforce_with_ties():
+    pytest.importorskip("pyspark")
     from pyspark.sql import SparkSession
 
     spark = SparkSession.builder.master("local[1]").config("spark.ui.enabled", "false").getOrCreate()
