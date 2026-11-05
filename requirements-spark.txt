@@ -1,2 +1,3 @@
 # Matches Spark 3.5.x shipped with EMR 7.x; local/CI only, not evidence of the assessed EMR run.
 pyspark==3.5.3
+numpy==1.26.4  # required by pyspark.ml (Task 3 models); EMR ships numpy

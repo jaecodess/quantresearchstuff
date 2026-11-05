@@ -16,8 +16,11 @@ AUC per week uses the rank-sum formula with average ranks for ties (random-fores
 import math
 import random
 
-from pyspark.sql import Window
-from pyspark.sql import functions as F
+try:  # Spark is needed only for the distributed functions; bootstrap and turnover are pure Python.
+    from pyspark.sql import Window
+    from pyspark.sql import functions as F
+except ImportError:  # pragma: no cover - unit-test environment without pyspark
+    Window = F = None
 
 WEEK = "start_date"
 SEED = 2026
