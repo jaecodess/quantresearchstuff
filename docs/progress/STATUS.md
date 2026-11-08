@@ -12,11 +12,11 @@ Legend: `[ ]` todo, `[~]` in progress, `[x]` done, `[!]` blocked.
 | [TEAM](team.md) Shared / team | @TODO | 1 | 0 | 0 | 15 | 16 |
 | [CORP](corpus.md) Corpus (Task 1) | @HoShangJ | 8 | 4 | 0 | 1 | 13 |
 | [PIPE](pipeline.md) Pipeline (Task 2) | @r4ihn | 9 | 4 | 0 | 1 | 14 |
-| [MODEL](model.md) Model (Task 3) | @TODO | 4 | 6 | 0 | 1 | 11 |
+| [MODEL](model.md) Model (Task 3) | @TODO | 5 | 5 | 0 | 1 | 11 |
 | [ANLY](analytics.md) Analytics (Task 4) | @TODO | 0 | 0 | 0 | 7 | 7 |
 | [PERF](performance.md) Performance & reproducibility | @TODO | 0 | 0 | 0 | 14 | 14 |
 
-**Overall: 22/75 tasks done.**
+**Overall: 23/75 tasks done.**
 
 ## In progress
 
@@ -29,7 +29,6 @@ Legend: `[ ]` todo, `[~]` in progress, `[x]` done, `[!]` blocked.
 - [PIPE-13](pipeline.md) Full pipeline run on EMR with job and query IDs, mapper/reducer scripts, configs and output schemas as evidence: @husyGIT · due 2026-11-13
 - [PIPE-14](pipeline.md) Report section 3 draft and Appendix B locators for the pipeline: @husyGIT · due 2026-11-17
 - [MODEL-05](model.md) Validation comparison of the 8 configs on 2016; measure week-to-week AUC spread; apply the one-standard-error simplicity rule: @husyGIT · due 2026-11-11
-- [MODEL-06](model.md) GATE: freeze the chosen config and write the success rule (§8.6) into the decision log: @husyGIT · due 2026-11-11
 - [MODEL-07](model.md) Single evaluation on 2017 test: mean weekly AUC, paired difference vs B3, balanced accuracy, precision, recall, rank IC, decile spread, turnover: @husyGIT · due 2026-11-12
 - [MODEL-08](model.md) Output weights: top 10% equal weight per week, described as hypothetical selection output: @husyGIT · due 2026-11-12
 - [MODEL-09](model.md) Save complete PipelineModel; fresh-session reload reproduces predictions within 1e-9: @husyGIT · due 2026-11-13
@@ -59,6 +58,8 @@ _Nothing blocked._
 
 ## Recent activity (newest 15 progress-log entries)
 
+- 2026-11-08 @husyGIT [TEAM]: Gate 2 (MODEL-06) locked in docs/decisions/decision-log.md before the test run: frozen config lr_f1_r001. Evidence: docs/decisions/decision-log.md
+- 2026-11-08 @husyGIT [MODEL]: EMR validation (run 20261106-1400-full-ref) recommended lr_f1_r001 (best mean rf_f2_d8, 1 SE = 0.0070). Gate 2 locked in the decision log before any test run: frozen config lr_f1_r001, success rule unchanged from HANDOVER 8.6. Evidence: docs/decisions/decision-log.md (MODEL-05, MODEL-06)
 - 2026-11-05 @husyGIT [TEAM]: Gate 1 (MODEL-03) locked in docs/decisions/decision-log.md before any validation run. Evidence: docs/decisions/decision-log.md
 - 2026-11-05 @husyGIT [TEAM]: docs/model/ (Task 3 approach, EMR steps, section 4 draft, local validation results). Evidence: docs/model/README.md
 - 2026-11-05 @husyGIT [TEAM]: requirements-spark.txt: added numpy==1.26.4 (pyspark.ml needs it in the CI Spark job; EMR ships numpy). Evidence: requirements-spark.txt
@@ -72,5 +73,3 @@ _Nothing blocked._
 - 2026-11-04 @husyGIT [CORP]: AWS guide B7: bundle evidence and manifests into one tar.gz, download with scp, S3 fallback. Evidence: docs/corpus/aws_guide.md (CORP-11)
 - 2026-11-04 @husyGIT [CORP]: EMR run 20261103-2250-full-ref committed: price + 731 GDELT archives acquired (all checksums match GDELT's lists, 9,611,684,528 bytes), staged to HDFS (fsck HEALTHY, rep 2), price profile on EMR identical to dev (application_1793714742178_0002). Docs updated with EMR figures; bucket name redacted. GDELT content audit needs a rerun (mapper path bug, fixed in PIPE). Evidence: evidence/corpus/, manifests/ (CORP-01, CORP-06, CORP-07, CORP-08, CORP-09, CORP-11)
 - 2026-11-04 @husyGIT [PIPE]: Claimed the remaining Pipeline tasks (agreed in team; PIPE-04 handed over from @r4ihn's claim on ws/pipe/price-cleaning, which had no code). Branch ws/pipe/task2-pipeline. (PIPE-01 to PIPE-14)
-- 2026-11-04 @husyGIT [PIPE]: Task 2 pipeline built and run end to end locally on the full price file: Streaming price audit, PySpark cleaning (605,887 clean = brief), Hive SQL calendar (holiday Fridays match HANDOVER), split screen + reviewed split events, PySpark universe/labels/9 features/ranks (eligible train 65,086, val 25,720, test 25,531), Hive SQL weekly news, reconciliation, EMR runner. Remaining: EMR run (PIPE-13), GDELT on real archives (PIPE-11), section 3 final (PIPE-14). Evidence: spark/, hive/, streaming/price_audit/, docs/pipeline/ (PIPE-01 to PIPE-11, PIPE-14)
-- 2026-11-04 @husyGIT [PIPE]: First EMR GDELT run (job_1793714742178_0003) read no archive: the mapper only fetched paths containing `://`, but the manifest holds plain HDFS paths. Fixed (plain /paths now fetched from HDFS, tested with a fake hadoop), run.sh now fails if any archive is unreadable, mapper re-hashes every archive and hive/10 compares SHA-256 with the manifest (manifests copied to /inf2006/manifests/, since Hadoop hides `_` folders). Evidence: streaming/gdelt_daily/mapper.py, hive/10_gdelt_daily.sql, evidence/gdelt_daily_20261103-2250-full-ref.log (PIPE-03, PIPE-11)

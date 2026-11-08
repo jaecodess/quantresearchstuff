@@ -47,11 +47,11 @@ Locked on: 2026-11-05 by: @husyGIT in commit: (the commit that adds this line, o
 
 ## Gate 2: frozen model and success rule (MODEL-06). Lock BEFORE the test set is touched
 
-Frozen configuration: ____ (selected on 2016 mean weekly AUC; simplicity rule applied: ____)
+Frozen configuration: `lr_f1_r001` (selected on 2016 mean weekly AUC; simplicity rule applied: the best mean was `rf_f2_d8`, and `lr_f1_r001` is the simplest config within one standard error of it, SE = 0.0070; EMR validation run 20261106-1400-full-ref, 2026-11-08)
 
 Success rule (HANDOVER §8.6): the frozen model shows evidence of predictive signal only if, on 2017 test, (1) its mean weekly AUC has a 95% interval above 0.5, and (2) the mean paired difference against B3 has a 95% interval above 0. Otherwise the finding is "no evidence that the model adds signal beyond simple rules".
 
-Locked on: ____ by: ____ in commit: ____
+Locked on: 2026-11-08 by: @husyGIT in commit: (the commit that adds this line, before any test run)
 
 ## Other decisions
 
