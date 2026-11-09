@@ -13,7 +13,7 @@ Legend: `[ ]` todo, `[~]` in progress, `[x]` done, `[!]` blocked.
 | [CORP](corpus.md) Corpus (Task 1) | @HoShangJ | 8 | 4 | 0 | 1 | 13 |
 | [PIPE](pipeline.md) Pipeline (Task 2) | @r4ihn | 9 | 4 | 0 | 1 | 14 |
 | [MODEL](model.md) Model (Task 3) | @TODO | 9 | 1 | 0 | 1 | 11 |
-| [ANLY](analytics.md) Analytics (Task 4) | @TODO | 0 | 0 | 0 | 7 | 7 |
+| [ANLY](analytics.md) Analytics (Task 4) | @TODO | 0 | 6 | 0 | 1 | 7 |
 | [PERF](performance.md) Performance & reproducibility | @TODO | 0 | 0 | 0 | 14 | 14 |
 
 **Overall: 27/75 tasks done.**
@@ -29,6 +29,12 @@ Legend: `[ ]` todo, `[~]` in progress, `[x]` done, `[!]` blocked.
 - [PIPE-13](pipeline.md) Full pipeline run on EMR with job and query IDs, mapper/reducer scripts, configs and output schemas as evidence: @husyGIT · due 2026-11-13
 - [PIPE-14](pipeline.md) Report section 3 draft and Appendix B locators for the pipeline: @husyGIT · due 2026-11-17
 - [MODEL-11](model.md) Report section 4 draft and Appendix B locators for the model: @husyGIT · due 2026-11-17
+- [ANLY-01](analytics.md) Q1 (Hive): within-week quintiles of `rel_volume` vs next-week outcomes, with group sizes and intervals; training years only until the model is frozen: @husyGIT · due 2026-11-14
+- [ANLY-02](analytics.md) Q2 (PySpark): weekly AUC and paired difference vs B3 by quarter, volatility tercile and market-dispersion tercile, 2017 plus 2016 consistency; weeks, rows and intervals reported: @husyGIT · due 2026-11-16
+- [ANLY-03](analytics.md) Q3a (Hive + PySpark): market-wide volatility and dispersion by `news_abn` tercile; pre-start and same-week labelled separately: @husyGIT · due 2026-11-16
+- [ANLY-04](analytics.md) Q3b: conditional evaluation of the frozen model across news terciles (2016 and 2017 reported separately): @husyGIT · due 2026-11-16
+- [ANLY-06](analytics.md) Labelled charts of aggregated results; explain tool choice (Hive vs PySpark) per analysis: @husyGIT · due 2026-11-17
+- [ANLY-07](analytics.md) Report section 5 draft with limitations and uncertainty; compare with the Task 3 baseline; Appendix B locators: @husyGIT · due 2026-11-18
 
 ## Blocked
 
@@ -47,8 +53,6 @@ _Nothing blocked._
 - [PERF-04](performance.md) EMR bring-up: reference cluster config (emr-7.10.0, 1 + 2 m5.xlarge, replication 2, Spark 2 x 2 x 6 GiB, dynamic allocation off); confirm with teaching team: @TODO · due 2026-11-06
 - [MODEL-10](model.md) Leakage cross-review of PIPE feature, universe and split code (§12): @TODO · due 2026-11-10
 - [PIPE-12](pipeline.md) Leakage cross-review of MODEL evaluation and training code (§12): @TODO · due 2026-11-10
-- [ANLY-01](analytics.md) Q1 (Hive): within-week quintiles of `rel_volume` vs next-week outcomes, with group sizes and intervals; training years only until the model is frozen: @TODO · due 2026-11-14
-- [ANLY-02](analytics.md) Q2 (PySpark): weekly AUC and paired difference vs B3 by quarter, volatility tercile and market-dispersion tercile, 2017 plus 2016 consistency; weeks, rows and intervals reported: @TODO · due 2026-11-16
 - [TEAM-12](team.md) References with versions: @TODO · due 2026-11-19
 - [TEAM-13](team.md) Appendix C: use of AI assistance, compiled from `ai-usage.md`: @TODO · due 2026-11-19
 - [TEAM-14](team.md) Appendix D: team contributions table (name, work delivered, % total 100), compiled from the progress logs: @TODO · due 2026-11-19
@@ -56,7 +60,9 @@ _Nothing blocked._
 ## Recent activity (newest 15 progress-log entries)
 
 - 2026-11-09 @husyGIT [TEAM]: docs/model/README.md EMR results and section 4 draft filled from run 20261106-1400-full-ref. Evidence: docs/model/README.md, docs/model/section4_draft.md
+- 2026-11-09 @husyGIT [TEAM]: docs/analytics/ (Task 4 approach and tool choice per question, EMR steps aws_task4.md, section 5 draft skeleton). Evidence: docs/analytics/README.md, docs/analytics/aws_task4.md, docs/analytics/section5_draft.md
 - 2026-11-09 @husyGIT [MODEL]: EMR Task 3 run 20261106-1400-full-ref committed. Validation (commit 956c3bf) recommended lr_f1_r001; single test after Gate 2 (commit b495d83): mean weekly AUC 0.5133 [0.4970, 0.5298], paired vs B3 +0.0143 [-0.0084, 0.0364] -> success rule not met, "no evidence that the model adds signal beyond simple rules". Reload exact (max diff 0.0). Section 4 draft filled. Evidence: evidence/model/, models/20261106-1400-full-ref/ (MODEL-05, MODEL-07, MODEL-08, MODEL-09, MODEL-11)
+- 2026-11-09 @husyGIT [ANLY]: Claimed Task 4 (ANLY-01 to -04, -06, -07). Code: Hive Q1 volume quintiles and Q3a news vs market measures, PySpark Q2 subgroup reliability and Q3b news-conditional evaluation on the stored frozen-model predictions (no retraining), week bootstraps, charts from aggregated CSVs, EMR runner. Synthetic end-to-end test finds all three planted patterns; local dev run (train/validation only for scores) renders all charts. ANLY-05 not planned: it would score the 2017 test weeks a second time. Remaining: EMR run and section 5 numbers. Evidence: analytics/, tests/analytics/, docs/analytics/ (ANLY-01 to ANLY-04, ANLY-06, ANLY-07)
 - 2026-11-09 @husyGIT [PERF]: Added Task 3 EMR evidence (run 20261106-1400-full-ref): validation/test/reload JSON, weekly tables, logs, job IDs, test marker. Evidence: evidence/model/
 - 2026-11-08 @husyGIT [TEAM]: Gate 2 (MODEL-06) locked in docs/decisions/decision-log.md before the test run: frozen config lr_f1_r001. Evidence: docs/decisions/decision-log.md
 - 2026-11-08 @husyGIT [MODEL]: EMR validation (run 20261106-1400-full-ref) recommended lr_f1_r001 (best mean rf_f2_d8, 1 SE = 0.0070). Gate 2 locked in the decision log before any test run: frozen config lr_f1_r001, success rule unchanged from HANDOVER 8.6. Evidence: docs/decisions/decision-log.md (MODEL-05, MODEL-06)
@@ -68,5 +74,3 @@ _Nothing blocked._
 - 2026-11-05 @husyGIT [MODEL]: Claimed Task 3 (MODEL-01 to -09, -11). Gate 1 locked in the decision log before any validation run: HANDOVER 8.2 grid as written, rank inputs, seed 2026, simplicity order and SE definition. MODEL-10 (leakage review of PIPE code) left for a teammate, since I wrote the PIPE code. Evidence: docs/decisions/decision-log.md (MODEL-03)
 - 2026-11-05 @husyGIT [MODEL]: Task 3 code: evaluation module (tie-aware weekly AUC, rank IC, decile spread, week bootstrap), baselines B0-B3, 8-config Spark ML pipelines, validate/test/reload modes with code-enforced Gate 2 and test-once guards, Hive model tables, EMR runner. Local validation on train+validation only (test never read): all configs mean weekly AUC 0.494-0.500, intervals span 0.5; 1-SE rule recommends lr_f1_r001. Synthetic end-to-end test passes (guards, success path, reload diff <= 1e-9). Remaining: EMR validation, Gate 2 lock, single EMR test run. Evidence: modeling/, evaluation/, tests/model/, docs/model/ (MODEL-01 to MODEL-09, MODEL-11)
 - 2026-11-05 @husyGIT [MODEL]: EMR validation failed with "No module named numpy" on the core nodes (the probability UDF ran Python on executors). Probability now read with the JVM function org.apache.spark.ml.functions.vector_to_array, so no Python runs on executors; reproduced locally with numpy-free workers (old code fails, new code passes). Evidence: modeling/run_model.py (MODEL-05)
-- 2026-11-04 @jaecodess [TEAM]: Decision D-015: core storage finalised at 100 GiB per core node (~100 GiB logical HDFS at replication 2), superseding HANDOVER §2/§9; HANDOVER §2 annotated to point to D-015. Evidence: docs/decisions/decision-log.md, HANDOVER.md
-- 2026-11-04 @husyGIT [TEAM]: Decision log D-016 to D-022 (pipeline rules and additive contract columns) and docs/pipeline/ (pipeline guide, EMR steps, section 3 draft, dev-run results). Evidence: docs/decisions/decision-log.md, docs/pipeline/README.md
