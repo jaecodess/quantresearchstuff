@@ -12,11 +12,11 @@ Legend: `[ ]` todo, `[~]` in progress, `[x]` done, `[!]` blocked.
 | [TEAM](team.md) Shared / team | @TODO | 1 | 0 | 0 | 15 | 16 |
 | [CORP](corpus.md) Corpus (Task 1) | @HoShangJ | 8 | 4 | 0 | 1 | 13 |
 | [PIPE](pipeline.md) Pipeline (Task 2) | @r4ihn | 9 | 4 | 0 | 1 | 14 |
-| [MODEL](model.md) Model (Task 3) | @TODO | 5 | 5 | 0 | 1 | 11 |
+| [MODEL](model.md) Model (Task 3) | @TODO | 9 | 1 | 0 | 1 | 11 |
 | [ANLY](analytics.md) Analytics (Task 4) | @TODO | 0 | 0 | 0 | 7 | 7 |
 | [PERF](performance.md) Performance & reproducibility | @TODO | 0 | 0 | 0 | 14 | 14 |
 
-**Overall: 23/75 tasks done.**
+**Overall: 27/75 tasks done.**
 
 ## In progress
 
@@ -28,10 +28,6 @@ Legend: `[ ]` todo, `[~]` in progress, `[x]` done, `[!]` blocked.
 - [PIPE-11](pipeline.md) GDELT: full Streaming job → `clean.gdelt_daily`; `features.weekly_news` (`news_abn`, `tone_mean`, `conflict_share`) with the conservative timing rule (§8.9): @husyGIT · due 2026-11-10
 - [PIPE-13](pipeline.md) Full pipeline run on EMR with job and query IDs, mapper/reducer scripts, configs and output schemas as evidence: @husyGIT · due 2026-11-13
 - [PIPE-14](pipeline.md) Report section 3 draft and Appendix B locators for the pipeline: @husyGIT · due 2026-11-17
-- [MODEL-05](model.md) Validation comparison of the 8 configs on 2016; measure week-to-week AUC spread; apply the one-standard-error simplicity rule: @husyGIT · due 2026-11-11
-- [MODEL-07](model.md) Single evaluation on 2017 test: mean weekly AUC, paired difference vs B3, balanced accuracy, precision, recall, rank IC, decile spread, turnover: @husyGIT · due 2026-11-12
-- [MODEL-08](model.md) Output weights: top 10% equal weight per week, described as hypothetical selection output: @husyGIT · due 2026-11-12
-- [MODEL-09](model.md) Save complete PipelineModel; fresh-session reload reproduces predictions within 1e-9: @husyGIT · due 2026-11-13
 - [MODEL-11](model.md) Report section 4 draft and Appendix B locators for the model: @husyGIT · due 2026-11-17
 
 ## Blocked
@@ -52,12 +48,16 @@ _Nothing blocked._
 - [MODEL-10](model.md) Leakage cross-review of PIPE feature, universe and split code (§12): @TODO · due 2026-11-10
 - [PIPE-12](pipeline.md) Leakage cross-review of MODEL evaluation and training code (§12): @TODO · due 2026-11-10
 - [ANLY-01](analytics.md) Q1 (Hive): within-week quintiles of `rel_volume` vs next-week outcomes, with group sizes and intervals; training years only until the model is frozen: @TODO · due 2026-11-14
+- [ANLY-02](analytics.md) Q2 (PySpark): weekly AUC and paired difference vs B3 by quarter, volatility tercile and market-dispersion tercile, 2017 plus 2016 consistency; weeks, rows and intervals reported: @TODO · due 2026-11-16
 - [TEAM-12](team.md) References with versions: @TODO · due 2026-11-19
 - [TEAM-13](team.md) Appendix C: use of AI assistance, compiled from `ai-usage.md`: @TODO · due 2026-11-19
 - [TEAM-14](team.md) Appendix D: team contributions table (name, work delivered, % total 100), compiled from the progress logs: @TODO · due 2026-11-19
 
 ## Recent activity (newest 15 progress-log entries)
 
+- 2026-11-09 @husyGIT [TEAM]: docs/model/README.md EMR results and section 4 draft filled from run 20261106-1400-full-ref. Evidence: docs/model/README.md, docs/model/section4_draft.md
+- 2026-11-09 @husyGIT [MODEL]: EMR Task 3 run 20261106-1400-full-ref committed. Validation (commit 956c3bf) recommended lr_f1_r001; single test after Gate 2 (commit b495d83): mean weekly AUC 0.5133 [0.4970, 0.5298], paired vs B3 +0.0143 [-0.0084, 0.0364] -> success rule not met, "no evidence that the model adds signal beyond simple rules". Reload exact (max diff 0.0). Section 4 draft filled. Evidence: evidence/model/, models/20261106-1400-full-ref/ (MODEL-05, MODEL-07, MODEL-08, MODEL-09, MODEL-11)
+- 2026-11-09 @husyGIT [PERF]: Added Task 3 EMR evidence (run 20261106-1400-full-ref): validation/test/reload JSON, weekly tables, logs, job IDs, test marker. Evidence: evidence/model/
 - 2026-11-08 @husyGIT [TEAM]: Gate 2 (MODEL-06) locked in docs/decisions/decision-log.md before the test run: frozen config lr_f1_r001. Evidence: docs/decisions/decision-log.md
 - 2026-11-08 @husyGIT [MODEL]: EMR validation (run 20261106-1400-full-ref) recommended lr_f1_r001 (best mean rf_f2_d8, 1 SE = 0.0070). Gate 2 locked in the decision log before any test run: frozen config lr_f1_r001, success rule unchanged from HANDOVER 8.6. Evidence: docs/decisions/decision-log.md (MODEL-05, MODEL-06)
 - 2026-11-05 @husyGIT [TEAM]: Gate 1 (MODEL-03) locked in docs/decisions/decision-log.md before any validation run. Evidence: docs/decisions/decision-log.md
@@ -70,6 +70,3 @@ _Nothing blocked._
 - 2026-11-05 @husyGIT [MODEL]: EMR validation failed with "No module named numpy" on the core nodes (the probability UDF ran Python on executors). Probability now read with the JVM function org.apache.spark.ml.functions.vector_to_array, so no Python runs on executors; reproduced locally with numpy-free workers (old code fails, new code passes). Evidence: modeling/run_model.py (MODEL-05)
 - 2026-11-04 @jaecodess [TEAM]: Decision D-015: core storage finalised at 100 GiB per core node (~100 GiB logical HDFS at replication 2), superseding HANDOVER §2/§9; HANDOVER §2 annotated to point to D-015. Evidence: docs/decisions/decision-log.md, HANDOVER.md
 - 2026-11-04 @husyGIT [TEAM]: Decision log D-016 to D-022 (pipeline rules and additive contract columns) and docs/pipeline/ (pipeline guide, EMR steps, section 3 draft, dev-run results). Evidence: docs/decisions/decision-log.md, docs/pipeline/README.md
-- 2026-11-04 @husyGIT [CORP]: AWS guide B7: bundle evidence and manifests into one tar.gz, download with scp, S3 fallback. Evidence: docs/corpus/aws_guide.md (CORP-11)
-- 2026-11-04 @husyGIT [CORP]: EMR run 20261103-2250-full-ref committed: price + 731 GDELT archives acquired (all checksums match GDELT's lists, 9,611,684,528 bytes), staged to HDFS (fsck HEALTHY, rep 2), price profile on EMR identical to dev (application_1793714742178_0002). Docs updated with EMR figures; bucket name redacted. GDELT content audit needs a rerun (mapper path bug, fixed in PIPE). Evidence: evidence/corpus/, manifests/ (CORP-01, CORP-06, CORP-07, CORP-08, CORP-09, CORP-11)
-- 2026-11-04 @husyGIT [PIPE]: Claimed the remaining Pipeline tasks (agreed in team; PIPE-04 handed over from @r4ihn's claim on ws/pipe/price-cleaning, which had no code). Branch ws/pipe/task2-pipeline. (PIPE-01 to PIPE-14)
