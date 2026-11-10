@@ -2,7 +2,7 @@
 
 What is wrong or missing in the raw sources, with counts, and what the pipeline must do about it. Raw files are never edited; every handling rule below belongs to PIPE (cleaning, split detection, calendar).
 
-Status: **price figures are confirmed on EMR** (run `20261103-2250-full-ref`, Spark application `application_1793714742178_0002`, [summary.json](../../evidence/corpus/prices_profile_20261103-2250-full-ref/summary.json)). They are identical to the earlier local development profile, as expected for the same input bytes. GDELT acquisition and staging are confirmed on EMR (section 2); the GDELT content audit has to be rerun (section 2.2).
+Status: **all figures are confirmed on EMR.** Prices: run `20261103-2250-full-ref` (Spark application `application_1793714742178_0002`, [summary.json](../../evidence/corpus/prices_profile_20261103-2250-full-ref/summary.json)), identical to the local development profile. GDELT content: the fixed Streaming audit in Task 2 run `20261105-1430-full-ref` (`job_1793861139962_0011`, [log](../../evidence/gdelt_daily_20261105-1430-full-ref.log)), section 2.2.
 
 ## 1. Daily price CSV
 
@@ -72,9 +72,9 @@ Series ending before the last date: **0**. Series starting after the first date:
 - **731 of 731** daily archives (2015-07-01 to 2017-06-30) acquired, none missing. Every archive matches GDELT's published MD5 and file size ([manifest](../../manifests/gdelt_acquired=2026-11-03.csv)). Total 9,611,684,528 bytes (brief: 9.61 GB); archives range from 1.7 MB to 18.4 MB.
 - Staged into HDFS with S3DistCp (`application_1793714742178_0001`): 733 files (731 archives plus GDELT's `md5sums` and `filesizes` lists), 9.0 GB logical, 17.9 GB physical at replication 2; `hdfs fsck` HEALTHY, 0 missing or corrupt blocks ([stage log](../../evidence/corpus/stage_20261103-2250-full-ref.log)).
 
-### 2.2 Content audit: rerun needed
+### 2.2 Content audit (EMR)
 
-The first EMR run of the GDELT Streaming job (`job_1793714742178_0003`, [log](../../evidence/gdelt_daily_20261103-2250-full-ref.log)) finished but read **no** archive: all 731 were reported unreadable (`corrupt_archive=731`). Cause: a mapper bug, not the data. The archive list holds plain HDFS paths (`/inf2006/...`), which the mapper only fetched from HDFS when they contained `://`. Fixed in PR #4 (`streaming/gdelt_daily/mapper.py`), with a test of the HDFS path case; the job now also fails loudly if any archive is unreadable, and re-hashes every archive so Hive can compare it with this manifest. The table below is filled from the rerun.
+Background: the first EMR run of the GDELT Streaming job (`job_1793714742178_0003`, [log](../../evidence/gdelt_daily_20261103-2250-full-ref.log)) finished but read **no** archive: all 731 were reported unreadable (`corrupt_archive=731`). Cause: a mapper bug, not the data. The archive list holds plain HDFS paths (`/inf2006/...`), which the mapper only fetched from HDFS when they contained `://`. Fixed in PR #4 (`streaming/gdelt_daily/mapper.py`), with a test of the HDFS path case; the job now also fails loudly if any archive is unreadable, and re-hashes every archive so Hive can compare it with this manifest. The table below is filled from the rerun.
 
 ### 2.3 Format check on one archive
 
@@ -86,13 +86,13 @@ From one real archive inspected locally (2026-10-02 export, outside our window, 
 - One article gives several events (109,627 events from 21,687 URLs).
 - Automatic coding errors exist (see data dictionary section 3).
 
-To fill in from the EMR rerun (`hive/10_gdelt_daily.sql`: reconciliation, missing dates, overlaps, SHA-256 against the manifest):
+EMR rerun with the fixed mapper (Task 2 run `20261105-1430-full-ref`: Streaming `job_1793861139962_0011`, 731 mappers, 52 minutes; Hive checks in `hive/10_gdelt_daily.sql`, output in [task2 log](../../evidence/pipeline/task2_20261105-1430-full-ref.log), stage `hive_gdelt_daily`):
 
 | Measure | Value |
 |---|---|
 | Archives expected / acquired / failed checksum at download | 731 / 731 / 0 |
-| Archives whose HDFS copy matches the manifest SHA-256 | … (rerun) |
-| Total lines, events kept, malformed, bad values, duplicates | … |
-| Missing archive dates | … |
-| Archives with overlapping event-ID ranges | … |
-| Share of events with `DATEADDED − SQLDATE` > 30 days | … |
+| Archives whose HDFS copy matches the manifest SHA-256 | 731 / 731 (computed by each mapper; 0 mismatches) |
+| Total lines, events kept, malformed, bad values, duplicates | 144,207,180 / 144,207,180 / 0 / 0 / 0 (unexplained 0; corrupt archives 0) |
+| Missing archive dates | 0 (all 731 days from 2015-07-01 to 2017-06-30) |
+| Archives with overlapping event-ID ranges | 2 pairs: 2016-08-31 / 2016-09-01 and 2016-09-26 / 2016-09-27 (possible re-published events; each date still counted once, effect on weekly counts is small and is absorbed by the abnormal-news baseline) |
+| Share of events with `DATEADDED − SQLDATE` > 30 days | 1.06% (1,528,502 events; DATEADDED never differs from the archive date). Days are assigned by archive date, so these do not leak later news into a week. |

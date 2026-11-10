@@ -1,0 +1,20 @@
+{
+  "run_id": "20261105-1430-full-ref",
+  "application_id": "application_1793861139962_0004",
+  "input": "/inf2006/raw/prices/plotly-datasets-0c447c4/acquired=2026-11-03/all_stocks_5yr.csv",
+  "ticker_mod": null,
+  "raw_lines_including_header": 619041,
+  "raw_data_rows_profiled": 619040,
+  "clean_rows": 605887,
+  "rejected_rows": 13153,
+  "rejected_by_reason": {
+    "close_outside_range": 8,
+    "high_below_low": 1,
+    "missing_open": 11,
+    "open_outside_range": 3,
+    "outside_study_period": 13130
+  },
+  "reconciles": true,
+  "clean_path": "/inf2006/clean/prices_daily/20261105-1430-full-ref",
+  "rejected_path": "/inf2006/rejected/prices_daily/20261105-1430-full-ref"
+}

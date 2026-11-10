@@ -38,3 +38,4 @@ Format and rules: [README.md](README.md). Edit only your own task lines; add a l
 - 2026-11-05 @husyGIT: docs/model/aws_task3.md: D0 section for a new cluster (check S3 for saved features, otherwise Task 2 C2 and C3 with WITH_GDELT=0). Evidence: docs/model/aws_task3.md
 - 2026-11-08 @husyGIT: Gate 2 (MODEL-06) locked in docs/decisions/decision-log.md before the test run: frozen config lr_f1_r001. Evidence: docs/decisions/decision-log.md
 - 2026-11-09 @husyGIT: docs/model/README.md EMR results and section 4 draft filled from run 20261106-1400-full-ref. Evidence: docs/model/README.md, docs/model/section4_draft.md
+- 2026-11-10 @husyGIT: docs/corpus (quality findings, inventory, section 2 draft) and docs/pipeline (README, section 3 draft) filled with the Task 2 EMR figures. Evidence: docs/corpus/quality_findings.md, docs/pipeline/README.md
