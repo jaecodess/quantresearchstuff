@@ -1,0 +1,14 @@
+{
+  "mode": "reload",
+  "run_id": "20261106-1400-full-ref",
+  "application_id": "application_1794129037311_0018",
+  "finished_utc": "2026-11-08T09:56:16Z",
+  "model_path": "/inf2006/models/20261106-1400-full-ref/pipeline_model",
+  "rows_compared": 25531,
+  "missing_stored": 0,
+  "missing_reloaded": 0,
+  "max_abs_diff": 0.0,
+  "tolerance": 1e-09,
+  "passed": true,
+  "retrained": false
+}

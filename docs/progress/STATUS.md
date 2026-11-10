@@ -17,11 +17,19 @@ Legend: `[ ]` todo, `[~]` in progress, `[x]` done, `[!]` blocked.
 | [PERF](performance.md) Performance & reproducibility | @TODO | 0 | 0 | 0 | 14 | 14 |
 
 **Overall: 24/75 tasks done.**
+| [CORP](corpus.md) Corpus (Task 1) | @HoShangJ | 8 | 4 | 0 | 1 | 13 |
+| [PIPE](pipeline.md) Pipeline (Task 2) | @r4ihn | 9 | 4 | 0 | 1 | 14 |
+| [MODEL](model.md) Model (Task 3) | @TODO | 9 | 1 | 0 | 1 | 11 |
+| [ANLY](analytics.md) Analytics (Task 4) | @TODO | 0 | 0 | 0 | 7 | 7 |
+| [PERF](performance.md) Performance & reproducibility | @TODO | 0 | 0 | 0 | 14 | 14 |
+
+**Overall: 27/75 tasks done.**
 
 ## In progress
 
 - [CORP-12](corpus.md) Report section 2 draft and Appendix B locators for the corpus: @husyGIT · due 2026-11-17
 - [PIPE-14](pipeline.md) Report section 3 draft and Appendix B locators for the pipeline: @husyGIT · due 2026-11-17
+- [MODEL-11](model.md) Report section 4 draft and Appendix B locators for the model: @husyGIT · due 2026-11-17
 
 ## Blocked
 
@@ -38,12 +46,13 @@ _Nothing blocked._
 - [TEAM-08](team.md) Copy the brief PDF to `docs/brief/` and the Final Draft export to `docs/decisions/`: @TODO · due 2026-11-01
 - [PERF-01](performance.md) Shared logging helper → `evidence/timings.csv`, application/job/query IDs: @TODO · due 2026-11-04
 - [PERF-04](performance.md) EMR bring-up: reference cluster config (emr-7.10.0, 1 + 2 m5.xlarge, replication 2, Spark 2 x 2 x 6 GiB, dynamic allocation off); confirm with teaching team: @TODO · due 2026-11-06
-- [MODEL-01](model.md) Evaluation module: tie-aware weekly AUC (rank-sum), week-level bootstrap (10,000 resamples, fixed seed), paired difference; tested on stub features: @TODO · due 2026-11-07
-- [MODEL-03](model.md) GATE: write the 8-config grid into the decision log before running validation: @TODO · due 2026-11-08
 - [MODEL-10](model.md) Leakage cross-review of PIPE feature, universe and split code (§12): @TODO · due 2026-11-10
 - [CORP-13](corpus.md) Cross-review: read PIPE cleaning rules against your quality findings (does every finding have a handling rule?): @TODO · due 2026-11-12
 - [ANLY-01](analytics.md) Q1 (Hive): within-week quintiles of `rel_volume` vs next-week outcomes, with group sizes and intervals; training years only until the model is frozen: @TODO · due 2026-11-14
 - [ANLY-03](analytics.md) Q3a (Hive + PySpark): market-wide volatility and dispersion by `news_abn` tercile; pre-start and same-week labelled separately: @TODO · due 2026-11-16
+- [PIPE-12](pipeline.md) Leakage cross-review of MODEL evaluation and training code (§12): @TODO · due 2026-11-10
+- [ANLY-01](analytics.md) Q1 (Hive): within-week quintiles of `rel_volume` vs next-week outcomes, with group sizes and intervals; training years only until the model is frozen: @TODO · due 2026-11-14
+- [ANLY-02](analytics.md) Q2 (PySpark): weekly AUC and paired difference vs B3 by quarter, volatility tercile and market-dispersion tercile, 2017 plus 2016 consistency; weeks, rows and intervals reported: @TODO · due 2026-11-16
 - [TEAM-12](team.md) References with versions: @TODO · due 2026-11-19
 - [TEAM-13](team.md) Appendix C: use of AI assistance, compiled from `ai-usage.md`: @TODO · due 2026-11-19
 - [TEAM-14](team.md) Appendix D: team contributions table (name, work delivered, % total 100), compiled from the progress logs: @TODO · due 2026-11-19
@@ -65,3 +74,18 @@ _Nothing blocked._
 - 2026-11-03 @husyGIT [TEAM]: Regenerated .github/CODEOWNERS and STATUS.md with `make codeowners` / `make status` (stale on main after the owners change in workstreams.json). No content changes. Evidence: .github/CODEOWNERS
 - 2026-11-03 @husyGIT [CORP]: AWS guide expanded with full S3 bucket, EC2 key pair/network/security group and EMR console settings, plus an equivalent `aws emr create-cluster` command. Evidence: docs/corpus/aws_guide.md (CORP-06, CORP-07)
 - 2026-11-03 @husyGIT [CORP]: AWS guide A1: step-by-step S3 folder creation (four folders, one at a time). Evidence: docs/corpus/aws_guide.md (CORP-06)
+- 2026-11-09 @husyGIT [TEAM]: docs/model/README.md EMR results and section 4 draft filled from run 20261106-1400-full-ref. Evidence: docs/model/README.md, docs/model/section4_draft.md
+- 2026-11-09 @husyGIT [MODEL]: EMR Task 3 run 20261106-1400-full-ref committed. Validation (commit 956c3bf) recommended lr_f1_r001; single test after Gate 2 (commit b495d83): mean weekly AUC 0.5133 [0.4970, 0.5298], paired vs B3 +0.0143 [-0.0084, 0.0364] -> success rule not met, "no evidence that the model adds signal beyond simple rules". Reload exact (max diff 0.0). Section 4 draft filled. Evidence: evidence/model/, models/20261106-1400-full-ref/ (MODEL-05, MODEL-07, MODEL-08, MODEL-09, MODEL-11)
+- 2026-11-09 @husyGIT [PERF]: Added Task 3 EMR evidence (run 20261106-1400-full-ref): validation/test/reload JSON, weekly tables, logs, job IDs, test marker. Evidence: evidence/model/
+- 2026-11-08 @husyGIT [TEAM]: Gate 2 (MODEL-06) locked in docs/decisions/decision-log.md before the test run: frozen config lr_f1_r001. Evidence: docs/decisions/decision-log.md
+- 2026-11-08 @husyGIT [MODEL]: EMR validation (run 20261106-1400-full-ref) recommended lr_f1_r001 (best mean rf_f2_d8, 1 SE = 0.0070). Gate 2 locked in the decision log before any test run: frozen config lr_f1_r001, success rule unchanged from HANDOVER 8.6. Evidence: docs/decisions/decision-log.md (MODEL-05, MODEL-06)
+- 2026-11-05 @husyGIT [TEAM]: Gate 1 (MODEL-03) locked in docs/decisions/decision-log.md before any validation run. Evidence: docs/decisions/decision-log.md
+- 2026-11-05 @husyGIT [TEAM]: docs/model/ (Task 3 approach, EMR steps, section 4 draft, local validation results). Evidence: docs/model/README.md
+- 2026-11-05 @husyGIT [TEAM]: requirements-spark.txt: added numpy==1.26.4 (pyspark.ml needs it in the CI Spark job; EMR ships numpy). Evidence: requirements-spark.txt
+- 2026-11-05 @husyGIT [TEAM]: docs/model/aws_task3.md: full cluster setup commands (fetch and switch to ws/model/task3, "invalid reference" fix). Evidence: docs/model/aws_task3.md
+- 2026-11-05 @husyGIT [TEAM]: docs/model/aws_task3.md: D0 section for a new cluster (check S3 for saved features, otherwise Task 2 C2 and C3 with WITH_GDELT=0). Evidence: docs/model/aws_task3.md
+- 2026-11-05 @husyGIT [MODEL]: Claimed Task 3 (MODEL-01 to -09, -11). Gate 1 locked in the decision log before any validation run: HANDOVER 8.2 grid as written, rank inputs, seed 2026, simplicity order and SE definition. MODEL-10 (leakage review of PIPE code) left for a teammate, since I wrote the PIPE code. Evidence: docs/decisions/decision-log.md (MODEL-03)
+- 2026-11-05 @husyGIT [MODEL]: Task 3 code: evaluation module (tie-aware weekly AUC, rank IC, decile spread, week bootstrap), baselines B0-B3, 8-config Spark ML pipelines, validate/test/reload modes with code-enforced Gate 2 and test-once guards, Hive model tables, EMR runner. Local validation on train+validation only (test never read): all configs mean weekly AUC 0.494-0.500, intervals span 0.5; 1-SE rule recommends lr_f1_r001. Synthetic end-to-end test passes (guards, success path, reload diff <= 1e-9). Remaining: EMR validation, Gate 2 lock, single EMR test run. Evidence: modeling/, evaluation/, tests/model/, docs/model/ (MODEL-01 to MODEL-09, MODEL-11)
+- 2026-11-05 @husyGIT [MODEL]: EMR validation failed with "No module named numpy" on the core nodes (the probability UDF ran Python on executors). Probability now read with the JVM function org.apache.spark.ml.functions.vector_to_array, so no Python runs on executors; reproduced locally with numpy-free workers (old code fails, new code passes). Evidence: modeling/run_model.py (MODEL-05)
+- 2026-11-04 @jaecodess [TEAM]: Decision D-015: core storage finalised at 100 GiB per core node (~100 GiB logical HDFS at replication 2), superseding HANDOVER §2/§9; HANDOVER §2 annotated to point to D-015. Evidence: docs/decisions/decision-log.md, HANDOVER.md
+- 2026-11-04 @husyGIT [TEAM]: Decision log D-016 to D-022 (pipeline rules and additive contract columns) and docs/pipeline/ (pipeline guide, EMR steps, section 3 draft, dev-run results). Evidence: docs/decisions/decision-log.md, docs/pipeline/README.md
