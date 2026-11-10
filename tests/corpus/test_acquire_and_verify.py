@@ -105,3 +105,45 @@ def test_verify_hdfs_with_fake_hdfs(tmp_path, monkeypatch):
     inv = json.loads((out / "inventory_t1.json").read_text())
     assert inv["per_source"]["daily_price_csv"]["text_lines"] == 3  # p.csv (2) + q.csv (1)
     assert inv["not_acquired"] == [{"file_name": "s.csv", "check": "unavailable_404"}]
+
+
+def test_wikinews_specs_from_dumpstatus():
+    status = {
+        "jobs": {
+            "metahistorybz2dump": {
+                "status": "done",
+                "files": {
+                    "enwikinews-20261001-pages-meta-history.xml.bz2": {
+                        "size": 123,
+                        "md5": "abc",
+                        "url": "/enwikinews/20261001/enwikinews-20261001-pages-meta-history.xml.bz2",
+                    }
+                },
+            },
+            "metahistory7zdump": {"status": "waiting", "files": {}},
+        }
+    }
+    specs, missing = acquire.wikinews_specs(
+        status, ["metahistorybz2dump", "metahistory7zdump"], "s3://b/raw", "/r", "D"
+    )
+    assert missing == ["metahistory7zdump"]
+    (s,) = specs
+    assert s["url"] == "https://dumps.wikimedia.org/enwikinews/20261001/enwikinews-20261001-pages-meta-history.xml.bz2"
+    assert s["expected_bytes"] == 123 and s["expected_md5"] == "abc"
+    assert (
+        s["s3_uri"]
+        == "s3://b/raw/wikinews/enwikinews-20261001/acquired=D/enwikinews-20261001-pages-meta-history.xml.bz2"
+    )
+
+
+def test_sec_inventory_and_specs(tmp_path):
+    specs = acquire.sec_specs(acquire.SEC_INVENTORY, "s3://b/raw", "/r", "D", "Name a@b.c")
+    assert len(specs) == 311
+    assert len({s["file_name"] for s in specs}) == 311
+    assert sum("10-K" in s["version"] for s in specs) == 156
+    s = specs[0]
+    assert s["file_name"].startswith("0001495648_") and s["url"].startswith("https://www.sec.gov/Archives/edgar/data/")
+    f = tmp_path / "x.txt"
+    f.write_bytes(b"<SEC-DOCUMENT>\nACCESSION NUMBER:\t\t0000939802-13-000012\n")
+    assert acquire.has_text(str(f), s["expect_text"])
+    assert not acquire.has_text(str(f), specs[1]["expect_text"])
