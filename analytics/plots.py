@@ -152,7 +152,7 @@ def fig_q2(ev, run_id):
     ax.text(2.5, ax.get_ylim()[1], "quarter", ha="center", va="top", fontsize=8, color=MUTED)
     ax.text(6, ax.get_ylim()[1], "stock volatility tercile", ha="center", va="top", fontsize=8, color=MUTED)
     ax.text(9, ax.get_ylim()[1], "market dispersion tercile", ha="center", va="top", fontsize=8, color=MUTED)
-    ax.legend(frameon=False, fontsize=9, loc="lower left")
+    ax.legend(frameon=False, fontsize=9, ncol=2, loc="lower right", bbox_to_anchor=(1, 1.06))
     fig.tight_layout()
     return fig
 

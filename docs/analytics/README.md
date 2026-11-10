@@ -31,5 +31,39 @@ Charts: `analytics/plots.py` reads only the aggregated CSVs and writes `evidence
 ## Development run (local, not evidence)
 Local Spark on the full price features from the Task 2 dev run, with a stand-in score on train and validation only (no model, no 2017 predictions) and a synthetic GDELT table: the whole chain runs in about 70 seconds and the charts render. Q1 on the real 2013-15 features (135 weeks): no clear difference between volume quintiles (mean weekly excess ln ratio between -0.0004 and +0.0005; Q5 - Q1 = -0.0008 [-0.0019, +0.0003]). The EMR run is the evidence.
 
-## EMR results
-Pending the EMR run (aws_task4.md E2).
+## EMR results (run `20261110-1000-full-ref`, assessed evidence)
+
+Inputs: features from Task 2 run `20261105-1430-full-ref` and predictions from Task 3 run `20261106-1400-full-ref`, both read from S3. Commit `5dcccf6`, application `application_1794278999744_0007` (PySpark) plus 9 Hive queries (`evidence/analytics/ids_task4_20261110-1000-full-ref.txt`). About 4 minutes in total (`timings_task4_...csv`). Check: Q2 "test, all weeks" reproduces Task 3 exactly (+0.0143 [-0.0084, +0.0364]).
+
+**Q1 volume quintiles** (`fig_q1_volume.png`). Share of stocks finishing above the weekly median, busiest (Q5) minus quietest (Q1) quintile, paired by week:
+- train 2013-15 (135 weeks): -0.015 [-0.031, +0.001]
+- validation 2016 (52 weeks): -0.010 [-0.035, +0.015]
+- test 2017 (51 weeks): -0.023 [-0.046, +0.001]
+
+Unusually busy stocks did slightly worse next week than unusually quiet ones in all three periods (about 49% vs 51% above the median), but every interval includes 0. Mean excess ln ratio, Q5 - Q1: -0.0009, -0.0004, -0.0015 (all intervals include 0). About 100 stocks per quintile per week.
+
+**Q2 subgroups** (`fig_q2_subgroups.png`). Paired weekly AUC, model minus B3, 2016 / 2017:
+- all weeks: -0.001 / +0.014
+- by quarter: Q1 -0.027 / -0.010, Q2 +0.001 / +0.038, Q3 +0.027 / +0.001, Q4 -0.009 / +0.029 (12 to 14 weeks each)
+- by stock volatility tercile (about 8,500 rows per year each): low -0.008 / +0.015, mid -0.010 / +0.014, high +0.007 / +0.018
+- by market dispersion tercile (17 or 18 weeks each): low +0.005 / +0.010, mid +0.034 / +0.014, high -0.043 / +0.019
+
+Every interval includes 0. Only high-volatility stocks and low and mid dispersion weeks have the same sign in both years, and the differences between groups are much smaller than the intervals. **Finding: no subgroup where the model is reliably better or worse than B3.** This is consistent with the Task 3 null result.
+
+**Q3a news and market measures** (`fig_q3a_news_market.png`). The analysis covers 95 weeks (Jul 2015 to Jun 2017), with about 32 weeks per tercile. High minus low news tercile:
+- pre-start news:
+  - dispersion +0.0049 [+0.0005, +0.0093] (0.030 to 0.035), Spearman 0.20
+  - market move +0.0023 [-0.0044, +0.0091]
+  - pre-start 20-day volatility +0.0037 [+0.0020, +0.0054], Spearman 0.37
+- same-week news (association only):
+  - dispersion +0.0051 [+0.0012, +0.0091]
+  - market move +0.0072 [+0.0021, +0.0126] (0.008 to 0.015)
+
+Weeks with more abnormal news showed more dispersion between stocks. Weeks with abnormal news inside the outcome week also showed larger market-wide moves. This is an association between two time series over 95 weeks. It does not show that news causes either, and both may follow the same market events.
+
+**Q3b model by news tercile** (`fig_q3b_news_auc.png`). 78 out-of-sample weeks, 26 per tercile. Mean weekly AUC, model / B3:
+- low news: 0.515 / 0.501, paired +0.014 [-0.029, +0.055]
+- mid news: 0.499 / 0.508, paired -0.009 [-0.037, +0.020]
+- high news: 0.491 / 0.483, paired +0.007 [-0.030, +0.047]
+
+All intervals include 0.5 for AUC and 0 for the paired difference. By year, the paired difference changes sign in the low and high terciles (e.g. high news: 2016 +0.019, 2017 -0.019). The terciles are also unevenly split across years (2017 has 13, 5 and 8 weeks), so the per-year figures rest on very few weeks. **Finding: no evidence that model accuracy depends on news activity.**
