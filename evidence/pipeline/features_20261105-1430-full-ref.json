@@ -1,0 +1,68 @@
+{
+  "run_id": "20261105-1430-full-ref",
+  "application_id": "application_1793861139962_0009",
+  "output": "/inf2006/features/20261105-1430-full-ref/weekly",
+  "per_split": {
+    "train": {
+      "weeks": 148,
+      "ticker_weeks": 74740,
+      "eligible": 65086,
+      "label_mean": 0.4995083428079771,
+      "first_start": "2013-02-08",
+      "last_start": "2015-12-18",
+      "min_eligible_per_week": 0,
+      "max_eligible_per_week": 492
+    },
+    "validation": {
+      "weeks": 52,
+      "ticker_weeks": 26260,
+      "eligible": 25720,
+      "label_mean": 0.49972783825816486,
+      "first_start": "2016-01-04",
+      "last_start": "2016-12-23",
+      "min_eligible_per_week": 492,
+      "max_eligible_per_week": 498
+    },
+    "test": {
+      "weeks": 51,
+      "ticker_weeks": 25755,
+      "eligible": 25531,
+      "label_mean": 0.4995495671928244,
+      "first_start": "2017-01-06",
+      "last_start": "2017-12-22",
+      "min_eligible_per_week": 498,
+      "max_eligible_per_week": 504
+    }
+  },
+  "ineligible_by_split_and_reason": {
+    "test/insufficient_history": 74,
+    "test/no_bar_at_cutoff": 150,
+    "train/insufficient_history": 6267,
+    "train/missing_next_open": 6,
+    "train/missing_start_open": 3,
+    "train/no_bar_at_cutoff": 3350,
+    "train/split_in_window": 28,
+    "validation/insufficient_history": 133,
+    "validation/missing_next_open": 1,
+    "validation/missing_start_open": 1,
+    "validation/no_bar_at_cutoff": 405
+  },
+  "feature_sets": {
+    "F1": [
+      "mom_4w",
+      "mom_12w",
+      "vol_20d",
+      "rel_volume"
+    ],
+    "F2": [
+      "rev_1w",
+      "mom_4w",
+      "mom_12w_skip",
+      "vol_20d",
+      "vol_ratio",
+      "max_move_20d",
+      "rel_volume",
+      "dollar_volume"
+    ]
+  }
+}

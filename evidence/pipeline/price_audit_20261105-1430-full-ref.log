@@ -1,0 +1,93 @@
+run_id=20261105-1430-full-ref started=2026-11-05T06:54:24Z input=/inf2006/raw/prices/plotly-datasets-0c447c4/acquired=2026-11-03
++ hadoop jar /usr/lib/hadoop-mapreduce/hadoop-streaming.jar -D mapreduce.job.name=price_audit_20261105-1430-full-ref -D mapreduce.job.reduces=2 -files /home/hadoop/quantresearchstuff/streaming/price_audit/mapper.py,/home/hadoop/quantresearchstuff/streaming/price_audit/reducer.py -input /inf2006/raw/prices/plotly-datasets-0c447c4/acquired=2026-11-03 -output /inf2006/staging/streaming/20261105-1430-full-ref/price_audit -mapper 'python3 mapper.py' -reducer 'python3 reducer.py'
+packageJobJar: [] [/usr/lib/hadoop/hadoop-streaming-3.4.1-amzn-2.jar] /tmp/streamjob1502050777423412373.jar tmpDir=null
+2026-11-05 06:54:26,687 INFO client.DefaultNoHARMFailoverProxyProvider: Connecting to ResourceManager at ip-172-31-75-200.ec2.internal/172.31.75.200:8032
+2026-11-05 06:54:26,801 INFO client.AHSProxy: Connecting to Application History server at ip-172-31-75-200.ec2.internal/172.31.75.200:10200
+2026-11-05 06:54:26,864 INFO client.DefaultNoHARMFailoverProxyProvider: Connecting to ResourceManager at ip-172-31-75-200.ec2.internal/172.31.75.200:8032
+2026-11-05 06:54:26,864 INFO client.AHSProxy: Connecting to Application History server at ip-172-31-75-200.ec2.internal/172.31.75.200:10200
+2026-11-05 06:54:27,054 INFO mapreduce.JobResourceUploader: Disabling Erasure Coding for path: /tmp/hadoop-yarn/staging/hadoop/.staging/job_1793861139962_0003
+2026-11-05 06:54:27,385 INFO lzo.GPLNativeCodeLoader: Loaded native gpl library
+2026-11-05 06:54:27,388 INFO lzo.LzoCodec: Successfully loaded & initialized native-lzo library [hadoop-lzo rev 049362b7cf53ff5f739d6b1532457f2c6cd495e8]
+2026-11-05 06:54:27,439 INFO mapred.FileInputFormat: Total input files to process : 1
+2026-11-05 06:54:27,483 INFO mapreduce.JobSubmitter: number of splits:8
+2026-11-05 06:54:27,679 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1793861139962_0003
+2026-11-05 06:54:27,679 INFO mapreduce.JobSubmitter: Executing with tokens: []
+2026-11-05 06:54:27,845 INFO conf.Configuration: resource-types.xml not found
+2026-11-05 06:54:27,845 INFO resource.ResourceUtils: Unable to find 'resource-types.xml'.
+2026-11-05 06:54:27,897 INFO impl.YarnClientImpl: Submitted application application_1793861139962_0003
+2026-11-05 06:54:27,928 INFO mapreduce.Job: The url to track the job: http://ip-172-31-75-200.ec2.internal:20888/proxy/application_1793861139962_0003/
+2026-11-05 06:54:27,929 INFO mapreduce.Job: Running job: job_1793861139962_0003
+2026-11-05 06:54:34,006 INFO mapreduce.Job: Job job_1793861139962_0003 running in uber mode : false
+2026-11-05 06:54:34,007 INFO mapreduce.Job:  map 0% reduce 0%
+2026-11-05 06:54:42,080 INFO mapreduce.Job:  map 25% reduce 0%
+2026-11-05 06:54:47,108 INFO mapreduce.Job:  map 75% reduce 0%
+2026-11-05 06:54:49,118 INFO mapreduce.Job:  map 100% reduce 0%
+2026-11-05 06:54:57,154 INFO mapreduce.Job:  map 100% reduce 100%
+2026-11-05 06:54:57,162 INFO mapreduce.Job: Job job_1793861139962_0003 completed successfully
+2026-11-05 06:54:57,261 INFO mapreduce.Job: Counters: 55
+	File System Counters
+		FILE: Number of bytes read=17126073
+		FILE: Number of bytes written=37544545
+		FILE: Number of read operations=0
+		FILE: Number of large read operations=0
+		FILE: Number of write operations=0
+		HDFS: Number of bytes read=29846269
+		HDFS: Number of bytes written=21759
+		HDFS: Number of read operations=34
+		HDFS: Number of large read operations=0
+		HDFS: Number of write operations=4
+		HDFS: Number of bytes read erasure-coded=0
+	Job Counters 
+		Killed map tasks=1
+		Launched map tasks=8
+		Launched reduce tasks=2
+		Data-local map tasks=8
+		Total time spent by all maps in occupied slots (ms)=208343040
+		Total time spent by all reduces in occupied slots (ms)=108484608
+		Total time spent by all map tasks (ms)=67820
+		Total time spent by all reduce tasks (ms)=17657
+		Total vcore-milliseconds taken by all map tasks=67820
+		Total vcore-milliseconds taken by all reduce tasks=17657
+		Total megabyte-milliseconds taken by all map tasks=208343040
+		Total megabyte-milliseconds taken by all reduce tasks=108484608
+	Map-Reduce Framework
+		Map input records=619041
+		Map output records=619041
+		Map output bytes=29580522
+		Map output materialized bytes=17127280
+		Input split bytes=1400
+		Combine input records=0
+		Combine output records=0
+		Reduce input groups=506
+		Reduce shuffle bytes=17127280
+		Reduce input records=619041
+		Reduce output records=506
+		Spilled Records=1238082
+		Shuffled Maps =16
+		Failed Shuffles=0
+		Merged Map outputs=16
+		GC time elapsed (ms)=476
+		CPU time spent (ms)=22430
+		Physical memory (bytes) snapshot=4854824960
+		Virtual memory (bytes) snapshot=50716491776
+		Total committed heap usage (bytes)=4869586944
+		Peak Map Physical memory (bytes)=540131328
+		Peak Map Virtual memory (bytes)=4535537664
+		Peak Reduce Physical memory (bytes)=359108608
+		Peak Reduce Virtual memory (bytes)=7224909824
+	Shuffle Errors
+		BAD_ID=0
+		CONNECTION=0
+		IO_ERROR=0
+		WRONG_LENGTH=0
+		WRONG_MAP=0
+		WRONG_REDUCE=0
+	File Input Format Counters 
+		Bytes Read=29844869
+	File Output Format Counters 
+		Bytes Written=21759
+2026-11-05 06:54:57,261 INFO streaming.StreamJob: Output directory: /inf2006/staging/streaming/20261105-1430-full-ref/price_audit
++ set +x
+finished=2026-11-05T06:54:57Z
+_header	1
+tickers=505 rows=619040 missing=11 bad_value=0 ohlc_invalid=12 zero_volume=0 dup_dates=0 overnight_jumps=32

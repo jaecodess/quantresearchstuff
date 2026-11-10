@@ -10,24 +10,19 @@ Legend: `[ ]` todo, `[~]` in progress, `[x]` done, `[!]` blocked.
 | Workstream | Owner | Done | In progress | Blocked | Todo | Total |
 |---|---|---|---|---|---|---|
 | [TEAM](team.md) Shared / team | @TODO | 1 | 0 | 0 | 15 | 16 |
-| [CORP](corpus.md) Corpus (Task 1) | @HoShangJ | 8 | 4 | 0 | 1 | 13 |
-| [PIPE](pipeline.md) Pipeline (Task 2) | @r4ihn | 9 | 4 | 0 | 1 | 14 |
-| [MODEL](model.md) Model (Task 3) | @TODO | 0 | 0 | 0 | 11 | 11 |
+| [CORP](corpus.md) Corpus (Task 1) | @HoShangJ | 11 | 1 | 0 | 1 | 13 |
+| [PIPE](pipeline.md) Pipeline (Task 2) | @r4ihn | 12 | 1 | 0 | 1 | 14 |
+| [MODEL](model.md) Model (Task 3) | @TODO | 9 | 1 | 0 | 1 | 11 |
 | [ANLY](analytics.md) Analytics (Task 4) | @TODO | 0 | 0 | 0 | 7 | 7 |
 | [PERF](performance.md) Performance & reproducibility | @TODO | 0 | 0 | 0 | 14 | 14 |
 
-**Overall: 18/75 tasks done.**
+**Overall: 33/75 tasks done.**
 
 ## In progress
 
-- [CORP-07](corpus.md) Acquire and stage the GDELT ZIPs (decide 731 archives vs documented subset, §16 Q4), no expanded copy in HDFS: @husyGIT · due 2026-11-09
-- [CORP-09](corpus.md) Raw quality findings for price and GDELT: coverage, missing, duplicates, corrupt fields, limitations the pipeline must handle (§6.1): @husyGIT · due 2026-11-10
-- [CORP-11](corpus.md) Corpus inventory and reproducibility record: measured rows and bytes, checksums, config, evidence inputs can be re-acquired: @husyGIT · due 2026-11-12
 - [CORP-12](corpus.md) Report section 2 draft and Appendix B locators for the corpus: @husyGIT · due 2026-11-17
-- [PIPE-03](pipeline.md) Prototype GDELT mapper on 2 to 3 archives (field count, malformed lines, daily aggregates); NLineInputFormat over an archive manifest, one mapper per archive: @husyGIT · due 2026-11-06
-- [PIPE-11](pipeline.md) GDELT: full Streaming job → `clean.gdelt_daily`; `features.weekly_news` (`news_abn`, `tone_mean`, `conflict_share`) with the conservative timing rule (§8.9): @husyGIT · due 2026-11-10
-- [PIPE-13](pipeline.md) Full pipeline run on EMR with job and query IDs, mapper/reducer scripts, configs and output schemas as evidence: @husyGIT · due 2026-11-13
 - [PIPE-14](pipeline.md) Report section 3 draft and Appendix B locators for the pipeline: @husyGIT · due 2026-11-17
+- [MODEL-11](model.md) Report section 4 draft and Appendix B locators for the model: @husyGIT · due 2026-11-17
 
 ## Blocked
 
@@ -44,28 +39,30 @@ _Nothing blocked._
 - [TEAM-08](team.md) Copy the brief PDF to `docs/brief/` and the Final Draft export to `docs/decisions/`: @TODO · due 2026-11-01
 - [PERF-01](performance.md) Shared logging helper → `evidence/timings.csv`, application/job/query IDs: @TODO · due 2026-11-04
 - [PERF-04](performance.md) EMR bring-up: reference cluster config (emr-7.10.0, 1 + 2 m5.xlarge, replication 2, Spark 2 x 2 x 6 GiB, dynamic allocation off); confirm with teaching team: @TODO · due 2026-11-06
-- [MODEL-01](model.md) Evaluation module: tie-aware weekly AUC (rank-sum), week-level bootstrap (10,000 resamples, fixed seed), paired difference; tested on stub features: @TODO · due 2026-11-07
-- [MODEL-03](model.md) GATE: write the 8-config grid into the decision log before running validation: @TODO · due 2026-11-08
 - [MODEL-10](model.md) Leakage cross-review of PIPE feature, universe and split code (§12): @TODO · due 2026-11-10
+- [PIPE-12](pipeline.md) Leakage cross-review of MODEL evaluation and training code (§12): @TODO · due 2026-11-10
+- [CORP-13](corpus.md) Cross-review: read PIPE cleaning rules against your quality findings (does every finding have a handling rule?): @TODO · due 2026-11-12
 - [ANLY-01](analytics.md) Q1 (Hive): within-week quintiles of `rel_volume` vs next-week outcomes, with group sizes and intervals; training years only until the model is frozen: @TODO · due 2026-11-14
+- [ANLY-02](analytics.md) Q2 (PySpark): weekly AUC and paired difference vs B3 by quarter, volatility tercile and market-dispersion tercile, 2017 plus 2016 consistency; weeks, rows and intervals reported: @TODO · due 2026-11-16
+- [ANLY-03](analytics.md) Q3a (Hive + PySpark): market-wide volatility and dispersion by `news_abn` tercile; pre-start and same-week labelled separately: @TODO · due 2026-11-16
 - [TEAM-12](team.md) References with versions: @TODO · due 2026-11-19
 - [TEAM-13](team.md) Appendix C: use of AI assistance, compiled from `ai-usage.md`: @TODO · due 2026-11-19
 - [TEAM-14](team.md) Appendix D: team contributions table (name, work delivered, % total 100), compiled from the progress logs: @TODO · due 2026-11-19
 
 ## Recent activity (newest 15 progress-log entries)
 
+- 2026-11-10 @husyGIT [TEAM]: docs/corpus (quality findings, inventory, section 2 draft) and docs/pipeline (README, section 3 draft) filled with the Task 2 EMR figures. Evidence: docs/corpus/quality_findings.md, docs/pipeline/README.md
 - 2026-11-10 @husyGIT [TEAM]: config/sec_filing_inventory.csv: the course's 311-filing SEC inventory (from SEC_Filing_Inventory.xlsx, sha256 a65b478a...) as CSV, input list for corpus/acquire.py sec. Evidence: config/sec_filing_inventory.csv
+- 2026-11-10 @husyGIT [CORP]: GDELT content audit confirmed on EMR (Task 2 run 20261105-1430-full-ref): 731/731 archives read, 144,207,180 events, 0 malformed/bad/duplicate, 0 missing dates, SHA-256 of every HDFS copy matches the manifest, 2 overlapping adjacent-day ID ranges, 1.06% events >30 days old. Quality findings, inventory and section 2 draft updated. Evidence: evidence/gdelt_daily_20261105-1430-full-ref.log, evidence/corpus/inventory_20261105-1430-full-ref.json, docs/corpus/quality_findings.md (CORP-07, CORP-09, CORP-11, CORP-12)
 - 2026-11-10 @husyGIT [CORP]: Teaching team requires all four sources in S3. Added SEC EDGAR (311 filings from the course inventory, config/sec_filing_inventory.csv) and Wikinews (2026-10-01 full-history dumps) to corpus/acquire.py with integrity checks and manifests; HDFS verifier checks them by size; EMR guide docs/corpus/aws_aux_sources.md. Stored only, not analysed. Remaining: EMR acquisition run. Evidence: corpus/acquire.py, config/sec_filing_inventory.csv, docs/corpus/aws_aux_sources.md (CORP-07, CORP-11)
 - 2026-11-10 @husyGIT [CORP]: SEC EDGAR and Wikinews acquired on EMR and stored in S3 and HDFS: SEC 311/311 filings (2,777,408,405 bytes, each with its own accession number), Wikinews 4/4 dump files (946,012,974 bytes, MD5 and size match dumpstatus.json; the two .bz2 parts are the brief's 662 MB). All four sources staged together, 1,047/1,047 files match their manifests (run 20261110-1300-aux). Inventory, section 2 and guide updated. Evidence: manifests/sec_acquired=2026-11-10.csv, manifests/wikinews_acquired=2026-11-10.csv, evidence/corpus/inventory_20261110-1300-aux.json (CORP-07, CORP-11)
+- 2026-11-10 @husyGIT [PIPE]: Full Task 2 EMR run 20261105-1430-full-ref committed: price figures identical to the dev run (605,887 clean, eligible 65,086 / 25,720 / 25,531), GDELT Streaming over all 731 archives (job_1793861139962_0011, 52 min) reconciles exactly (144,207,180 events), weekly news for 97 weeks. Stage times, job/application/query IDs, logs and output summaries as evidence; section 3 draft and pipeline README updated. Evidence: evidence/pipeline/, evidence/gdelt_daily_20261105-1430-full-ref.log, docs/pipeline/README.md (PIPE-03, PIPE-11, PIPE-13, PIPE-14)
+- 2026-11-10 @husyGIT [PERF]: Added Task 2 EMR evidence (run 20261105-1430-full-ref): reconciliation, summaries, stage times, IDs, full log, GDELT Streaming log, session staging and HDFS verification. Bucket and hostnames redacted. Evidence: evidence/pipeline/, evidence/gdelt_daily_20261105-1430-full-ref.log, evidence/corpus/inventory_20261105-1430-full-ref.json
 - 2026-11-10 @husyGIT [PERF]: Added SEC EDGAR and Wikinews acquisition and four-source HDFS staging evidence (run 20261110-1300-aux); bucket and contact email redacted. Evidence: evidence/corpus/inventory_20261110-1300-aux.json, evidence/corpus/stage_20261110-1300-aux.log
-- 2026-11-04 @jaecodess [TEAM]: Decision D-015: core storage finalised at 100 GiB per core node (~100 GiB logical HDFS at replication 2), superseding HANDOVER §2/§9; HANDOVER §2 annotated to point to D-015. Evidence: docs/decisions/decision-log.md, HANDOVER.md
-- 2026-11-04 @husyGIT [TEAM]: Decision log D-016 to D-022 (pipeline rules and additive contract columns) and docs/pipeline/ (pipeline guide, EMR steps, section 3 draft, dev-run results). Evidence: docs/decisions/decision-log.md, docs/pipeline/README.md
-- 2026-11-04 @husyGIT [CORP]: AWS guide B7: bundle evidence and manifests into one tar.gz, download with scp, S3 fallback. Evidence: docs/corpus/aws_guide.md (CORP-11)
-- 2026-11-04 @husyGIT [CORP]: EMR run 20261103-2250-full-ref committed: price + 731 GDELT archives acquired (all checksums match GDELT's lists, 9,611,684,528 bytes), staged to HDFS (fsck HEALTHY, rep 2), price profile on EMR identical to dev (application_1793714742178_0002). Docs updated with EMR figures; bucket name redacted. GDELT content audit needs a rerun (mapper path bug, fixed in PIPE). Evidence: evidence/corpus/, manifests/ (CORP-01, CORP-06, CORP-07, CORP-08, CORP-09, CORP-11)
-- 2026-11-04 @husyGIT [PIPE]: Claimed the remaining Pipeline tasks (agreed in team; PIPE-04 handed over from @r4ihn's claim on ws/pipe/price-cleaning, which had no code). Branch ws/pipe/task2-pipeline. (PIPE-01 to PIPE-14)
-- 2026-11-04 @husyGIT [PIPE]: Task 2 pipeline built and run end to end locally on the full price file: Streaming price audit, PySpark cleaning (605,887 clean = brief), Hive SQL calendar (holiday Fridays match HANDOVER), split screen + reviewed split events, PySpark universe/labels/9 features/ranks (eligible train 65,086, val 25,720, test 25,531), Hive SQL weekly news, reconciliation, EMR runner. Remaining: EMR run (PIPE-13), GDELT on real archives (PIPE-11), section 3 final (PIPE-14). Evidence: spark/, hive/, streaming/price_audit/, docs/pipeline/ (PIPE-01 to PIPE-11, PIPE-14)
-- 2026-11-04 @husyGIT [PIPE]: First EMR GDELT run (job_1793714742178_0003) read no archive: the mapper only fetched paths containing `://`, but the manifest holds plain HDFS paths. Fixed (plain /paths now fetched from HDFS, tested with a fake hadoop), run.sh now fails if any archive is unreadable, mapper re-hashes every archive and hive/10 compares SHA-256 with the manifest (manifests copied to /inf2006/manifests/, since Hadoop hides `_` folders). Evidence: streaming/gdelt_daily/mapper.py, hive/10_gdelt_daily.sql, evidence/gdelt_daily_20261103-2250-full-ref.log (PIPE-03, PIPE-11)
-- 2026-11-04 @husyGIT [PERF]: Added Task 1 EMR evidence (run 20261103-2250-full-ref): staging log, price profile and log, YARN application list, software versions, first GDELT job log. Bucket name redacted. Evidence: evidence/corpus/, evidence/gdelt_daily_20261103-2250-full-ref.log
-- 2026-11-03 @husyGIT [TEAM]: Regenerated .github/CODEOWNERS and STATUS.md with `make codeowners` / `make status` (stale on main after the owners change in workstreams.json). No content changes. Evidence: .github/CODEOWNERS
-- 2026-11-03 @husyGIT [CORP]: AWS guide expanded with full S3 bucket, EC2 key pair/network/security group and EMR console settings, plus an equivalent `aws emr create-cluster` command. Evidence: docs/corpus/aws_guide.md (CORP-06, CORP-07)
-- 2026-11-03 @husyGIT [CORP]: AWS guide A1: step-by-step S3 folder creation (four folders, one at a time). Evidence: docs/corpus/aws_guide.md (CORP-06)
+- 2026-11-09 @husyGIT [TEAM]: docs/model/README.md EMR results and section 4 draft filled from run 20261106-1400-full-ref. Evidence: docs/model/README.md, docs/model/section4_draft.md
+- 2026-11-09 @husyGIT [MODEL]: EMR Task 3 run 20261106-1400-full-ref committed. Validation (commit 956c3bf) recommended lr_f1_r001; single test after Gate 2 (commit b495d83): mean weekly AUC 0.5133 [0.4970, 0.5298], paired vs B3 +0.0143 [-0.0084, 0.0364] -> success rule not met, "no evidence that the model adds signal beyond simple rules". Reload exact (max diff 0.0). Section 4 draft filled. Evidence: evidence/model/, models/20261106-1400-full-ref/ (MODEL-05, MODEL-07, MODEL-08, MODEL-09, MODEL-11)
+- 2026-11-09 @husyGIT [PERF]: Added Task 3 EMR evidence (run 20261106-1400-full-ref): validation/test/reload JSON, weekly tables, logs, job IDs, test marker. Evidence: evidence/model/
+- 2026-11-08 @husyGIT [TEAM]: Gate 2 (MODEL-06) locked in docs/decisions/decision-log.md before the test run: frozen config lr_f1_r001. Evidence: docs/decisions/decision-log.md
+- 2026-11-08 @husyGIT [MODEL]: EMR validation (run 20261106-1400-full-ref) recommended lr_f1_r001 (best mean rf_f2_d8, 1 SE = 0.0070). Gate 2 locked in the decision log before any test run: frozen config lr_f1_r001, success rule unchanged from HANDOVER 8.6. Evidence: docs/decisions/decision-log.md (MODEL-05, MODEL-06)
+- 2026-11-05 @husyGIT [TEAM]: Gate 1 (MODEL-03) locked in docs/decisions/decision-log.md before any validation run. Evidence: docs/decisions/decision-log.md
+- 2026-11-05 @husyGIT [TEAM]: docs/model/ (Task 3 approach, EMR steps, section 4 draft, local validation results). Evidence: docs/model/README.md

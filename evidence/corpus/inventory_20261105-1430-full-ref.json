@@ -1,0 +1,26 @@
+{
+  "run_id": "20261105-1430-full-ref",
+  "checked_at_utc": "2026-11-05T06:51:17Z",
+  "hash_checked": "non-zip files (zips: Streaming job)",
+  "manifests": [
+    "gdelt_acquired=2026-11-03.csv",
+    "prices_acquired=2026-11-03.csv"
+  ],
+  "per_source": {
+    "gdelt_events_v1": {
+      "files": 731,
+      "bytes": 9611684528,
+      "text_lines": 0,
+      "problems": 0
+    },
+    "daily_price_csv": {
+      "files": 1,
+      "bytes": 29580549,
+      "text_lines": 619041,
+      "problems": 0
+    }
+  },
+  "not_acquired": [],
+  "files_ok": 732,
+  "files_checked": 732
+}

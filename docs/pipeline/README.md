@@ -41,7 +41,17 @@ Grain: ticker × week, all train / validation / test weeks, partitioned by `spli
 | 9 `*_rank` columns | within-week percent ranks, 0 to 1 |
 | `n_eligible_week`, `run_id` | eligible stocks that week; provenance |
 
-## Development-run results (local, full price file; EMR rerun is the evidence)
+## EMR results (run `20261105-1430-full-ref`, assessed evidence)
+
+Evidence: [`evidence/pipeline/`](../../evidence/pipeline/) (reconciliation, clean-price and feature summaries, eligible stocks per week, split screen, stage times, IDs, full log), [`evidence/gdelt_daily_20261105-1430-full-ref.log`](../../evidence/gdelt_daily_20261105-1430-full-ref.log), [`evidence/corpus/`](../../evidence/corpus/) (staging and HDFS verification for this session).
+
+- **Identical to the development run** for every price figure below: 619,040 = 605,887 clean + 13,153 rejected; 1,233 market days; 148 / 52 / 51 weeks plus 4 boundary weeks; eligible stock-weeks 65,086 / 25,720 / 25,531; the same exclusions by reason. Streaming price audit: 505 tickers, 11 missing, 12 inconsistent OHLC, 32 overnight jumps.
+- **GDELT** (Streaming `job_1793861139962_0011`, 731 mappers): 731 archives, 0 corrupt, 144,207,180 lines = 144,207,180 events, 0 malformed, 0 bad values, 0 duplicates; 0 missing dates; SHA-256 of all 731 HDFS copies matches the manifest; 2 adjacent-day pairs with overlapping event-ID ranges; 1.06% of events more than 30 days older than their archive.
+- **Weekly news:** `news_abn` available for 97 weeks: train 17 (2015-08-28 to 2015-12-18), validation 52, test 26 (to 2017-06-30), boundary 2.
+- **Run time** (stages after staging, from [stage_times](../../evidence/pipeline/stage_times_20261105-1430-full-ref.csv)): 58 min 32 s in total, of which the GDELT Streaming job took 52 min 21 s; all price stages together took about 5 minutes.
+- IDs: Streaming jobs `job_1793861139962_0003` (price audit) and `_0011` (GDELT); Spark and Tez applications `application_1793861139962_0003` to `_0014`; Hive query IDs in [ids_20261105-1430-full-ref.txt](../../evidence/pipeline/ids_20261105-1430-full-ref.txt).
+
+## Development-run results (local, full price file)
 
 - Prices: 619,040 raw rows = 605,887 clean + 13,153 rejected (13,130 outside the window, 23 invalid). Clean count equals the brief's 605,887 accepted bars.
 - Calendar: 1,233 market days; 148 train, 52 validation, 51 test weeks; 4 boundary weeks; 9 holiday-Friday weeks, matching HANDOVER 7.1 exactly.

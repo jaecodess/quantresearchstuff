@@ -31,4 +31,12 @@ Format and rules: [README.md](README.md). Edit only your own task lines; add a l
 - 2026-11-03 @husyGIT: Regenerated .github/CODEOWNERS and STATUS.md with `make codeowners` / `make status` (stale on main after the owners change in workstreams.json). No content changes. Evidence: .github/CODEOWNERS
 - 2026-11-04 @jaecodess: Decision D-015: core storage finalised at 100 GiB per core node (~100 GiB logical HDFS at replication 2), superseding HANDOVER §2/§9; HANDOVER §2 annotated to point to D-015. Evidence: docs/decisions/decision-log.md, HANDOVER.md
 - 2026-11-04 @husyGIT: Decision log D-016 to D-022 (pipeline rules and additive contract columns) and docs/pipeline/ (pipeline guide, EMR steps, section 3 draft, dev-run results). Evidence: docs/decisions/decision-log.md, docs/pipeline/README.md
+- 2026-11-05 @husyGIT: Gate 1 (MODEL-03) locked in docs/decisions/decision-log.md before any validation run. Evidence: docs/decisions/decision-log.md
+- 2026-11-05 @husyGIT: docs/model/ (Task 3 approach, EMR steps, section 4 draft, local validation results). Evidence: docs/model/README.md
+- 2026-11-05 @husyGIT: requirements-spark.txt: added numpy==1.26.4 (pyspark.ml needs it in the CI Spark job; EMR ships numpy). Evidence: requirements-spark.txt
+- 2026-11-05 @husyGIT: docs/model/aws_task3.md: full cluster setup commands (fetch and switch to ws/model/task3, "invalid reference" fix). Evidence: docs/model/aws_task3.md
+- 2026-11-05 @husyGIT: docs/model/aws_task3.md: D0 section for a new cluster (check S3 for saved features, otherwise Task 2 C2 and C3 with WITH_GDELT=0). Evidence: docs/model/aws_task3.md
+- 2026-11-08 @husyGIT: Gate 2 (MODEL-06) locked in docs/decisions/decision-log.md before the test run: frozen config lr_f1_r001. Evidence: docs/decisions/decision-log.md
+- 2026-11-09 @husyGIT: docs/model/README.md EMR results and section 4 draft filled from run 20261106-1400-full-ref. Evidence: docs/model/README.md, docs/model/section4_draft.md
+- 2026-11-10 @husyGIT: docs/corpus (quality findings, inventory, section 2 draft) and docs/pipeline (README, section 3 draft) filled with the Task 2 EMR figures. Evidence: docs/corpus/quality_findings.md, docs/pipeline/README.md
 - 2026-11-10 @husyGIT: config/sec_filing_inventory.csv: the course's 311-filing SEC inventory (from SEC_Filing_Inventory.xlsx, sha256 a65b478a...) as CSV, input list for corpus/acquire.py sec. Evidence: config/sec_filing_inventory.csv

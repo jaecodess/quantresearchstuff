@@ -36,13 +36,13 @@ One manifest per acquisition run, committed under [`manifests/`](../../manifests
 
 | Source | Files | Bytes (logical) | Bytes (physical, `hdfs dfs -du`) | Rows | Verification |
 |---|---|---|---|---|---|
-| Daily price CSV | 1 | 29,580,549 (28.2 M) | 56.4 M | 619,040 data rows + 1 header (EMR profile, `application_1793714742178_0002`) | size + SHA-256 of the HDFS copy: rerun with the fixed verifier |
-| GDELT | 731 archives + 2 provenance lists | 9,611,684,528 (9.0 G) | 17.9 G | … events (rerun of the Streaming audit) | SHA-256 of every HDFS copy against the manifest, computed by the Streaming job (rerun) |
+| Daily price CSV | 1 | 29,580,549 (28.2 M) | 56.4 M | 619,040 data rows + 1 header (EMR profile, `application_1793714742178_0002`) | size + SHA-256 of the HDFS copy: match ([hdfs_verify_20261105-1430-full-ref.csv](../../evidence/corpus/hdfs_verify_20261105-1430-full-ref.csv)) |
+| GDELT | 731 archives + 2 provenance lists | 9,611,684,528 (9.0 G) | 17.9 G | 144,207,180 events (Streaming audit, run `20261105-1430-full-ref`) | SHA-256 of every HDFS copy against the manifest, computed by the Streaming job: 731 / 731 match |
 | SEC EDGAR | 311 filings + inventory | 2,777,408,405 (2.6 G) | 5.2 G | not parsed (stored only) | size of every HDFS copy against the manifest ([inventory_20261110-1300-aux.json](../../evidence/corpus/inventory_20261110-1300-aux.json)) |
 | Wikinews | 4 dump files + `dumpstatus.json` | 946,012,974 (902.2 M) | 1.8 G | not parsed (stored only) | size of every HDFS copy against the manifest |
 
 All four sources staged together on 2026-11-10 (run `20261110-1300-aux`, [stage log](../../evidence/corpus/stage_20261110-1300-aux.log)): S3 to HDFS in 1 min 29 s, 1,047 / 1,047 files present with manifest sizes, price CSV SHA-256 matches, `hdfs fsck /inf2006/raw` HEALTHY. Total raw corpus about 13.4 GB logical, 25 GB physical at replication 2.
 
-HDFS health: `hdfs fsck /inf2006/raw` HEALTHY, replication 2.0, 0 missing or corrupt blocks. The first verifier run re-hashed each file with its own `hdfs dfs -cat` (about 35 minutes for 732 files) and was stopped before writing results; it now hashes the price CSV only and leaves the archives to the parallel Streaming job.
+HDFS health: `hdfs fsck /inf2006/raw` HEALTHY, replication 2.0, 0 missing or corrupt blocks. The first verifier run re-hashed each file with its own `hdfs dfs -cat` (about 35 minutes for 732 files) and was stopped before writing results; it now hashes the price CSV only and leaves the archives to the parallel Streaming job. Rerun on 2026-11-05 (`20261105-1430-full-ref`): 732 / 732 files present with manifest sizes, price CSV SHA-256 matches, 0 problems ([inventory_20261105-1430-full-ref.json](../../evidence/corpus/inventory_20261105-1430-full-ref.json)).
 
 Evidence: `evidence/corpus/hdfs_verify_<run_id>.csv`, `evidence/corpus/inventory_<run_id>.json`, `evidence/corpus/stage_<run_id>.log`, `evidence/corpus/prices_profile_<run_id>/`.

@@ -1,0 +1,1650 @@
+run_id=20261105-1430-full-ref started=2026-11-05T06:49:52Z src=<s3_raw> dest=/inf2006/raw
+2026-11-05 06:49:59,596 INFO s3distcp.Main: Running with args: -libjars /usr/share/aws/emr/s3-dist-cp/lib/aopalliance-1.0.jar,/usr/share/aws/emr/s3-dist-cp/lib/checker-qual-3.12.0.jar,/usr/share/aws/emr/s3-dist-cp/lib/error_prone_annotations-2.11.0.jar,/usr/share/aws/emr/s3-dist-cp/lib/failureaccess-1.0.1.jar,/usr/share/aws/emr/s3-dist-cp/lib/guava-31.1-jre.jar,/usr/share/aws/emr/s3-dist-cp/lib/guice-4.1.0.jar,/usr/share/aws/emr/s3-dist-cp/lib/guice-servlet-4.2.3.jar,/usr/share/aws/emr/s3-dist-cp/lib/j2objc-annotations-1.3.jar,/usr/share/aws/emr/s3-dist-cp/lib/javax.inject-1.jar,/usr/share/aws/emr/s3-dist-cp/lib/jsr305-3.0.2.jar,/usr/share/aws/emr/s3-dist-cp/lib/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar,/usr/share/aws/emr/s3-dist-cp/lib/s3-dist-cp-2.40.0.jar,/usr/share/aws/emr/s3-dist-cp/lib/s3-dist-cp.jar --src s3://<bucket>/inf2006/raw/ --dest hdfs:///inf2006/raw/ 
+2026-11-05 06:49:59,885 INFO s3distcp.S3DistCp: S3DistCp args: --src s3://<bucket>/inf2006/raw/ --dest hdfs:///inf2006/raw/
+2026-11-05 06:49:59,890 INFO s3distcp.S3DistCp: Using output path 'hdfs:/tmp/3285688d-1a8f-43d4-843b-c2cd2051bec2/output'
+2026-11-05 06:49:59,890 INFO s3distcp.S3DistCp: Try to recursively delete with throw Exceptionhdfs:/tmp/3285688d-1a8f-43d4-843b-c2cd2051bec2/files
+2026-11-05 06:50:00,400 INFO s3distcp.S3DistCp: Try to recursively delete with throw Exceptionhdfs:/tmp/3285688d-1a8f-43d4-843b-c2cd2051bec2/output
+2026-11-05 06:50:00,567 INFO s3a.EMRFSToS3AConfigMapping: Mapping EMRFS config fs.s3.useRequesterPaysHeader to S3A config fs.s3a.requester.pays.enabled
+2026-11-05 06:50:00,568 INFO s3a.EMRFSToS3AConfigMapping: Mapping EMRFS config fs.s3.sts.endpoint to S3A config fs.s3a.assumed.role.sts.endpoint
+2026-11-05 06:50:00,568 INFO s3a.EMRFSToS3AConfigMapping: Mapping EMRFS config fs.s3n.multipart.uploads.enabled to S3A config fs.s3a.multipart.uploads.enabled
+2026-11-05 06:50:00,568 INFO s3a.EMRFSToS3AConfigMapping: Mapping EMRFS config fs.s3.buffer.dir to S3A config fs.s3a.buffer.dir
+2026-11-05 06:50:00,663 INFO impl.MetricsConfig: Loaded properties from hadoop-metrics2.properties
+2026-11-05 06:50:00,754 INFO impl.MetricsSystemImpl: Scheduled Metric snapshot period at 300 second(s).
+2026-11-05 06:50:00,754 INFO impl.MetricsSystemImpl: s3a-file-system metrics system started
+2026-11-05 06:50:02,435 INFO s3distcp.S3ClientFactory: Create Amazon S3 client with endpoint override
+2026-11-05 06:50:02,439 INFO s3distcp.S3ClientFactory: DefaultCredentialsProvider is used to create S3Client.
+2026-11-05 06:50:02,468 INFO s3distcp.S3DistCp: Get src prefix s3://<bucket>/inf2006/raw endWithSlash true
+2026-11-05 06:50:02,468 INFO s3distcp.S3DistCp: Only a single prefix is got
+2026-11-05 06:50:02,469 INFO s3distcp.S3DistCp: listing objects in bucket <bucket> target prefix is inf2006/raw/
+2026-11-05 06:50:02,720 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/
+2026-11-05 06:50:02,720 INFO s3distcp.S3DistCp: Skipping key 'inf2006/raw/' because it ends with '/'
+2026-11-05 06:50:02,720 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/_manifests/gdelt_acquired=2026-11-03.csv
+2026-11-05 06:50:02,720 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/_manifests/prices_acquired=2026-11-03.csv
+2026-11-05 06:50:02,720 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150701.export.CSV.zip
+2026-11-05 06:50:02,720 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150702.export.CSV.zip
+2026-11-05 06:50:02,721 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150703.export.CSV.zip
+2026-11-05 06:50:02,721 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150704.export.CSV.zip
+2026-11-05 06:50:02,721 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150705.export.CSV.zip
+2026-11-05 06:50:02,721 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150706.export.CSV.zip
+2026-11-05 06:50:02,721 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150707.export.CSV.zip
+2026-11-05 06:50:02,721 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150708.export.CSV.zip
+2026-11-05 06:50:02,721 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150709.export.CSV.zip
+2026-11-05 06:50:02,721 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150710.export.CSV.zip
+2026-11-05 06:50:02,721 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150711.export.CSV.zip
+2026-11-05 06:50:02,722 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150712.export.CSV.zip
+2026-11-05 06:50:02,722 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150713.export.CSV.zip
+2026-11-05 06:50:02,722 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150714.export.CSV.zip
+2026-11-05 06:50:02,722 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150715.export.CSV.zip
+2026-11-05 06:50:02,722 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150716.export.CSV.zip
+2026-11-05 06:50:02,722 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150717.export.CSV.zip
+2026-11-05 06:50:02,722 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150718.export.CSV.zip
+2026-11-05 06:50:02,722 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150719.export.CSV.zip
+2026-11-05 06:50:02,722 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150720.export.CSV.zip
+2026-11-05 06:50:02,723 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150721.export.CSV.zip
+2026-11-05 06:50:02,723 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150722.export.CSV.zip
+2026-11-05 06:50:02,723 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150723.export.CSV.zip
+2026-11-05 06:50:02,723 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150724.export.CSV.zip
+2026-11-05 06:50:02,723 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150725.export.CSV.zip
+2026-11-05 06:50:02,723 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150726.export.CSV.zip
+2026-11-05 06:50:02,723 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150727.export.CSV.zip
+2026-11-05 06:50:02,723 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150728.export.CSV.zip
+2026-11-05 06:50:02,723 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150729.export.CSV.zip
+2026-11-05 06:50:02,724 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150730.export.CSV.zip
+2026-11-05 06:50:02,724 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150731.export.CSV.zip
+2026-11-05 06:50:02,724 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150801.export.CSV.zip
+2026-11-05 06:50:02,724 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150802.export.CSV.zip
+2026-11-05 06:50:02,724 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150803.export.CSV.zip
+2026-11-05 06:50:02,724 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150804.export.CSV.zip
+2026-11-05 06:50:02,724 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150805.export.CSV.zip
+2026-11-05 06:50:02,724 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150806.export.CSV.zip
+2026-11-05 06:50:02,724 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150807.export.CSV.zip
+2026-11-05 06:50:02,724 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150808.export.CSV.zip
+2026-11-05 06:50:02,725 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150809.export.CSV.zip
+2026-11-05 06:50:02,725 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150810.export.CSV.zip
+2026-11-05 06:50:02,725 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150811.export.CSV.zip
+2026-11-05 06:50:02,725 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150812.export.CSV.zip
+2026-11-05 06:50:02,725 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150813.export.CSV.zip
+2026-11-05 06:50:02,725 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150814.export.CSV.zip
+2026-11-05 06:50:02,725 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150815.export.CSV.zip
+2026-11-05 06:50:02,725 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150816.export.CSV.zip
+2026-11-05 06:50:02,726 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150817.export.CSV.zip
+2026-11-05 06:50:02,726 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150818.export.CSV.zip
+2026-11-05 06:50:02,726 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150819.export.CSV.zip
+2026-11-05 06:50:02,726 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150820.export.CSV.zip
+2026-11-05 06:50:02,726 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150821.export.CSV.zip
+2026-11-05 06:50:02,726 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150822.export.CSV.zip
+2026-11-05 06:50:02,726 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150823.export.CSV.zip
+2026-11-05 06:50:02,726 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150824.export.CSV.zip
+2026-11-05 06:50:02,726 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150825.export.CSV.zip
+2026-11-05 06:50:02,726 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150826.export.CSV.zip
+2026-11-05 06:50:02,727 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150827.export.CSV.zip
+2026-11-05 06:50:02,727 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150828.export.CSV.zip
+2026-11-05 06:50:02,727 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150829.export.CSV.zip
+2026-11-05 06:50:02,727 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150830.export.CSV.zip
+2026-11-05 06:50:02,727 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150831.export.CSV.zip
+2026-11-05 06:50:02,727 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150901.export.CSV.zip
+2026-11-05 06:50:02,727 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150902.export.CSV.zip
+2026-11-05 06:50:02,727 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150903.export.CSV.zip
+2026-11-05 06:50:02,727 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150904.export.CSV.zip
+2026-11-05 06:50:02,727 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150905.export.CSV.zip
+2026-11-05 06:50:02,728 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150906.export.CSV.zip
+2026-11-05 06:50:02,728 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150907.export.CSV.zip
+2026-11-05 06:50:02,728 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150908.export.CSV.zip
+2026-11-05 06:50:02,728 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150909.export.CSV.zip
+2026-11-05 06:50:02,728 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150910.export.CSV.zip
+2026-11-05 06:50:02,728 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150911.export.CSV.zip
+2026-11-05 06:50:02,728 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150912.export.CSV.zip
+2026-11-05 06:50:02,728 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150913.export.CSV.zip
+2026-11-05 06:50:02,728 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150914.export.CSV.zip
+2026-11-05 06:50:02,729 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150915.export.CSV.zip
+2026-11-05 06:50:02,729 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150916.export.CSV.zip
+2026-11-05 06:50:02,729 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150917.export.CSV.zip
+2026-11-05 06:50:02,729 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150918.export.CSV.zip
+2026-11-05 06:50:02,729 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150919.export.CSV.zip
+2026-11-05 06:50:02,729 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150920.export.CSV.zip
+2026-11-05 06:50:02,729 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150921.export.CSV.zip
+2026-11-05 06:50:02,729 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150922.export.CSV.zip
+2026-11-05 06:50:02,729 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150923.export.CSV.zip
+2026-11-05 06:50:02,730 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150924.export.CSV.zip
+2026-11-05 06:50:02,730 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150925.export.CSV.zip
+2026-11-05 06:50:02,730 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150926.export.CSV.zip
+2026-11-05 06:50:02,730 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150927.export.CSV.zip
+2026-11-05 06:50:02,730 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150928.export.CSV.zip
+2026-11-05 06:50:02,730 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150929.export.CSV.zip
+2026-11-05 06:50:02,730 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20150930.export.CSV.zip
+2026-11-05 06:50:02,730 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151001.export.CSV.zip
+2026-11-05 06:50:02,731 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151002.export.CSV.zip
+2026-11-05 06:50:02,731 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151003.export.CSV.zip
+2026-11-05 06:50:02,731 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151004.export.CSV.zip
+2026-11-05 06:50:02,731 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151005.export.CSV.zip
+2026-11-05 06:50:02,731 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151006.export.CSV.zip
+2026-11-05 06:50:02,731 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151007.export.CSV.zip
+2026-11-05 06:50:02,731 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151008.export.CSV.zip
+2026-11-05 06:50:02,731 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151009.export.CSV.zip
+2026-11-05 06:50:02,731 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151010.export.CSV.zip
+2026-11-05 06:50:02,732 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151011.export.CSV.zip
+2026-11-05 06:50:02,732 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151012.export.CSV.zip
+2026-11-05 06:50:02,732 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151013.export.CSV.zip
+2026-11-05 06:50:02,732 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151014.export.CSV.zip
+2026-11-05 06:50:02,732 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151015.export.CSV.zip
+2026-11-05 06:50:02,732 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151016.export.CSV.zip
+2026-11-05 06:50:02,732 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151017.export.CSV.zip
+2026-11-05 06:50:02,732 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151018.export.CSV.zip
+2026-11-05 06:50:02,732 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151019.export.CSV.zip
+2026-11-05 06:50:02,732 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151020.export.CSV.zip
+2026-11-05 06:50:02,733 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151021.export.CSV.zip
+2026-11-05 06:50:02,733 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151022.export.CSV.zip
+2026-11-05 06:50:02,733 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151023.export.CSV.zip
+2026-11-05 06:50:02,733 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151024.export.CSV.zip
+2026-11-05 06:50:02,733 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151025.export.CSV.zip
+2026-11-05 06:50:02,733 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151026.export.CSV.zip
+2026-11-05 06:50:02,733 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151027.export.CSV.zip
+2026-11-05 06:50:02,733 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151028.export.CSV.zip
+2026-11-05 06:50:02,733 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151029.export.CSV.zip
+2026-11-05 06:50:02,733 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151030.export.CSV.zip
+2026-11-05 06:50:02,734 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151031.export.CSV.zip
+2026-11-05 06:50:02,734 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151101.export.CSV.zip
+2026-11-05 06:50:02,734 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151102.export.CSV.zip
+2026-11-05 06:50:02,734 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151103.export.CSV.zip
+2026-11-05 06:50:02,734 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151104.export.CSV.zip
+2026-11-05 06:50:02,734 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151105.export.CSV.zip
+2026-11-05 06:50:02,734 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151106.export.CSV.zip
+2026-11-05 06:50:02,734 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151107.export.CSV.zip
+2026-11-05 06:50:02,734 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151108.export.CSV.zip
+2026-11-05 06:50:02,734 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151109.export.CSV.zip
+2026-11-05 06:50:02,735 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151110.export.CSV.zip
+2026-11-05 06:50:02,735 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151111.export.CSV.zip
+2026-11-05 06:50:02,735 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151112.export.CSV.zip
+2026-11-05 06:50:02,735 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151113.export.CSV.zip
+2026-11-05 06:50:02,735 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151114.export.CSV.zip
+2026-11-05 06:50:02,735 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151115.export.CSV.zip
+2026-11-05 06:50:02,735 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151116.export.CSV.zip
+2026-11-05 06:50:02,735 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151117.export.CSV.zip
+2026-11-05 06:50:02,735 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151118.export.CSV.zip
+2026-11-05 06:50:02,735 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151119.export.CSV.zip
+2026-11-05 06:50:02,735 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151120.export.CSV.zip
+2026-11-05 06:50:02,736 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151121.export.CSV.zip
+2026-11-05 06:50:02,736 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151122.export.CSV.zip
+2026-11-05 06:50:02,736 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151123.export.CSV.zip
+2026-11-05 06:50:02,736 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151124.export.CSV.zip
+2026-11-05 06:50:02,736 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151125.export.CSV.zip
+2026-11-05 06:50:02,736 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151126.export.CSV.zip
+2026-11-05 06:50:02,736 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151127.export.CSV.zip
+2026-11-05 06:50:02,736 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151128.export.CSV.zip
+2026-11-05 06:50:02,736 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151129.export.CSV.zip
+2026-11-05 06:50:02,736 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151130.export.CSV.zip
+2026-11-05 06:50:02,737 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151201.export.CSV.zip
+2026-11-05 06:50:02,737 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151202.export.CSV.zip
+2026-11-05 06:50:02,737 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151203.export.CSV.zip
+2026-11-05 06:50:02,737 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151204.export.CSV.zip
+2026-11-05 06:50:02,737 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151205.export.CSV.zip
+2026-11-05 06:50:02,737 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151206.export.CSV.zip
+2026-11-05 06:50:02,737 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151207.export.CSV.zip
+2026-11-05 06:50:02,737 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151208.export.CSV.zip
+2026-11-05 06:50:02,737 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151209.export.CSV.zip
+2026-11-05 06:50:02,737 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151210.export.CSV.zip
+2026-11-05 06:50:02,737 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151211.export.CSV.zip
+2026-11-05 06:50:02,738 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151212.export.CSV.zip
+2026-11-05 06:50:02,738 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151213.export.CSV.zip
+2026-11-05 06:50:02,738 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151214.export.CSV.zip
+2026-11-05 06:50:02,738 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151215.export.CSV.zip
+2026-11-05 06:50:02,738 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151216.export.CSV.zip
+2026-11-05 06:50:02,738 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151217.export.CSV.zip
+2026-11-05 06:50:02,738 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151218.export.CSV.zip
+2026-11-05 06:50:02,738 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151219.export.CSV.zip
+2026-11-05 06:50:02,738 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151220.export.CSV.zip
+2026-11-05 06:50:02,738 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151221.export.CSV.zip
+2026-11-05 06:50:02,739 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151222.export.CSV.zip
+2026-11-05 06:50:02,739 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151223.export.CSV.zip
+2026-11-05 06:50:02,739 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151224.export.CSV.zip
+2026-11-05 06:50:02,739 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151225.export.CSV.zip
+2026-11-05 06:50:02,739 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151226.export.CSV.zip
+2026-11-05 06:50:02,739 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151227.export.CSV.zip
+2026-11-05 06:50:02,739 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151228.export.CSV.zip
+2026-11-05 06:50:02,739 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151229.export.CSV.zip
+2026-11-05 06:50:02,739 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151230.export.CSV.zip
+2026-11-05 06:50:02,739 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20151231.export.CSV.zip
+2026-11-05 06:50:02,739 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160101.export.CSV.zip
+2026-11-05 06:50:02,739 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160102.export.CSV.zip
+2026-11-05 06:50:02,740 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160103.export.CSV.zip
+2026-11-05 06:50:02,740 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160104.export.CSV.zip
+2026-11-05 06:50:02,740 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160105.export.CSV.zip
+2026-11-05 06:50:02,740 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160106.export.CSV.zip
+2026-11-05 06:50:02,740 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160107.export.CSV.zip
+2026-11-05 06:50:02,740 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160108.export.CSV.zip
+2026-11-05 06:50:02,740 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160109.export.CSV.zip
+2026-11-05 06:50:02,740 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160110.export.CSV.zip
+2026-11-05 06:50:02,740 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160111.export.CSV.zip
+2026-11-05 06:50:02,740 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160112.export.CSV.zip
+2026-11-05 06:50:02,741 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160113.export.CSV.zip
+2026-11-05 06:50:02,741 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160114.export.CSV.zip
+2026-11-05 06:50:02,741 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160115.export.CSV.zip
+2026-11-05 06:50:02,741 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160116.export.CSV.zip
+2026-11-05 06:50:02,741 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160117.export.CSV.zip
+2026-11-05 06:50:02,741 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160118.export.CSV.zip
+2026-11-05 06:50:02,741 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160119.export.CSV.zip
+2026-11-05 06:50:02,741 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160120.export.CSV.zip
+2026-11-05 06:50:02,741 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160121.export.CSV.zip
+2026-11-05 06:50:02,741 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160122.export.CSV.zip
+2026-11-05 06:50:02,741 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160123.export.CSV.zip
+2026-11-05 06:50:02,741 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160124.export.CSV.zip
+2026-11-05 06:50:02,742 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160125.export.CSV.zip
+2026-11-05 06:50:02,742 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160126.export.CSV.zip
+2026-11-05 06:50:02,742 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160127.export.CSV.zip
+2026-11-05 06:50:02,742 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160128.export.CSV.zip
+2026-11-05 06:50:02,742 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160129.export.CSV.zip
+2026-11-05 06:50:02,742 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160130.export.CSV.zip
+2026-11-05 06:50:02,742 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160131.export.CSV.zip
+2026-11-05 06:50:02,742 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160201.export.CSV.zip
+2026-11-05 06:50:02,742 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160202.export.CSV.zip
+2026-11-05 06:50:02,742 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160203.export.CSV.zip
+2026-11-05 06:50:02,742 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160204.export.CSV.zip
+2026-11-05 06:50:02,743 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160205.export.CSV.zip
+2026-11-05 06:50:02,743 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160206.export.CSV.zip
+2026-11-05 06:50:02,743 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160207.export.CSV.zip
+2026-11-05 06:50:02,743 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160208.export.CSV.zip
+2026-11-05 06:50:02,743 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160209.export.CSV.zip
+2026-11-05 06:50:02,743 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160210.export.CSV.zip
+2026-11-05 06:50:02,743 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160211.export.CSV.zip
+2026-11-05 06:50:02,743 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160212.export.CSV.zip
+2026-11-05 06:50:02,743 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160213.export.CSV.zip
+2026-11-05 06:50:02,743 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160214.export.CSV.zip
+2026-11-05 06:50:02,743 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160215.export.CSV.zip
+2026-11-05 06:50:02,743 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160216.export.CSV.zip
+2026-11-05 06:50:02,744 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160217.export.CSV.zip
+2026-11-05 06:50:02,744 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160218.export.CSV.zip
+2026-11-05 06:50:02,744 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160219.export.CSV.zip
+2026-11-05 06:50:02,744 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160220.export.CSV.zip
+2026-11-05 06:50:02,744 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160221.export.CSV.zip
+2026-11-05 06:50:02,744 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160222.export.CSV.zip
+2026-11-05 06:50:02,744 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160223.export.CSV.zip
+2026-11-05 06:50:02,744 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160224.export.CSV.zip
+2026-11-05 06:50:02,744 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160225.export.CSV.zip
+2026-11-05 06:50:02,744 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160226.export.CSV.zip
+2026-11-05 06:50:02,744 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160227.export.CSV.zip
+2026-11-05 06:50:02,745 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160228.export.CSV.zip
+2026-11-05 06:50:02,745 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160229.export.CSV.zip
+2026-11-05 06:50:02,745 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160301.export.CSV.zip
+2026-11-05 06:50:02,745 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160302.export.CSV.zip
+2026-11-05 06:50:02,745 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160303.export.CSV.zip
+2026-11-05 06:50:02,745 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160304.export.CSV.zip
+2026-11-05 06:50:02,745 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160305.export.CSV.zip
+2026-11-05 06:50:02,745 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160306.export.CSV.zip
+2026-11-05 06:50:02,745 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160307.export.CSV.zip
+2026-11-05 06:50:02,745 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160308.export.CSV.zip
+2026-11-05 06:50:02,745 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160309.export.CSV.zip
+2026-11-05 06:50:02,745 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160310.export.CSV.zip
+2026-11-05 06:50:02,746 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160311.export.CSV.zip
+2026-11-05 06:50:02,746 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160312.export.CSV.zip
+2026-11-05 06:50:02,746 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160313.export.CSV.zip
+2026-11-05 06:50:02,746 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160314.export.CSV.zip
+2026-11-05 06:50:02,746 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160315.export.CSV.zip
+2026-11-05 06:50:02,746 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160316.export.CSV.zip
+2026-11-05 06:50:02,746 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160317.export.CSV.zip
+2026-11-05 06:50:02,746 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160318.export.CSV.zip
+2026-11-05 06:50:02,746 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160319.export.CSV.zip
+2026-11-05 06:50:02,746 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160320.export.CSV.zip
+2026-11-05 06:50:02,746 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160321.export.CSV.zip
+2026-11-05 06:50:02,746 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160322.export.CSV.zip
+2026-11-05 06:50:02,746 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160323.export.CSV.zip
+2026-11-05 06:50:02,747 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160324.export.CSV.zip
+2026-11-05 06:50:02,747 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160325.export.CSV.zip
+2026-11-05 06:50:02,747 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160326.export.CSV.zip
+2026-11-05 06:50:02,747 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160327.export.CSV.zip
+2026-11-05 06:50:02,747 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160328.export.CSV.zip
+2026-11-05 06:50:02,747 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160329.export.CSV.zip
+2026-11-05 06:50:02,747 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160330.export.CSV.zip
+2026-11-05 06:50:02,747 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160331.export.CSV.zip
+2026-11-05 06:50:02,747 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160401.export.CSV.zip
+2026-11-05 06:50:02,747 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160402.export.CSV.zip
+2026-11-05 06:50:02,747 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160403.export.CSV.zip
+2026-11-05 06:50:02,747 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160404.export.CSV.zip
+2026-11-05 06:50:02,747 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160405.export.CSV.zip
+2026-11-05 06:50:02,748 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160406.export.CSV.zip
+2026-11-05 06:50:02,748 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160407.export.CSV.zip
+2026-11-05 06:50:02,748 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160408.export.CSV.zip
+2026-11-05 06:50:02,748 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160409.export.CSV.zip
+2026-11-05 06:50:02,748 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160410.export.CSV.zip
+2026-11-05 06:50:02,748 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160411.export.CSV.zip
+2026-11-05 06:50:02,748 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160412.export.CSV.zip
+2026-11-05 06:50:02,748 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160413.export.CSV.zip
+2026-11-05 06:50:02,748 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160414.export.CSV.zip
+2026-11-05 06:50:02,748 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160415.export.CSV.zip
+2026-11-05 06:50:02,748 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160416.export.CSV.zip
+2026-11-05 06:50:02,748 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160417.export.CSV.zip
+2026-11-05 06:50:02,748 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160418.export.CSV.zip
+2026-11-05 06:50:02,748 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160419.export.CSV.zip
+2026-11-05 06:50:02,749 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160420.export.CSV.zip
+2026-11-05 06:50:02,749 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160421.export.CSV.zip
+2026-11-05 06:50:02,749 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160422.export.CSV.zip
+2026-11-05 06:50:02,749 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160423.export.CSV.zip
+2026-11-05 06:50:02,749 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160424.export.CSV.zip
+2026-11-05 06:50:02,749 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160425.export.CSV.zip
+2026-11-05 06:50:02,749 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160426.export.CSV.zip
+2026-11-05 06:50:02,749 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160427.export.CSV.zip
+2026-11-05 06:50:02,749 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160428.export.CSV.zip
+2026-11-05 06:50:02,749 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160429.export.CSV.zip
+2026-11-05 06:50:02,749 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160430.export.CSV.zip
+2026-11-05 06:50:02,749 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160501.export.CSV.zip
+2026-11-05 06:50:02,749 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160502.export.CSV.zip
+2026-11-05 06:50:02,749 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160503.export.CSV.zip
+2026-11-05 06:50:02,750 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160504.export.CSV.zip
+2026-11-05 06:50:02,750 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160505.export.CSV.zip
+2026-11-05 06:50:02,750 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160506.export.CSV.zip
+2026-11-05 06:50:02,750 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160507.export.CSV.zip
+2026-11-05 06:50:02,750 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160508.export.CSV.zip
+2026-11-05 06:50:02,750 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160509.export.CSV.zip
+2026-11-05 06:50:02,750 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160510.export.CSV.zip
+2026-11-05 06:50:02,750 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160511.export.CSV.zip
+2026-11-05 06:50:02,750 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160512.export.CSV.zip
+2026-11-05 06:50:02,750 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160513.export.CSV.zip
+2026-11-05 06:50:02,750 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160514.export.CSV.zip
+2026-11-05 06:50:02,750 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160515.export.CSV.zip
+2026-11-05 06:50:02,750 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160516.export.CSV.zip
+2026-11-05 06:50:02,750 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160517.export.CSV.zip
+2026-11-05 06:50:02,751 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160518.export.CSV.zip
+2026-11-05 06:50:02,751 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160519.export.CSV.zip
+2026-11-05 06:50:02,751 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160520.export.CSV.zip
+2026-11-05 06:50:02,751 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160521.export.CSV.zip
+2026-11-05 06:50:02,751 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160522.export.CSV.zip
+2026-11-05 06:50:02,751 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160523.export.CSV.zip
+2026-11-05 06:50:02,751 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160524.export.CSV.zip
+2026-11-05 06:50:02,751 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160525.export.CSV.zip
+2026-11-05 06:50:02,751 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160526.export.CSV.zip
+2026-11-05 06:50:02,751 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160527.export.CSV.zip
+2026-11-05 06:50:02,751 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160528.export.CSV.zip
+2026-11-05 06:50:02,751 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160529.export.CSV.zip
+2026-11-05 06:50:02,751 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160530.export.CSV.zip
+2026-11-05 06:50:02,752 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160531.export.CSV.zip
+2026-11-05 06:50:02,752 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160601.export.CSV.zip
+2026-11-05 06:50:02,752 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160602.export.CSV.zip
+2026-11-05 06:50:02,752 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160603.export.CSV.zip
+2026-11-05 06:50:02,752 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160604.export.CSV.zip
+2026-11-05 06:50:02,752 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160605.export.CSV.zip
+2026-11-05 06:50:02,752 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160606.export.CSV.zip
+2026-11-05 06:50:02,752 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160607.export.CSV.zip
+2026-11-05 06:50:02,752 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160608.export.CSV.zip
+2026-11-05 06:50:02,752 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160609.export.CSV.zip
+2026-11-05 06:50:02,752 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160610.export.CSV.zip
+2026-11-05 06:50:02,752 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160611.export.CSV.zip
+2026-11-05 06:50:02,752 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160612.export.CSV.zip
+2026-11-05 06:50:02,752 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160613.export.CSV.zip
+2026-11-05 06:50:02,753 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160614.export.CSV.zip
+2026-11-05 06:50:02,753 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160615.export.CSV.zip
+2026-11-05 06:50:02,753 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160616.export.CSV.zip
+2026-11-05 06:50:02,753 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160617.export.CSV.zip
+2026-11-05 06:50:02,753 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160618.export.CSV.zip
+2026-11-05 06:50:02,753 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160619.export.CSV.zip
+2026-11-05 06:50:02,753 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160620.export.CSV.zip
+2026-11-05 06:50:02,753 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160621.export.CSV.zip
+2026-11-05 06:50:02,753 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160622.export.CSV.zip
+2026-11-05 06:50:02,753 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160623.export.CSV.zip
+2026-11-05 06:50:02,753 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160624.export.CSV.zip
+2026-11-05 06:50:02,753 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160625.export.CSV.zip
+2026-11-05 06:50:02,753 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160626.export.CSV.zip
+2026-11-05 06:50:02,754 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160627.export.CSV.zip
+2026-11-05 06:50:02,754 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160628.export.CSV.zip
+2026-11-05 06:50:02,754 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160629.export.CSV.zip
+2026-11-05 06:50:02,754 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160630.export.CSV.zip
+2026-11-05 06:50:02,754 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160701.export.CSV.zip
+2026-11-05 06:50:02,754 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160702.export.CSV.zip
+2026-11-05 06:50:02,754 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160703.export.CSV.zip
+2026-11-05 06:50:02,754 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160704.export.CSV.zip
+2026-11-05 06:50:02,754 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160705.export.CSV.zip
+2026-11-05 06:50:02,754 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160706.export.CSV.zip
+2026-11-05 06:50:02,754 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160707.export.CSV.zip
+2026-11-05 06:50:02,754 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160708.export.CSV.zip
+2026-11-05 06:50:02,755 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160709.export.CSV.zip
+2026-11-05 06:50:02,755 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160710.export.CSV.zip
+2026-11-05 06:50:02,755 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160711.export.CSV.zip
+2026-11-05 06:50:02,755 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160712.export.CSV.zip
+2026-11-05 06:50:02,755 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160713.export.CSV.zip
+2026-11-05 06:50:02,755 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160714.export.CSV.zip
+2026-11-05 06:50:02,755 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160715.export.CSV.zip
+2026-11-05 06:50:02,755 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160716.export.CSV.zip
+2026-11-05 06:50:02,755 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160717.export.CSV.zip
+2026-11-05 06:50:02,755 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160718.export.CSV.zip
+2026-11-05 06:50:02,755 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160719.export.CSV.zip
+2026-11-05 06:50:02,755 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160720.export.CSV.zip
+2026-11-05 06:50:02,755 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160721.export.CSV.zip
+2026-11-05 06:50:02,755 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160722.export.CSV.zip
+2026-11-05 06:50:02,755 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160723.export.CSV.zip
+2026-11-05 06:50:02,756 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160724.export.CSV.zip
+2026-11-05 06:50:02,756 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160725.export.CSV.zip
+2026-11-05 06:50:02,756 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160726.export.CSV.zip
+2026-11-05 06:50:02,756 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160727.export.CSV.zip
+2026-11-05 06:50:02,756 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160728.export.CSV.zip
+2026-11-05 06:50:02,756 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160729.export.CSV.zip
+2026-11-05 06:50:02,756 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160730.export.CSV.zip
+2026-11-05 06:50:02,756 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160731.export.CSV.zip
+2026-11-05 06:50:02,756 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160801.export.CSV.zip
+2026-11-05 06:50:02,756 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160802.export.CSV.zip
+2026-11-05 06:50:02,756 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160803.export.CSV.zip
+2026-11-05 06:50:02,756 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160804.export.CSV.zip
+2026-11-05 06:50:02,756 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160805.export.CSV.zip
+2026-11-05 06:50:02,756 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160806.export.CSV.zip
+2026-11-05 06:50:02,757 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160807.export.CSV.zip
+2026-11-05 06:50:02,757 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160808.export.CSV.zip
+2026-11-05 06:50:02,757 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160809.export.CSV.zip
+2026-11-05 06:50:02,757 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160810.export.CSV.zip
+2026-11-05 06:50:02,757 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160811.export.CSV.zip
+2026-11-05 06:50:02,757 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160812.export.CSV.zip
+2026-11-05 06:50:02,757 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160813.export.CSV.zip
+2026-11-05 06:50:02,757 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160814.export.CSV.zip
+2026-11-05 06:50:02,757 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160815.export.CSV.zip
+2026-11-05 06:50:02,757 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160816.export.CSV.zip
+2026-11-05 06:50:02,757 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160817.export.CSV.zip
+2026-11-05 06:50:02,757 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160818.export.CSV.zip
+2026-11-05 06:50:02,757 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160819.export.CSV.zip
+2026-11-05 06:50:02,757 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160820.export.CSV.zip
+2026-11-05 06:50:02,758 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160821.export.CSV.zip
+2026-11-05 06:50:02,758 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160822.export.CSV.zip
+2026-11-05 06:50:02,758 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160823.export.CSV.zip
+2026-11-05 06:50:02,758 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160824.export.CSV.zip
+2026-11-05 06:50:02,758 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160825.export.CSV.zip
+2026-11-05 06:50:02,758 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160826.export.CSV.zip
+2026-11-05 06:50:02,758 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160827.export.CSV.zip
+2026-11-05 06:50:02,758 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160828.export.CSV.zip
+2026-11-05 06:50:02,758 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160829.export.CSV.zip
+2026-11-05 06:50:02,758 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160830.export.CSV.zip
+2026-11-05 06:50:02,758 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160831.export.CSV.zip
+2026-11-05 06:50:02,763 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160901.export.CSV.zip
+2026-11-05 06:50:02,763 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160902.export.CSV.zip
+2026-11-05 06:50:02,763 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160903.export.CSV.zip
+2026-11-05 06:50:02,763 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160904.export.CSV.zip
+2026-11-05 06:50:02,763 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160905.export.CSV.zip
+2026-11-05 06:50:02,764 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160906.export.CSV.zip
+2026-11-05 06:50:02,764 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160907.export.CSV.zip
+2026-11-05 06:50:02,764 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160908.export.CSV.zip
+2026-11-05 06:50:02,764 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160909.export.CSV.zip
+2026-11-05 06:50:02,764 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160910.export.CSV.zip
+2026-11-05 06:50:02,764 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160911.export.CSV.zip
+2026-11-05 06:50:02,764 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160912.export.CSV.zip
+2026-11-05 06:50:02,764 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160913.export.CSV.zip
+2026-11-05 06:50:02,764 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160914.export.CSV.zip
+2026-11-05 06:50:02,764 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160915.export.CSV.zip
+2026-11-05 06:50:02,764 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160916.export.CSV.zip
+2026-11-05 06:50:02,764 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160917.export.CSV.zip
+2026-11-05 06:50:02,765 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160918.export.CSV.zip
+2026-11-05 06:50:02,765 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160919.export.CSV.zip
+2026-11-05 06:50:02,765 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160920.export.CSV.zip
+2026-11-05 06:50:02,765 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160921.export.CSV.zip
+2026-11-05 06:50:02,765 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160922.export.CSV.zip
+2026-11-05 06:50:02,765 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160923.export.CSV.zip
+2026-11-05 06:50:02,765 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160924.export.CSV.zip
+2026-11-05 06:50:02,765 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160925.export.CSV.zip
+2026-11-05 06:50:02,765 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160926.export.CSV.zip
+2026-11-05 06:50:02,765 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160927.export.CSV.zip
+2026-11-05 06:50:02,765 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160928.export.CSV.zip
+2026-11-05 06:50:02,765 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160929.export.CSV.zip
+2026-11-05 06:50:02,765 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20160930.export.CSV.zip
+2026-11-05 06:50:02,765 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161001.export.CSV.zip
+2026-11-05 06:50:02,765 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161002.export.CSV.zip
+2026-11-05 06:50:02,765 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161003.export.CSV.zip
+2026-11-05 06:50:02,766 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161004.export.CSV.zip
+2026-11-05 06:50:02,766 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161005.export.CSV.zip
+2026-11-05 06:50:02,766 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161006.export.CSV.zip
+2026-11-05 06:50:02,766 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161007.export.CSV.zip
+2026-11-05 06:50:02,766 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161008.export.CSV.zip
+2026-11-05 06:50:02,766 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161009.export.CSV.zip
+2026-11-05 06:50:02,766 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161010.export.CSV.zip
+2026-11-05 06:50:02,766 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161011.export.CSV.zip
+2026-11-05 06:50:02,766 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161012.export.CSV.zip
+2026-11-05 06:50:02,766 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161013.export.CSV.zip
+2026-11-05 06:50:02,766 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161014.export.CSV.zip
+2026-11-05 06:50:02,766 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161015.export.CSV.zip
+2026-11-05 06:50:02,766 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161016.export.CSV.zip
+2026-11-05 06:50:02,767 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161017.export.CSV.zip
+2026-11-05 06:50:02,767 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161018.export.CSV.zip
+2026-11-05 06:50:02,767 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161019.export.CSV.zip
+2026-11-05 06:50:02,767 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161020.export.CSV.zip
+2026-11-05 06:50:02,767 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161021.export.CSV.zip
+2026-11-05 06:50:02,767 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161022.export.CSV.zip
+2026-11-05 06:50:02,767 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161023.export.CSV.zip
+2026-11-05 06:50:02,767 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161024.export.CSV.zip
+2026-11-05 06:50:02,767 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161025.export.CSV.zip
+2026-11-05 06:50:02,767 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161026.export.CSV.zip
+2026-11-05 06:50:02,767 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161027.export.CSV.zip
+2026-11-05 06:50:02,767 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161028.export.CSV.zip
+2026-11-05 06:50:02,767 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161029.export.CSV.zip
+2026-11-05 06:50:02,767 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161030.export.CSV.zip
+2026-11-05 06:50:02,768 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161031.export.CSV.zip
+2026-11-05 06:50:02,768 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161101.export.CSV.zip
+2026-11-05 06:50:02,768 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161102.export.CSV.zip
+2026-11-05 06:50:02,768 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161103.export.CSV.zip
+2026-11-05 06:50:02,768 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161104.export.CSV.zip
+2026-11-05 06:50:02,768 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161105.export.CSV.zip
+2026-11-05 06:50:02,768 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161106.export.CSV.zip
+2026-11-05 06:50:02,768 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161107.export.CSV.zip
+2026-11-05 06:50:02,768 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161108.export.CSV.zip
+2026-11-05 06:50:02,768 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161109.export.CSV.zip
+2026-11-05 06:50:02,768 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161110.export.CSV.zip
+2026-11-05 06:50:02,768 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161111.export.CSV.zip
+2026-11-05 06:50:02,768 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161112.export.CSV.zip
+2026-11-05 06:50:02,768 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161113.export.CSV.zip
+2026-11-05 06:50:02,769 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161114.export.CSV.zip
+2026-11-05 06:50:02,769 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161115.export.CSV.zip
+2026-11-05 06:50:02,769 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161116.export.CSV.zip
+2026-11-05 06:50:02,769 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161117.export.CSV.zip
+2026-11-05 06:50:02,769 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161118.export.CSV.zip
+2026-11-05 06:50:02,769 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161119.export.CSV.zip
+2026-11-05 06:50:02,769 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161120.export.CSV.zip
+2026-11-05 06:50:02,769 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161121.export.CSV.zip
+2026-11-05 06:50:02,769 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161122.export.CSV.zip
+2026-11-05 06:50:02,769 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161123.export.CSV.zip
+2026-11-05 06:50:02,769 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161124.export.CSV.zip
+2026-11-05 06:50:02,769 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161125.export.CSV.zip
+2026-11-05 06:50:02,769 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161126.export.CSV.zip
+2026-11-05 06:50:02,769 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161127.export.CSV.zip
+2026-11-05 06:50:02,769 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161128.export.CSV.zip
+2026-11-05 06:50:02,770 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161129.export.CSV.zip
+2026-11-05 06:50:02,770 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161130.export.CSV.zip
+2026-11-05 06:50:02,770 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161201.export.CSV.zip
+2026-11-05 06:50:02,770 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161202.export.CSV.zip
+2026-11-05 06:50:02,770 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161203.export.CSV.zip
+2026-11-05 06:50:02,770 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161204.export.CSV.zip
+2026-11-05 06:50:02,770 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161205.export.CSV.zip
+2026-11-05 06:50:02,770 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161206.export.CSV.zip
+2026-11-05 06:50:02,770 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161207.export.CSV.zip
+2026-11-05 06:50:02,770 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161208.export.CSV.zip
+2026-11-05 06:50:02,770 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161209.export.CSV.zip
+2026-11-05 06:50:02,770 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161210.export.CSV.zip
+2026-11-05 06:50:02,770 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161211.export.CSV.zip
+2026-11-05 06:50:02,770 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161212.export.CSV.zip
+2026-11-05 06:50:02,770 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161213.export.CSV.zip
+2026-11-05 06:50:02,770 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161214.export.CSV.zip
+2026-11-05 06:50:02,770 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161215.export.CSV.zip
+2026-11-05 06:50:02,770 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161216.export.CSV.zip
+2026-11-05 06:50:02,771 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161217.export.CSV.zip
+2026-11-05 06:50:02,771 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161218.export.CSV.zip
+2026-11-05 06:50:02,771 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161219.export.CSV.zip
+2026-11-05 06:50:02,771 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161220.export.CSV.zip
+2026-11-05 06:50:02,771 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161221.export.CSV.zip
+2026-11-05 06:50:02,771 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161222.export.CSV.zip
+2026-11-05 06:50:02,771 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161223.export.CSV.zip
+2026-11-05 06:50:02,771 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161224.export.CSV.zip
+2026-11-05 06:50:02,771 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161225.export.CSV.zip
+2026-11-05 06:50:02,771 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161226.export.CSV.zip
+2026-11-05 06:50:02,771 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161227.export.CSV.zip
+2026-11-05 06:50:02,771 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161228.export.CSV.zip
+2026-11-05 06:50:02,771 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161229.export.CSV.zip
+2026-11-05 06:50:02,771 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161230.export.CSV.zip
+2026-11-05 06:50:02,772 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20161231.export.CSV.zip
+2026-11-05 06:50:02,772 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170101.export.CSV.zip
+2026-11-05 06:50:02,772 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170102.export.CSV.zip
+2026-11-05 06:50:02,772 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170103.export.CSV.zip
+2026-11-05 06:50:02,772 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170104.export.CSV.zip
+2026-11-05 06:50:02,772 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170105.export.CSV.zip
+2026-11-05 06:50:02,772 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170106.export.CSV.zip
+2026-11-05 06:50:02,772 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170107.export.CSV.zip
+2026-11-05 06:50:02,772 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170108.export.CSV.zip
+2026-11-05 06:50:02,772 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170109.export.CSV.zip
+2026-11-05 06:50:02,772 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170110.export.CSV.zip
+2026-11-05 06:50:02,772 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170111.export.CSV.zip
+2026-11-05 06:50:02,772 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170112.export.CSV.zip
+2026-11-05 06:50:02,772 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170113.export.CSV.zip
+2026-11-05 06:50:02,772 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170114.export.CSV.zip
+2026-11-05 06:50:02,772 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170115.export.CSV.zip
+2026-11-05 06:50:02,772 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170116.export.CSV.zip
+2026-11-05 06:50:02,772 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170117.export.CSV.zip
+2026-11-05 06:50:02,773 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170118.export.CSV.zip
+2026-11-05 06:50:02,773 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170119.export.CSV.zip
+2026-11-05 06:50:02,773 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170120.export.CSV.zip
+2026-11-05 06:50:02,773 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170121.export.CSV.zip
+2026-11-05 06:50:02,773 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170122.export.CSV.zip
+2026-11-05 06:50:02,773 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170123.export.CSV.zip
+2026-11-05 06:50:02,773 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170124.export.CSV.zip
+2026-11-05 06:50:02,773 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170125.export.CSV.zip
+2026-11-05 06:50:02,773 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170126.export.CSV.zip
+2026-11-05 06:50:02,773 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170127.export.CSV.zip
+2026-11-05 06:50:02,773 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170128.export.CSV.zip
+2026-11-05 06:50:02,773 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170129.export.CSV.zip
+2026-11-05 06:50:02,773 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170130.export.CSV.zip
+2026-11-05 06:50:02,773 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170131.export.CSV.zip
+2026-11-05 06:50:02,773 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170201.export.CSV.zip
+2026-11-05 06:50:02,774 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170202.export.CSV.zip
+2026-11-05 06:50:02,774 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170203.export.CSV.zip
+2026-11-05 06:50:02,774 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170204.export.CSV.zip
+2026-11-05 06:50:02,774 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170205.export.CSV.zip
+2026-11-05 06:50:02,774 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170206.export.CSV.zip
+2026-11-05 06:50:02,774 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170207.export.CSV.zip
+2026-11-05 06:50:02,774 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170208.export.CSV.zip
+2026-11-05 06:50:02,774 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170209.export.CSV.zip
+2026-11-05 06:50:02,774 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170210.export.CSV.zip
+2026-11-05 06:50:02,774 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170211.export.CSV.zip
+2026-11-05 06:50:02,774 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170212.export.CSV.zip
+2026-11-05 06:50:02,774 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170213.export.CSV.zip
+2026-11-05 06:50:02,774 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170214.export.CSV.zip
+2026-11-05 06:50:02,774 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170215.export.CSV.zip
+2026-11-05 06:50:02,774 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170216.export.CSV.zip
+2026-11-05 06:50:02,774 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170217.export.CSV.zip
+2026-11-05 06:50:02,775 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170218.export.CSV.zip
+2026-11-05 06:50:02,775 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170219.export.CSV.zip
+2026-11-05 06:50:02,775 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170220.export.CSV.zip
+2026-11-05 06:50:02,775 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170221.export.CSV.zip
+2026-11-05 06:50:02,775 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170222.export.CSV.zip
+2026-11-05 06:50:02,775 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170223.export.CSV.zip
+2026-11-05 06:50:02,775 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170224.export.CSV.zip
+2026-11-05 06:50:02,775 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170225.export.CSV.zip
+2026-11-05 06:50:02,775 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170226.export.CSV.zip
+2026-11-05 06:50:02,775 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170227.export.CSV.zip
+2026-11-05 06:50:02,775 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170228.export.CSV.zip
+2026-11-05 06:50:02,775 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170301.export.CSV.zip
+2026-11-05 06:50:02,775 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170302.export.CSV.zip
+2026-11-05 06:50:02,775 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170303.export.CSV.zip
+2026-11-05 06:50:02,775 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170304.export.CSV.zip
+2026-11-05 06:50:02,775 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170305.export.CSV.zip
+2026-11-05 06:50:02,775 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170306.export.CSV.zip
+2026-11-05 06:50:02,775 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170307.export.CSV.zip
+2026-11-05 06:50:02,775 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170308.export.CSV.zip
+2026-11-05 06:50:02,775 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170309.export.CSV.zip
+2026-11-05 06:50:02,776 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170310.export.CSV.zip
+2026-11-05 06:50:02,776 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170311.export.CSV.zip
+2026-11-05 06:50:02,776 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170312.export.CSV.zip
+2026-11-05 06:50:02,776 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170313.export.CSV.zip
+2026-11-05 06:50:02,776 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170314.export.CSV.zip
+2026-11-05 06:50:02,776 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170315.export.CSV.zip
+2026-11-05 06:50:02,776 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170316.export.CSV.zip
+2026-11-05 06:50:02,776 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170317.export.CSV.zip
+2026-11-05 06:50:02,776 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170318.export.CSV.zip
+2026-11-05 06:50:02,776 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170319.export.CSV.zip
+2026-11-05 06:50:02,776 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170320.export.CSV.zip
+2026-11-05 06:50:02,776 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170321.export.CSV.zip
+2026-11-05 06:50:02,776 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170322.export.CSV.zip
+2026-11-05 06:50:02,776 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170323.export.CSV.zip
+2026-11-05 06:50:02,776 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170324.export.CSV.zip
+2026-11-05 06:50:02,776 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170325.export.CSV.zip
+2026-11-05 06:50:02,776 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170326.export.CSV.zip
+2026-11-05 06:50:02,776 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170327.export.CSV.zip
+2026-11-05 06:50:02,776 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170328.export.CSV.zip
+2026-11-05 06:50:02,777 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170329.export.CSV.zip
+2026-11-05 06:50:02,777 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170330.export.CSV.zip
+2026-11-05 06:50:02,777 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170331.export.CSV.zip
+2026-11-05 06:50:02,777 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170401.export.CSV.zip
+2026-11-05 06:50:02,777 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170402.export.CSV.zip
+2026-11-05 06:50:02,777 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170403.export.CSV.zip
+2026-11-05 06:50:02,777 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170404.export.CSV.zip
+2026-11-05 06:50:02,777 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170405.export.CSV.zip
+2026-11-05 06:50:02,777 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170406.export.CSV.zip
+2026-11-05 06:50:02,777 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170407.export.CSV.zip
+2026-11-05 06:50:02,777 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170408.export.CSV.zip
+2026-11-05 06:50:02,777 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170409.export.CSV.zip
+2026-11-05 06:50:02,777 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170410.export.CSV.zip
+2026-11-05 06:50:02,777 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170411.export.CSV.zip
+2026-11-05 06:50:02,777 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170412.export.CSV.zip
+2026-11-05 06:50:02,777 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170413.export.CSV.zip
+2026-11-05 06:50:02,777 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170414.export.CSV.zip
+2026-11-05 06:50:02,777 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170415.export.CSV.zip
+2026-11-05 06:50:02,777 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170416.export.CSV.zip
+2026-11-05 06:50:02,777 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170417.export.CSV.zip
+2026-11-05 06:50:02,777 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170418.export.CSV.zip
+2026-11-05 06:50:02,778 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170419.export.CSV.zip
+2026-11-05 06:50:02,778 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170420.export.CSV.zip
+2026-11-05 06:50:02,778 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170421.export.CSV.zip
+2026-11-05 06:50:02,778 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170422.export.CSV.zip
+2026-11-05 06:50:02,778 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170423.export.CSV.zip
+2026-11-05 06:50:02,778 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170424.export.CSV.zip
+2026-11-05 06:50:02,778 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170425.export.CSV.zip
+2026-11-05 06:50:02,778 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170426.export.CSV.zip
+2026-11-05 06:50:02,778 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170427.export.CSV.zip
+2026-11-05 06:50:02,778 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170428.export.CSV.zip
+2026-11-05 06:50:02,778 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170429.export.CSV.zip
+2026-11-05 06:50:02,778 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170430.export.CSV.zip
+2026-11-05 06:50:02,778 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170501.export.CSV.zip
+2026-11-05 06:50:02,778 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170502.export.CSV.zip
+2026-11-05 06:50:02,778 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170503.export.CSV.zip
+2026-11-05 06:50:02,778 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170504.export.CSV.zip
+2026-11-05 06:50:02,778 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170505.export.CSV.zip
+2026-11-05 06:50:02,779 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170506.export.CSV.zip
+2026-11-05 06:50:02,779 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170507.export.CSV.zip
+2026-11-05 06:50:02,780 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170508.export.CSV.zip
+2026-11-05 06:50:02,780 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170509.export.CSV.zip
+2026-11-05 06:50:02,780 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170510.export.CSV.zip
+2026-11-05 06:50:02,780 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170511.export.CSV.zip
+2026-11-05 06:50:02,780 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170512.export.CSV.zip
+2026-11-05 06:50:02,780 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170513.export.CSV.zip
+2026-11-05 06:50:02,780 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170514.export.CSV.zip
+2026-11-05 06:50:02,780 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170515.export.CSV.zip
+2026-11-05 06:50:02,780 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170516.export.CSV.zip
+2026-11-05 06:50:02,780 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170517.export.CSV.zip
+2026-11-05 06:50:02,780 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170518.export.CSV.zip
+2026-11-05 06:50:02,780 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170519.export.CSV.zip
+2026-11-05 06:50:02,780 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170520.export.CSV.zip
+2026-11-05 06:50:02,780 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170521.export.CSV.zip
+2026-11-05 06:50:02,780 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170522.export.CSV.zip
+2026-11-05 06:50:02,780 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170523.export.CSV.zip
+2026-11-05 06:50:02,780 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170524.export.CSV.zip
+2026-11-05 06:50:02,780 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170525.export.CSV.zip
+2026-11-05 06:50:02,780 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170526.export.CSV.zip
+2026-11-05 06:50:02,780 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170527.export.CSV.zip
+2026-11-05 06:50:02,781 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170528.export.CSV.zip
+2026-11-05 06:50:02,781 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170529.export.CSV.zip
+2026-11-05 06:50:02,781 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170530.export.CSV.zip
+2026-11-05 06:50:02,781 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170531.export.CSV.zip
+2026-11-05 06:50:02,781 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170601.export.CSV.zip
+2026-11-05 06:50:02,781 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170602.export.CSV.zip
+2026-11-05 06:50:02,781 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170603.export.CSV.zip
+2026-11-05 06:50:02,781 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170604.export.CSV.zip
+2026-11-05 06:50:02,781 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170605.export.CSV.zip
+2026-11-05 06:50:02,781 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170606.export.CSV.zip
+2026-11-05 06:50:02,781 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170607.export.CSV.zip
+2026-11-05 06:50:02,781 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170608.export.CSV.zip
+2026-11-05 06:50:02,781 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170609.export.CSV.zip
+2026-11-05 06:50:02,781 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170610.export.CSV.zip
+2026-11-05 06:50:02,781 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170611.export.CSV.zip
+2026-11-05 06:50:02,781 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170612.export.CSV.zip
+2026-11-05 06:50:02,781 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170613.export.CSV.zip
+2026-11-05 06:50:02,781 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170614.export.CSV.zip
+2026-11-05 06:50:02,781 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170615.export.CSV.zip
+2026-11-05 06:50:02,781 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170616.export.CSV.zip
+2026-11-05 06:50:02,781 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170617.export.CSV.zip
+2026-11-05 06:50:02,782 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170618.export.CSV.zip
+2026-11-05 06:50:02,782 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170619.export.CSV.zip
+2026-11-05 06:50:02,782 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170620.export.CSV.zip
+2026-11-05 06:50:02,782 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170621.export.CSV.zip
+2026-11-05 06:50:02,782 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170622.export.CSV.zip
+2026-11-05 06:50:02,782 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170623.export.CSV.zip
+2026-11-05 06:50:02,782 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170624.export.CSV.zip
+2026-11-05 06:50:02,782 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170625.export.CSV.zip
+2026-11-05 06:50:02,782 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170626.export.CSV.zip
+2026-11-05 06:50:02,782 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170627.export.CSV.zip
+2026-11-05 06:50:02,782 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170628.export.CSV.zip
+2026-11-05 06:50:02,782 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170629.export.CSV.zip
+2026-11-05 06:50:02,782 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/20170630.export.CSV.zip
+2026-11-05 06:50:02,782 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/_provenance/filesizes
+2026-11-05 06:50:02,782 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/gdelt/v1-daily/acquired=2026-11-03/_provenance/md5sums
+2026-11-05 06:50:02,782 INFO s3distcp.S3DistCp: Got object summary 
+ Bucket = <bucket>, Key = inf2006/raw/prices/plotly-datasets-0c447c4/acquired=2026-11-03/all_stocks_5yr.csv
+2026-11-05 06:50:02,787 INFO s3distcp.FileInfoListing: Opening new file: hdfs:/tmp/3285688d-1a8f-43d4-843b-c2cd2051bec2/files/1
+2026-11-05 06:50:02,919 INFO s3distcp.S3DistCp: Created 1 files to copy 736 files 
+2026-11-05 06:50:03,023 INFO s3distcp.S3DistCp: Reducer number: 3
+2026-11-05 06:50:03,212 INFO client.DefaultNoHARMFailoverProxyProvider: Connecting to ResourceManager at ip-172-31-75-200.ec2.internal/172.31.75.200:8032
+2026-11-05 06:50:03,317 INFO client.AHSProxy: Connecting to Application History server at ip-172-31-75-200.ec2.internal/172.31.75.200:10200
+2026-11-05 06:50:03,472 INFO mapreduce.JobResourceUploader: Disabling Erasure Coding for path: /tmp/hadoop-yarn/staging/hadoop/.staging/job_1793861139962_0001
+2026-11-05 06:50:03,997 INFO input.FileInputFormat: Total input files to process : 1
+2026-11-05 06:50:04,048 INFO mapreduce.JobSubmitter: number of splits:1
+2026-11-05 06:50:04,215 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1793861139962_0001
+2026-11-05 06:50:04,215 INFO mapreduce.JobSubmitter: Executing with tokens: []
+2026-11-05 06:50:04,430 INFO conf.Configuration: resource-types.xml not found
+2026-11-05 06:50:04,431 INFO resource.ResourceUtils: Unable to find 'resource-types.xml'.
+2026-11-05 06:50:04,857 INFO impl.YarnClientImpl: Submitted application application_1793861139962_0001
+2026-11-05 06:50:04,953 INFO mapreduce.Job: The url to track the job: http://ip-172-31-75-200.ec2.internal:20888/proxy/application_1793861139962_0001/
+2026-11-05 06:50:04,954 INFO mapreduce.Job: Running job: job_1793861139962_0001
+2026-11-05 06:50:12,051 INFO mapreduce.Job: Job job_1793861139962_0001 running in uber mode : false
+2026-11-05 06:50:12,052 INFO mapreduce.Job:  map 0% reduce 0%
+2026-11-05 06:50:18,100 INFO mapreduce.Job:  map 100% reduce 0%
+2026-11-05 06:50:36,199 INFO mapreduce.Job:  map 100% reduce 29%
+2026-11-05 06:50:38,208 INFO mapreduce.Job:  map 100% reduce 79%
+2026-11-05 06:50:42,232 INFO mapreduce.Job:  map 100% reduce 82%
+2026-11-05 06:50:44,241 INFO mapreduce.Job:  map 100% reduce 88%
+2026-11-05 06:50:47,253 INFO mapreduce.Job:  map 100% reduce 89%
+2026-11-05 06:50:50,265 INFO mapreduce.Job:  map 100% reduce 93%
+2026-11-05 06:50:56,290 INFO mapreduce.Job:  map 100% reduce 98%
+2026-11-05 06:50:59,301 INFO mapreduce.Job:  map 100% reduce 99%
+2026-11-05 06:51:00,305 INFO mapreduce.Job:  map 100% reduce 100%
+2026-11-05 06:51:00,311 INFO mapreduce.Job: Job job_1793861139962_0001 completed successfully
+2026-11-05 06:51:00,396 INFO mapreduce.Job: Counters: 59
+	File System Counters
+		FILE: Number of bytes read=24119
+		FILE: Number of bytes written=1373544
+		FILE: Number of read operations=0
+		FILE: Number of large read operations=0
+		FILE: Number of write operations=0
+		HDFS: Number of bytes read=173182
+		HDFS: Number of bytes written=9642071313
+		HDFS: Number of read operations=755
+		HDFS: Number of large read operations=0
+		HDFS: Number of write operations=742
+		HDFS: Number of bytes read erasure-coded=0
+		S3: Number of bytes read=9642071313
+		S3: Number of bytes written=0
+		S3: Number of read operations=736
+		S3: Number of large read operations=0
+		S3: Number of write operations=0
+	Job Counters 
+		Launched map tasks=1
+		Launched reduce tasks=3
+		Data-local map tasks=1
+		Total time spent by all maps in occupied slots (ms)=11787264
+		Total time spent by all reduces in occupied slots (ms)=630644736
+		Total time spent by all map tasks (ms)=3837
+		Total time spent by all reduce tasks (ms)=102644
+		Total vcore-milliseconds taken by all map tasks=3837
+		Total vcore-milliseconds taken by all reduce tasks=102644
+		Total megabyte-milliseconds taken by all map tasks=11787264
+		Total megabyte-milliseconds taken by all reduce tasks=630644736
+	Map-Reduce Framework
+		Map input records=736
+		Map output records=736
+		Map output bytes=214087
+		Map output materialized bytes=24107
+		Input split bytes=155
+		Combine input records=0
+		Combine output records=0
+		Reduce input groups=736
+		Reduce shuffle bytes=24107
+		Reduce input records=736
+		Reduce output records=0
+		Spilled Records=1472
+		Shuffled Maps =3
+		Failed Shuffles=0
+		Merged Map outputs=3
+		GC time elapsed (ms)=1136
+		CPU time spent (ms)=105410
+		Physical memory (bytes) snapshot=2389106688
+		Virtual memory (bytes) snapshot=26244870144
+		Total committed heap usage (bytes)=1864368128
+		Peak Map Physical memory (bytes)=525836288
+		Peak Map Virtual memory (bytes)=4531527680
+		Peak Reduce Physical memory (bytes)=640499712
+		Peak Reduce Virtual memory (bytes)=7243755520
+	Shuffle Errors
+		BAD_ID=0
+		CONNECTION=0
+		IO_ERROR=0
+		WRONG_LENGTH=0
+		WRONG_MAP=0
+		WRONG_REDUCE=0
+	File Input Format Counters 
+		Bytes Read=173027
+	File Output Format Counters 
+		Bytes Written=0
+2026-11-05 06:51:00,397 INFO s3distcp.S3DistCp: Try to recursively delete without throw Exceptionhdfs:/tmp/3285688d-1a8f-43d4-843b-c2cd2051bec2
+2026-11-05 06:51:00,417 INFO impl.MetricsSystemImpl: Stopping s3a-file-system metrics system...
+2026-11-05 06:51:00,417 INFO impl.MetricsSystemImpl: s3a-file-system metrics system stopped.
+2026-11-05 06:51:00,417 INFO impl.MetricsSystemImpl: s3a-file-system metrics system shutdown complete.
+copy finished=2026-11-05T06:51:04Z
+           3            1             28.2 M /inf2006/raw/prices
+           4          733              9.0 G /inf2006/raw/gdelt
+28.2 M  56.4 M  /inf2006/raw/prices
+9.0 G   17.9 G  /inf2006/raw/gdelt
+Connecting to namenode via http://ip-172-31-75-200.ec2.internal:9870/fsck?ugi=hadoop&path=%2Finf2006%2Fraw
+ Mis-replicated blocks:		0 (0.0 %)
+ Default replication factor:	2
+ Average block replication:	2.0
+ Missing blocks:		0
+ Corrupt blocks:		0
+ Missing replicas:		0 (0.0 %)
+ Blocks queued for replication:	0
+
+Erasure Coded Block Groups:
+ Total size:	0 B
+ Total files:	0
+ Total block groups (validated):	0
+ Minimally erasure-coded block groups:	0
+ Over-erasure-coded block groups:	0
+ Under-erasure-coded block groups:	0
+ Unsatisfactory placement block groups:	0
+ Average block group size:	0.0
+ Missing block groups:		0
+ Corrupt block groups:		0
+ Missing internal blocks:	0
+ Blocks queued for replication:	0
+FSCK ended at Thu Nov 05 06:51:10 UTC 2026 in 64 milliseconds
+
+
+The filesystem under path '/inf2006/raw' is HEALTHY
+verify started=2026-11-05T06:51:11Z (sizes for all files, SHA-256 for the price CSV)
+{
+  "run_id": "20261105-1430-full-ref",
+  "checked_at_utc": "2026-11-05T06:51:17Z",
+  "hash_checked": "non-zip files (zips: Streaming job)",
+  "manifests": [
+    "gdelt_acquired=2026-11-03.csv",
+    "prices_acquired=2026-11-03.csv"
+  ],
+  "per_source": {
+    "gdelt_events_v1": {
+      "files": 731,
+      "bytes": 9611684528,
+      "text_lines": 0,
+      "problems": 0
+    },
+    "daily_price_csv": {
+      "files": 1,
+      "bytes": 29580549,
+      "text_lines": 619041,
+      "problems": 0
+    }
+  },
+  "not_acquired": [],
+  "files_ok": 732,
+  "files_checked": 732
+}
+wrote evidence/corpus/hdfs_verify_20261105-1430-full-ref.csv

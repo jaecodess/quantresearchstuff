@@ -24,4 +24,6 @@ Timing starts after raw inputs are staged in HDFS; download, S3-to-HDFS copy, se
 ## Progress log
 <!-- Newest last. Format: - YYYY-MM-DD @handle: what you finished / changed / learned. One line, link evidence. -->
 - 2026-11-04 @husyGIT: Added Task 1 EMR evidence (run 20261103-2250-full-ref): staging log, price profile and log, YARN application list, software versions, first GDELT job log. Bucket name redacted. Evidence: evidence/corpus/, evidence/gdelt_daily_20261103-2250-full-ref.log
+- 2026-11-09 @husyGIT: Added Task 3 EMR evidence (run 20261106-1400-full-ref): validation/test/reload JSON, weekly tables, logs, job IDs, test marker. Evidence: evidence/model/
+- 2026-11-10 @husyGIT: Added Task 2 EMR evidence (run 20261105-1430-full-ref): reconciliation, summaries, stage times, IDs, full log, GDELT Streaming log, session staging and HDFS verification. Bucket and hostnames redacted. Evidence: evidence/pipeline/, evidence/gdelt_daily_20261105-1430-full-ref.log, evidence/corpus/inventory_20261105-1430-full-ref.json
 - 2026-11-10 @husyGIT: Added SEC EDGAR and Wikinews acquisition and four-source HDFS staging evidence (run 20261110-1300-aux); bucket and contact email redacted. Evidence: evidence/corpus/inventory_20261110-1300-aux.json, evidence/corpus/stage_20261110-1300-aux.log
