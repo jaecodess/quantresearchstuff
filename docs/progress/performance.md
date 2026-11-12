@@ -6,9 +6,9 @@ Provides to everyone: the shared logging helper (writes `evidence/timings.csv`, 
 Timing starts after raw inputs are staged in HDFS; download, S3-to-HDFS copy, setup and cluster startup are reported separately. Three repetitions per profile/config.
 
 ## Tasks
-- [ ] **PERF-01** Shared logging helper → `evidence/timings.csv`, application/job/query IDs · owner: @TODO · due: 2026-11-04
-- [ ] **PERF-02** Single run script taking `--profile` and `--config`, fresh `run_id` outputs per run · owner: @TODO · due: 2026-11-06 · needs: PERF-01
-- [ ] **PERF-03** Define the development and full profiles as config (deterministic ~50-ticker rule plus one GDELT month) · owner: @TODO · due: 2026-11-03 · needs: TEAM-06
+- [~] **PERF-01** Shared logging helper → `evidence/timings.csv`, application/job/query IDs · owner: @jaecodess · due: 2026-11-04
+- [~] **PERF-02** Single run script taking `--profile` and `--config`, fresh `run_id` outputs per run · owner: @jaecodess · due: 2026-11-06 · needs: PERF-01
+- [~] **PERF-03** Define the development and full profiles as config (deterministic ~50-ticker rule plus one GDELT month) · owner: @jaecodess · due: 2026-11-03 · needs: TEAM-06
 - [ ] **PERF-04** EMR bring-up: reference cluster config (emr-7.10.0, 1 + 2 m5.xlarge, replication 2, Spark 2 x 2 x 6 GiB, dynamic allocation off); confirm with teaching team · owner: @TODO · due: 2026-11-06
 - [ ] **PERF-05** Thin notebook skeleton: one section per stage calling owned `.py`, `.sql` and Streaming files · owner: @TODO · due: 2026-11-07 · needs: PERF-02
 - [ ] **PERF-06** Run set A: development profile, reference config, 3 repetitions · owner: @TODO · due: 2026-11-13 · needs: PERF-02, PIPE-13
@@ -28,3 +28,4 @@ Timing starts after raw inputs are staged in HDFS; download, S3-to-HDFS copy, se
 - 2026-11-10 @husyGIT: Added Task 2 EMR evidence (run 20261105-1430-full-ref): reconciliation, summaries, stage times, IDs, full log, GDELT Streaming log, session staging and HDFS verification. Bucket and hostnames redacted. Evidence: evidence/pipeline/, evidence/gdelt_daily_20261105-1430-full-ref.log, evidence/corpus/inventory_20261105-1430-full-ref.json
 - 2026-11-10 @husyGIT: Added SEC EDGAR and Wikinews acquisition and four-source HDFS staging evidence (run 20261110-1300-aux); bucket and contact email redacted. Evidence: evidence/corpus/inventory_20261110-1300-aux.json, evidence/corpus/stage_20261110-1300-aux.log
 - 2026-11-10 @husyGIT: Added Task 4 EMR evidence (run 20261110-1000-full-ref): summaries, weekly tables, log (bucket redacted), Hive query and application IDs, stage timings, charts. Evidence: evidence/analytics/
+- 2026-11-12 @jaecodess: PERF code written, not yet run on EMR: `perf/run_pipeline.sh` (one timed run of Task 2 → Task 3 frozen model → Task 4 per `--profile dev|full --config ref|alt --rep N`, fresh run_id, failures recorded, output check against the first successful reference run), `perf/timings.py` (timings table, per-node memory/disk peaks without hostnames, YARN app stats, median/range summary, result check), resource sampler, dev-input builder, ref/alt configs, tests. Dry-run end to end with stubbed Hadoop/Hive/Spark/YARN commands. Timing scope proposed as D-023, dev profile as D-024. Evidence: perf/, tests/perf/ (PERF-01, PERF-02, PERF-03)
