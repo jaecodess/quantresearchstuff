@@ -14,7 +14,7 @@ Legend: `[ ]` todo, `[~]` in progress, `[x]` done, `[!]` blocked.
 | [PIPE](pipeline.md) Pipeline (Task 2) | @r4ihn | 12 | 1 | 0 | 1 | 14 |
 | [MODEL](model.md) Model (Task 3) | @TODO | 9 | 1 | 0 | 1 | 11 |
 | [ANLY](analytics.md) Analytics (Task 4) | @TODO | 5 | 1 | 0 | 1 | 7 |
-| [PERF](performance.md) Performance & reproducibility | @TODO | 0 | 0 | 0 | 14 | 14 |
+| [PERF](performance.md) Performance & reproducibility | @jaecodess | 0 | 3 | 0 | 11 | 14 |
 
 **Overall: 38/75 tasks done.**
 
@@ -24,6 +24,9 @@ Legend: `[ ]` todo, `[~]` in progress, `[x]` done, `[!]` blocked.
 - [PIPE-14](pipeline.md) Report section 3 draft and Appendix B locators for the pipeline: @husyGIT · due 2026-11-17
 - [MODEL-11](model.md) Report section 4 draft and Appendix B locators for the model: @husyGIT · due 2026-11-17
 - [ANLY-07](analytics.md) Report section 5 draft with limitations and uncertainty; compare with the Task 3 baseline; Appendix B locators: @husyGIT · due 2026-11-18
+- [PERF-01](performance.md) Shared logging helper → `evidence/timings.csv`, application/job/query IDs: @jaecodess · due 2026-11-04
+- [PERF-02](performance.md) Single run script taking `--profile` and `--config`, fresh `run_id` outputs per run: @jaecodess · due 2026-11-06
+- [PERF-03](performance.md) Define the development and full profiles as config (deterministic ~50-ticker rule plus one GDELT month): @jaecodess · due 2026-11-03
 
 ## Blocked
 
@@ -38,7 +41,6 @@ _Nothing blocked._
 - [TEAM-06](team.md) Freeze development and full input profiles (the dev subset rule and the GDELT month): @TODO · due 2026-11-01
 - [TEAM-07](team.md) Send the teaching-team questions (§16) and record answers in the decision log: @TODO · due 2026-11-01
 - [TEAM-08](team.md) Copy the brief PDF to `docs/brief/` and the Final Draft export to `docs/decisions/`: @TODO · due 2026-11-01
-- [PERF-01](performance.md) Shared logging helper → `evidence/timings.csv`, application/job/query IDs: @TODO · due 2026-11-04
 - [PERF-04](performance.md) EMR bring-up: reference cluster config (emr-7.10.0, 1 + 2 m5.xlarge, replication 2, Spark 2 x 2 x 6 GiB, dynamic allocation off); confirm with teaching team: @TODO · due 2026-11-06
 - [MODEL-10](model.md) Leakage cross-review of PIPE feature, universe and split code (§12): @TODO · due 2026-11-10
 - [PIPE-12](pipeline.md) Leakage cross-review of MODEL evaluation and training code (§12): @TODO · due 2026-11-10
@@ -50,6 +52,8 @@ _Nothing blocked._
 
 ## Recent activity (newest 15 progress-log entries)
 
+- 2026-11-12 @jaecodess [TEAM]: Took PERF ownership in .github/workstreams.json (CODEOWNERS regenerated); proposed D-023 (PERF timing scope, isolated test marker) and D-024 (dev profile, for TEAM-06) in the decision log; .gitignore ignores evidence/perf/*/raw/. Evidence: docs/decisions/decision-log.md, perf/README.md
+- 2026-11-12 @jaecodess [PERF]: PERF code written, not yet run on EMR: `perf/run_pipeline.sh` (one timed run of Task 2 → Task 3 frozen model → Task 4 per `--profile dev|full --config ref|alt --rep N`, fresh run_id, failures recorded, output check against the first successful reference run), `perf/timings.py` (timings table, per-node memory/disk peaks without hostnames, YARN app stats, median/range summary, result check), resource sampler, dev-input builder, ref/alt configs, tests. Dry-run end to end with stubbed Hadoop/Hive/Spark/YARN commands. Timing scope proposed as D-023, dev profile as D-024. Evidence: perf/, tests/perf/ (PERF-01, PERF-02, PERF-03)
 - 2026-11-10 @husyGIT [TEAM]: docs/corpus (quality findings, inventory, section 2 draft) and docs/pipeline (README, section 3 draft) filled with the Task 2 EMR figures. Evidence: docs/corpus/quality_findings.md, docs/pipeline/README.md
 - 2026-11-10 @husyGIT [TEAM]: config/sec_filing_inventory.csv: the course's 311-filing SEC inventory (from SEC_Filing_Inventory.xlsx, sha256 a65b478a...) as CSV, input list for corpus/acquire.py sec. Evidence: config/sec_filing_inventory.csv
 - 2026-11-10 @husyGIT [TEAM]: docs/analytics/README.md EMR results and section 5 draft filled from run 20261110-1000-full-ref. Evidence: docs/analytics/README.md, docs/analytics/section5_draft.md
@@ -63,5 +67,3 @@ _Nothing blocked._
 - 2026-11-10 @husyGIT [PERF]: Added Task 4 EMR evidence (run 20261110-1000-full-ref): summaries, weekly tables, log (bucket redacted), Hive query and application IDs, stage timings, charts. Evidence: evidence/analytics/
 - 2026-11-09 @husyGIT [TEAM]: docs/model/README.md EMR results and section 4 draft filled from run 20261106-1400-full-ref. Evidence: docs/model/README.md, docs/model/section4_draft.md
 - 2026-11-09 @husyGIT [TEAM]: docs/analytics/ (Task 4 approach and tool choice per question, EMR steps aws_task4.md, section 5 draft skeleton). Evidence: docs/analytics/README.md, docs/analytics/aws_task4.md, docs/analytics/section5_draft.md
-- 2026-11-09 @husyGIT [MODEL]: EMR Task 3 run 20261106-1400-full-ref committed. Validation (commit 956c3bf) recommended lr_f1_r001; single test after Gate 2 (commit b495d83): mean weekly AUC 0.5133 [0.4970, 0.5298], paired vs B3 +0.0143 [-0.0084, 0.0364] -> success rule not met, "no evidence that the model adds signal beyond simple rules". Reload exact (max diff 0.0). Section 4 draft filled. Evidence: evidence/model/, models/20261106-1400-full-ref/ (MODEL-05, MODEL-07, MODEL-08, MODEL-09, MODEL-11)
-- 2026-11-09 @husyGIT [ANLY]: Claimed Task 4 (ANLY-01 to -04, -06, -07). Code: Hive Q1 volume quintiles and Q3a news vs market measures, PySpark Q2 subgroup reliability and Q3b news-conditional evaluation on the stored frozen-model predictions (no retraining), week bootstraps, charts from aggregated CSVs, EMR runner. Synthetic end-to-end test finds all three planted patterns; local dev run (train/validation only for scores) renders all charts. ANLY-05 not planned: it would score the 2017 test weeks a second time. Remaining: EMR run and section 5 numbers. Evidence: analytics/, tests/analytics/, docs/analytics/ (ANLY-01 to ANLY-04, ANLY-06, ANLY-07)
