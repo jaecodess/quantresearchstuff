@@ -39,5 +39,6 @@ Format and rules: [README.md](README.md). Edit only your own task lines; add a l
 - 2026-11-08 @husyGIT: Gate 2 (MODEL-06) locked in docs/decisions/decision-log.md before the test run: frozen config lr_f1_r001. Evidence: docs/decisions/decision-log.md
 - 2026-11-09 @husyGIT: docs/model/README.md EMR results and section 4 draft filled from run 20261106-1400-full-ref. Evidence: docs/model/README.md, docs/model/section4_draft.md
 - 2026-11-10 @husyGIT: docs/corpus (quality findings, inventory, section 2 draft) and docs/pipeline (README, section 3 draft) filled with the Task 2 EMR figures. Evidence: docs/corpus/quality_findings.md, docs/pipeline/README.md
+- 2026-11-10 @husyGIT: config/sec_filing_inventory.csv: the course's 311-filing SEC inventory (from SEC_Filing_Inventory.xlsx, sha256 a65b478a...) as CSV, input list for corpus/acquire.py sec. Evidence: config/sec_filing_inventory.csv
 - 2026-11-09 @husyGIT: docs/analytics/ (Task 4 approach and tool choice per question, EMR steps aws_task4.md, section 5 draft skeleton). Evidence: docs/analytics/README.md, docs/analytics/aws_task4.md, docs/analytics/section5_draft.md
 - 2026-11-10 @husyGIT: docs/analytics/README.md EMR results and section 5 draft filled from run 20261110-1000-full-ref. Evidence: docs/analytics/README.md, docs/analytics/section5_draft.md

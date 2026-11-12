@@ -8,7 +8,7 @@ Scope, versions, schemas, units, time semantics and relationships for the raw co
 |---|---|---|---|---|---|
 | Daily price CSV | `plotly-datasets-0c447c4`: git commit `0c447c47b757ad74edecab31f0d72f849d2e67c2`, git blob `2a1f02e3675ad8bb6f3a8e536e15f601cfe32fbf`, SHA-256 `6aea253c…e716cf` | Brief link `https://raw.githubusercontent.com/plotly/datasets/master/all_stocks_5yr.csv`, acquired from the commit-pinned URL so the same bytes can be fetched again | File: 2013-02-08 to 2018-02-07. Study window (brief): 2013-02-08 to 2017-12-29 | 1 file, 29,580,549 bytes, 619,041 lines | Labels and all model features |
 | GDELT 1.0 Events | `v1-daily`, one archive per day, `YYYYMMDD.export.CSV.zip`; GDELT's own `md5sums` and `filesizes` lists saved as provenance | `http://data.gdeltproject.org/events/` | 731 archives, 2015-07-01 to 2017-06-30 | 731 files, 9,611,684,528 bytes measured (brief: 9.61 GB ZIP, 54.71 GB expanded) | Market-wide daily news measures; not a model feature (D-008) |
-| SEC EDGAR, Wikinews | Not selected | | | | Weak links to individual stocks (HANDOVER section 5) |
+| SEC EDGAR, Wikinews | Stored raw, not analysed | | | | Acquired unchanged into S3 and HDFS with manifests ([aws_aux_sources.md](aws_aux_sources.md)); not used by the pipeline because they link only weakly to individual stocks (HANDOVER section 5) |
 
 Storage: raw files kept byte-for-byte as acquired, in S3 (durable) and copied to HDFS each session. CSV stays CSV and ZIPs stay zipped (no expanded GDELT copy, D-010). Everything downstream is Parquet (PIPE).
 

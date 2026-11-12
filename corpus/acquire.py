@@ -7,6 +7,15 @@ them, so each session copies S3 -> HDFS with corpus/stage_to_hdfs.sh. Files are 
 Run on the EMR primary node (it has internet access and the AWS CLI):
   python3 corpus/acquire.py prices --s3-raw s3://<bucket>/inf2006/raw
   python3 corpus/acquire.py gdelt  --s3-raw s3://<bucket>/inf2006/raw [--start 20150701 --end 20170630]
+  python3 corpus/acquire.py wikinews --s3-raw s3://<bucket>/inf2006/raw
+  python3 corpus/acquire.py sec --s3-raw s3://<bucket>/inf2006/raw --user-agent "<Your Name> <your email>"
+
+SEC EDGAR and Wikinews are stored for completeness of the corpus only; the pipeline does not use them
+(HANDOVER section 5). SEC: the 311 filings in config/sec_filing_inventory.csv (course inventory), each
+complete-submission .txt checked to carry its own accession number. SEC requires a User-Agent with a
+contact name and email for automated access (passed on the command line, never committed). Wikinews: the
+two full-history dumps of the 2026-10-01 English Wikinews dump, checked against the MD5 and size published
+in the dump's dumpstatus.json (saved as provenance).
 
 Each file is downloaded to local temp, hashed (SHA-256 and MD5), checked against the expected
 value, uploaded to S3, then deleted locally. One manifest CSV per run is written to manifests/
@@ -16,6 +25,7 @@ value, uploaded to S3, then deleted locally. One manifest CSV per run is written
 import argparse
 import csv
 import hashlib
+import json
 import os
 import subprocess
 import sys
@@ -38,6 +48,15 @@ PRICE_BYTES = 29580549
 
 GDELT_BASE = "http://data.gdeltproject.org/events/"
 GDELT_VERSION = "v1-daily"
+
+WIKINEWS_DUMP = "20261001"
+WIKINEWS_HOST = "https://dumps.wikimedia.org"
+WIKINEWS_BASE = f"{WIKINEWS_HOST}/enwikinews/{WIKINEWS_DUMP}/"
+WIKINEWS_JOBS = ("metahistorybz2dump", "metahistory7zdump")
+
+REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SEC_INVENTORY = os.path.join(REPO, "config", "sec_filing_inventory.csv")
+SEC_VERSION = "edgar-complete-submission"
 
 MANIFEST_FIELDS = [
     "source",
@@ -71,10 +90,10 @@ def hash_file(path):
     return n, sha.hexdigest(), md5.hexdigest()
 
 
-def download(url, dest, tries=3):
+def download(url, dest, tries=3, user_agent="inf2006-corpus/1.0"):
     for attempt in range(1, tries + 1):
         try:
-            req = urllib.request.Request(url, headers={"User-Agent": "inf2006-corpus/1.0"})
+            req = urllib.request.Request(url, headers={"User-Agent": user_agent})
             with urllib.request.urlopen(req, timeout=120) as r, open(dest, "wb") as out:
                 while True:
                     chunk = r.read(1 << 20)
@@ -122,6 +141,63 @@ def s3_put(local, uri, dry_run):
     subprocess.run(["aws", "s3", "cp", "--only-show-errors", local, uri], check=True)
 
 
+def wikinews_specs(status, jobs, s3_raw, hdfs_raw, acquired):
+    """Files of the named dump jobs in a Wikimedia dumpstatus.json; returns (specs, jobs not done)."""
+    prefix = f"wikinews/enwikinews-{WIKINEWS_DUMP}/acquired={acquired}"
+    specs, missing = [], []
+    for job in jobs:
+        j = status.get("jobs", {}).get(job)
+        if not j or j.get("status") != "done" or not j.get("files"):
+            missing.append(job)
+            continue
+        for name, f in sorted(j["files"].items()):
+            url = f.get("url", "")
+            url = WIKINEWS_HOST + url if url.startswith("/") else (url or WIKINEWS_BASE + name)
+            specs.append(
+                {
+                    "source": "wikinews_history",
+                    "version": f"enwikinews-{WIKINEWS_DUMP} ({job})",
+                    "file_name": name,
+                    "url": url,
+                    "s3_uri": f"{s3_raw}/{prefix}/{name}",
+                    "hdfs_path": f"{hdfs_raw}/{prefix}/{name}",
+                    "expected_bytes": f.get("size", ""),
+                    "expected_md5": f.get("md5", ""),
+                }
+            )
+    return specs, missing
+
+
+def sec_specs(inventory_path, s3_raw, hdfs_raw, acquired, user_agent):
+    """One spec per filing in the course inventory; the file must contain its own accession number."""
+    prefix = f"sec/{SEC_VERSION}/acquired={acquired}"
+    with open(inventory_path, newline="") as fh:
+        rows = list(csv.DictReader(fh))
+    specs = []
+    for r in rows:
+        cik, acc = r["cik"].strip(), r["accession_number"].strip()
+        name = f"{cik}_{acc}.txt"
+        specs.append(
+            {
+                "source": "sec_edgar_filing",
+                "version": f"{SEC_VERSION} ({r['form']}, filed {r['filing_date']})",
+                "file_name": name,
+                "url": r["sec_url"].strip(),
+                "s3_uri": f"{s3_raw}/{prefix}/{name}",
+                "hdfs_path": f"{hdfs_raw}/{prefix}/{name}",
+                "expect_text": f"ACCESSION NUMBER:\t\t{acc}",
+                "user_agent": user_agent,
+                "pause": 0.25,  # SEC fair access: well under 10 requests per second
+            }
+        )
+    return specs
+
+
+def has_text(path, text, head=65536):
+    with open(path, "rb") as fh:
+        return text.encode() in fh.read(head)
+
+
 def check_result(n, sha, md5, exp_bytes, exp_md5, exp_sha):
     problems = []
     if exp_bytes and str(n) != str(exp_bytes):
@@ -137,7 +213,9 @@ def fetch_one(spec, tmpdir, dry_run):
     """spec: dict with source, version, file_name, url, s3_uri, hdfs_path, expected_*."""
     local = os.path.join(tmpdir, spec["file_name"])
     retrieved = utc_now()
-    err = download(spec["url"], local)
+    if spec.get("pause"):
+        time.sleep(spec["pause"])
+    err = download(spec["url"], local, user_agent=spec.get("user_agent", "inf2006-corpus/1.0"))
     row = {
         "source": spec["source"],
         "version": spec["version"],
@@ -159,6 +237,8 @@ def fetch_one(spec, tmpdir, dry_run):
     n, sha, md5 = hash_file(local)
     row.update(bytes=n, sha256=sha, md5=md5)
     row["check"] = check_result(n, sha, md5, row["expected_bytes"], row["expected_md5"], row["expected_sha256"])
+    if row["check"] == "ok" and spec.get("expect_text") and not has_text(local, spec["expect_text"]):
+        row["check"] = "content_mismatch"
     if row["check"] == "ok":
         s3_put(local, spec["s3_uri"], dry_run)
     else:
@@ -178,7 +258,7 @@ def write_manifest(path, rows):
 
 def main(argv=None):
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    p.add_argument("source", choices=["prices", "gdelt"])
+    p.add_argument("source", choices=["prices", "gdelt", "wikinews", "sec"])
     p.add_argument("--s3-raw", required=True, help="s3://<bucket>/<prefix>/raw (mirrors /inf2006/raw in HDFS)")
     p.add_argument("--hdfs-raw", default="/inf2006/raw")
     p.add_argument("--start", default="20150701")
@@ -186,6 +266,9 @@ def main(argv=None):
     p.add_argument("--workers", type=int, default=4)
     p.add_argument("--manifest-dir", default="manifests")
     p.add_argument("--dry-run", action="store_true", help="download and hash, but do not upload to S3")
+    p.add_argument("--user-agent", default="", help="SEC only: '<name> <email>' as SEC's fair-access policy asks")
+    p.add_argument("--sec-inventory", default=SEC_INVENTORY)
+    p.add_argument("--wikinews-jobs", default=",".join(WIKINEWS_JOBS))
     a = p.parse_args(argv)
 
     acquired = datetime.now(timezone.utc).date().isoformat()
@@ -207,6 +290,28 @@ def main(argv=None):
                 "expected_sha256": PRICE_SHA256,
             }
         )
+    elif a.source == "wikinews":
+        local = os.path.join(tmpdir, "dumpstatus.json")
+        err = download(WIKINEWS_BASE + "dumpstatus.json", local)
+        if err:
+            sys.exit(f"could not download the Wikinews dumpstatus.json: {err}")
+        with open(local) as fh:
+            status = json.load(fh)
+        specs, missing = wikinews_specs(status, a.wikinews_jobs.split(","), s3_raw, a.hdfs_raw, acquired)
+        if missing:
+            sys.exit(f"Wikinews dump jobs not complete or not found: {missing}")
+        prefix = f"wikinews/enwikinews-{WIKINEWS_DUMP}/acquired={acquired}"
+        s3_put(local, f"{s3_raw}/{prefix}/_provenance/dumpstatus.json", a.dry_run)
+        for s in specs:
+            print(f"{s['file_name']}: {int(s['expected_bytes'] or 0):,} bytes expected")
+        a.workers = min(a.workers, 2)  # Wikimedia asks for at most 2 parallel downloads
+    elif a.source == "sec":
+        if "@" not in a.user_agent:
+            sys.exit('SEC needs --user-agent "<Your Name> <your email>" (SEC fair-access policy)')
+        specs = sec_specs(a.sec_inventory, s3_raw, a.hdfs_raw, acquired, a.user_agent)
+        prefix = f"sec/{SEC_VERSION}/acquired={acquired}"
+        s3_put(a.sec_inventory, f"{s3_raw}/{prefix}/_provenance/sec_filing_inventory.csv", a.dry_run)
+        a.workers = min(a.workers, 2)
     else:
         prefix = f"gdelt/{GDELT_VERSION}/acquired={acquired}"
         # GDELT's own checksum and size lists: provenance plus the expected values per archive.

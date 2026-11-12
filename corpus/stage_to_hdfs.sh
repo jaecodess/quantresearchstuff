@@ -21,10 +21,10 @@ mkdir -p "$OUT_DIR"
     s3-dist-cp --src "${S3_RAW%/}/" --dest "hdfs://$HDFS_RAW/"
   fi
   # Raw files are read-only from here on.
-  hdfs dfs -chmod -R a-w "$HDFS_RAW/prices" "$HDFS_RAW/gdelt" 2>/dev/null || true
+  hdfs dfs -chmod -R a-w "$HDFS_RAW/prices" "$HDFS_RAW/gdelt" "$HDFS_RAW/sec" "$HDFS_RAW/wikinews" 2>/dev/null || true
   echo "copy finished=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-  hdfs dfs -count -h "$HDFS_RAW/prices" "$HDFS_RAW/gdelt" 2>/dev/null || true
-  hdfs dfs -du -s -h "$HDFS_RAW/prices" "$HDFS_RAW/gdelt" 2>/dev/null || true
+  hdfs dfs -count -h "$HDFS_RAW/prices" "$HDFS_RAW/gdelt" "$HDFS_RAW/sec" "$HDFS_RAW/wikinews" 2>/dev/null || true
+  hdfs dfs -du -s -h "$HDFS_RAW/prices" "$HDFS_RAW/gdelt" "$HDFS_RAW/sec" "$HDFS_RAW/wikinews" 2>/dev/null || true
   hdfs fsck "$HDFS_RAW" | tail -n 25 || true
 } 2>&1 | tee "$LOG"
 
