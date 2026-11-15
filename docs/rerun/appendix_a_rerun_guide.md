@@ -56,6 +56,8 @@ RESULT: 19 of 19 checks passed
 ```
 Any check that did not pass is listed under that line. Report it honestly; do not rerun until it passes.
 
+Note: the four random-forest configurations can score slightly differently in a new session (up to about 0.001 in mean weekly AUC), because Spark splits the data into partitions differently on each cluster and the forest's sampling follows the partitions. The logistic-regression configurations, the baselines, the recommended configuration and the saved-model reload are unaffected. The check stays strict (tolerance 1e-6) so this shows in the record.
+
 ## A5. Reload the saved model and verify
 Done inside the notebook (section 3b): the PipelineModel in `models/20261106-1400-full-ref/pipeline_model` is copied to HDFS, loaded in a new Spark session and used to predict the test rows again, without retraining. Result: `evidence/rerun/reload_20261106-1400-full-ref.json` (`"passed": true`, `"max_abs_diff"` 0.0).
 
@@ -93,3 +95,4 @@ Terminate the cluster after downloading. HDFS is deleted with it; S3 keeps the r
 | Random seed | 2026 (model fitting and all bootstraps) |
 | Saved model | `models/20261106-1400-full-ref/pipeline_model` (frozen config `lr_f1_r001`) |
 | Fresh-session rerun | `evidence/rerun/rerun_<RERUN_ID>.json`, `checks_<RERUN_ID>.csv`, executed notebook `notebooks/inf2006_pipeline_<RERUN_ID>.ipynb` |
+| Fresh-session rerun, done | Run `20261116-1000-rerun` on 2026-11-15, 04:05 to 05:20 UTC, commit `809a140`, new cluster from S3 only. 18 of 19 checks passed ([checks](../../evidence/rerun/checks_20261116-1000-rerun.csv), [record](../../evidence/rerun/rerun_20261116-1000-rerun.json), [executed notebook](../../notebooks/inf2006_pipeline_20261116-1000-rerun.ipynb)). The one failed check: random-forest validation AUCs differ by up to 0.0013 from the original run (logistic regression and baselines identical); the recommended configuration is unchanged and the saved model reproduces all 25,531 test predictions exactly. |

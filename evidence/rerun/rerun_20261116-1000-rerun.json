@@ -1,0 +1,214 @@
+{
+  "rerun_id": "20261116-1000-rerun",
+  "started_utc": "2026-11-15T04:05:50Z",
+  "saved_utc": "2026-11-15T05:15:22Z",
+  "dry_run": false,
+  "checks_passed": 18,
+  "checks_total": 19,
+  "python": "3.9.25",
+  "timings": [
+    {
+      "stage": "environment",
+      "start_utc": "2026-11-15T04:05:50Z",
+      "end_utc": "2026-11-15T04:06:04Z",
+      "seconds": 14,
+      "exit": 0
+    },
+    {
+      "stage": "task1_stage_and_verify",
+      "start_utc": "2026-11-15T04:06:04Z",
+      "end_utc": "2026-11-15T04:07:52Z",
+      "seconds": 108,
+      "exit": 0
+    },
+    {
+      "stage": "task2_pipeline",
+      "start_utc": "2026-11-15T04:07:52Z",
+      "end_utc": "2026-11-15T05:06:51Z",
+      "seconds": 3539,
+      "exit": 0
+    },
+    {
+      "stage": "task3_validation",
+      "start_utc": "2026-11-15T05:06:51Z",
+      "end_utc": "2026-11-15T05:10:34Z",
+      "seconds": 223,
+      "exit": 0
+    },
+    {
+      "stage": "task3_copy_model_and_predictions",
+      "start_utc": "2026-11-15T05:10:34Z",
+      "end_utc": "2026-11-15T05:11:36Z",
+      "seconds": 62,
+      "exit": 0
+    },
+    {
+      "stage": "task3_reload",
+      "start_utc": "2026-11-15T05:11:36Z",
+      "end_utc": "2026-11-15T05:12:11Z",
+      "seconds": 35,
+      "exit": 0
+    },
+    {
+      "stage": "task4_analytics",
+      "start_utc": "2026-11-15T05:12:11Z",
+      "end_utc": "2026-11-15T05:15:22Z",
+      "seconds": 191,
+      "exit": 0
+    }
+  ],
+  "checks": [
+    {
+      "check": "HDFS copies match their manifests (files)",
+      "command": "corpus/stage_to_hdfs.sh",
+      "expected": 1047,
+      "actual": 1047,
+      "evidence": "evidence/corpus/inventory_20261116-1000-rerun.json",
+      "result": "pass"
+    },
+    {
+      "check": "Verification problems across all sources",
+      "command": "corpus/verify_hdfs.py",
+      "expected": 0,
+      "actual": 0,
+      "evidence": "evidence/corpus/hdfs_verify_20261116-1000-rerun.csv",
+      "result": "pass"
+    },
+    {
+      "check": "Raw = clean + rejected price rows",
+      "command": "spark/clean_prices.py",
+      "expected": true,
+      "actual": true,
+      "evidence": "evidence/pipeline/reconciliation_20261116-1000-rerun.json",
+      "result": "pass"
+    },
+    {
+      "check": "Clean price rows",
+      "command": "spark/clean_prices.py",
+      "expected": 605887,
+      "actual": 605887,
+      "evidence": "evidence/pipeline/reconciliation_20261116-1000-rerun.json",
+      "result": "pass"
+    },
+    {
+      "check": "Eligible stock-weeks, train",
+      "command": "spark/weekly_features.py",
+      "expected": 65086,
+      "actual": 65086,
+      "evidence": "evidence/pipeline/reconciliation_20261116-1000-rerun.json",
+      "result": "pass"
+    },
+    {
+      "check": "Eligible stock-weeks, validation",
+      "command": "spark/weekly_features.py",
+      "expected": 25720,
+      "actual": 25720,
+      "evidence": "evidence/pipeline/reconciliation_20261116-1000-rerun.json",
+      "result": "pass"
+    },
+    {
+      "check": "Eligible stock-weeks, test",
+      "command": "spark/weekly_features.py",
+      "expected": 25531,
+      "actual": 25531,
+      "evidence": "evidence/pipeline/reconciliation_20261116-1000-rerun.json",
+      "result": "pass"
+    },
+    {
+      "check": "GDELT events read (731 archives)",
+      "command": "streaming/gdelt_daily/run.sh",
+      "expected": 144207180,
+      "actual": 144207180,
+      "evidence": "evidence/pipeline/reconciliation_20261116-1000-rerun.json",
+      "result": "pass"
+    },
+    {
+      "check": "GDELT corrupt archives",
+      "command": "streaming/gdelt_daily/run.sh",
+      "expected": 0,
+      "actual": 0,
+      "evidence": "evidence/pipeline/reconciliation_20261116-1000-rerun.json",
+      "result": "pass"
+    },
+    {
+      "check": "Weeks with a pre-start news measure",
+      "command": "hive/41_weekly_news.sql",
+      "expected": 97,
+      "actual": 97,
+      "evidence": "evidence/pipeline/reconciliation_20261116-1000-rerun.json",
+      "result": "pass"
+    },
+    {
+      "check": "Recommended frozen configuration",
+      "command": "modeling/run_model.py validate",
+      "expected": "lr_f1_r001",
+      "actual": "lr_f1_r001",
+      "evidence": "evidence/model/validation_20261116-1000-rerun.json",
+      "result": "pass"
+    },
+    {
+      "check": "Test split read during validation",
+      "command": "modeling/run_model.py validate",
+      "expected": false,
+      "actual": false,
+      "evidence": "evidence/model/validation_20261116-1000-rerun.json",
+      "result": "pass"
+    },
+    {
+      "check": "Max difference in mean weekly AUC, 8 configs vs reference run",
+      "command": "modeling/run_model.py validate",
+      "expected": 0.0,
+      "actual": 0.0012616699568691048,
+      "evidence": "evidence/model/validation_20261116-1000-rerun.json",
+      "result": "FAIL"
+    },
+    {
+      "check": "Reload check passed (no retraining)",
+      "command": "modeling/run_model.py reload",
+      "expected": true,
+      "actual": true,
+      "evidence": "evidence/rerun/reload_20261106-1400-full-ref.json",
+      "result": "pass"
+    },
+    {
+      "check": "Test predictions compared",
+      "command": "modeling/run_model.py reload",
+      "expected": 25531,
+      "actual": 25531,
+      "evidence": "evidence/rerun/reload_20261106-1400-full-ref.json",
+      "result": "pass"
+    },
+    {
+      "check": "Max absolute prediction difference",
+      "command": "modeling/run_model.py reload",
+      "expected": 0.0,
+      "actual": 0.0,
+      "evidence": "evidence/rerun/reload_20261106-1400-full-ref.json",
+      "result": "pass"
+    },
+    {
+      "check": "Q2 paired AUC difference, 2017, all weeks",
+      "command": "analytics/run_analytics.py",
+      "expected": 0.014260489360569416,
+      "actual": 0.014260489360569416,
+      "evidence": "evidence/analytics/task4_20261116-1000-rerun.json",
+      "result": "pass"
+    },
+    {
+      "check": "Q1 busiest minus quietest quintile, 2017",
+      "command": "analytics/20_q1_volume_quintiles.sql",
+      "expected": -0.022866423897291693,
+      "actual": -0.022866423897291693,
+      "evidence": "evidence/analytics/task4_20261116-1000-rerun.json",
+      "result": "pass"
+    },
+    {
+      "check": "Q3a dispersion, high minus low news tercile",
+      "command": "analytics/30_q3a_news_market.sql",
+      "expected": 0.004884812925514109,
+      "actual": 0.004884812925514109,
+      "evidence": "evidence/analytics/task4_20261116-1000-rerun.json",
+      "result": "pass"
+    }
+  ]
+}
