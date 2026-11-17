@@ -42,3 +42,4 @@ Format and rules: [README.md](README.md). Edit only your own task lines; add a l
 - 2026-11-10 @husyGIT: config/sec_filing_inventory.csv: the course's 311-filing SEC inventory (from SEC_Filing_Inventory.xlsx, sha256 a65b478a...) as CSV, input list for corpus/acquire.py sec. Evidence: config/sec_filing_inventory.csv
 - 2026-11-09 @husyGIT: docs/analytics/ (Task 4 approach and tool choice per question, EMR steps aws_task4.md, section 5 draft skeleton). Evidence: docs/analytics/README.md, docs/analytics/aws_task4.md, docs/analytics/section5_draft.md
 - 2026-11-10 @husyGIT: docs/analytics/README.md EMR results and section 5 draft filled from run 20261110-1000-full-ref. Evidence: docs/analytics/README.md, docs/analytics/section5_draft.md
+- 2026-11-17 @husyGIT: docs/perf/section6_timing_runs_guide.md: step-by-step guide so teammates can run the Section 6 timing runs on EMR without prior context. Evidence: docs/perf/section6_timing_runs_guide.md

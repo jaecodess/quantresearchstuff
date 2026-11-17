@@ -22,3 +22,4 @@ Required when a PR ticks "AI assistance was used". The brief requires AI use to 
 | 2026-11-09 | @husyGIT | Claude (cloud session) | Checked the Task 3 EMR evidence, wrote up results and section 4 draft | MODEL-05 to MODEL-09, MODEL-11, evidence/model/, docs/model/ |
 | 2026-11-15 | @husyGIT | Claude (cloud session) | Rerun notebook, helper, runner, tests and Appendix A rerun guide; report draft in a Claude doc | PERF-05, PERF-11, PERF-13, perf/, docs/rerun/ |
 | 2026-11-15 | @husyGIT | Claude (cloud session) | Checked the fresh-session rerun evidence, committed the executed notebook, updated Appendix A guide and report | PERF-11, PERF-13, evidence/rerun/ |
+| 2026-11-17 | @husyGIT | Claude (cloud session) | Section 6 timing-run script, summariser, tests and teammate guide | PERF-06 to PERF-09, perf/, docs/perf/ |
