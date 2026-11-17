@@ -6,7 +6,7 @@ You will start a small Amazon EMR cluster on Hsy's AWS account, run one script t
 - **Cost:** about USD 1.50 of Hsy's AWS credit. The cluster costs money every hour it is on, so **always do step 11 (terminate)** at the end, even if something went wrong.
 - **What you need:**
   - A Windows laptop with PowerShell (built in), or a Mac with Terminal.
-  - Hsy's AWS login details.
+  - Hsy's AWS login details and Hsy's key file (`.pem`).
   - The **bucket name** (Hsy sends it to you; it looks like `inf2006-...-us-east-1-an`). Wherever this guide says `<bucket>`, type that name instead, without the `< >`.
 
 ## Why we are doing this
@@ -35,25 +35,17 @@ Section 6 of our report must show how long the pipeline takes and whether changi
    - **If it is a normal AWS account:** sign in at https://console.aws.amazon.com with the details Hsy gave you.
 2. In the top-right corner of the console, check the region says **N. Virginia** (`us-east-1`). If not, click it and choose **US East (N. Virginia)**. Everything below must be done in this region.
 
-## Step 2. Create your own key pair (your "SSH key")
-This file lets your laptop log in to the cluster. You make your own so nobody has to send keys around.
-1. In the search bar at the top of the console, type **EC2** and open it.
-2. In the left menu, under **Network & Security**, click **Key Pairs**, then **Create key pair** (top right).
-3. Fill in:
-   | Field | Value |
-   |---|---|
-   | Name | `inf2006-<yourname>` (for example `inf2006-jason`) |
-   | Key pair type | **RSA** |
-   | Private key file format | **.pem** |
-4. Click **Create key pair**. A file `inf2006-<yourname>.pem` downloads to your **Downloads** folder. It downloads only once; keep it. Never post it or put it in GitHub.
-5. **Windows only:** SSH refuses a key file other users can read. Open **PowerShell** (Start menu, type PowerShell) and run these three lines (change the name to yours):
+## Step 2. Save Hsy's key file
+Hsy sends you a key file ending in `.pem`. It lets your laptop log in to the cluster. Wherever this guide says `<key>`, type its name without `.pem` (for example, for `abc-kpair.pem` type `abc-kpair`).
+1. Save the file in your **Downloads** folder. Keep it private: never post it, forward it or put it in GitHub, and delete it when the project is over.
+2. **Windows only:** SSH refuses a key file that other users can read. Open **PowerShell** (Start menu, type PowerShell) and run these three lines:
    ```powershell
    cd $HOME\Downloads
-   icacls .\inf2006-<yourname>.pem /inheritance:r
-   icacls .\inf2006-<yourname>.pem /grant:r "$($env:USERNAME):(R)"
+   icacls .\<key>.pem /inheritance:r
+   icacls .\<key>.pem /grant:r "$($env:USERNAME):(R)"
    ```
-   Each line prints `Successfully processed 1 files`.
-   **Mac only:** in Terminal: `chmod 400 ~/Downloads/inf2006-<yourname>.pem`
+   The last two lines each print `Successfully processed 1 files`.
+   **Mac only:** in Terminal: `chmod 400 ~/Downloads/<key>.pem`
 
 ## Step 3. Note a public subnet
 1. In the console search bar, type **VPC** and open it. In the left menu click **Subnets**.
@@ -82,7 +74,7 @@ This file lets your laptop log in to the cluster. You make your own so nobody ha
    | | Subnet | the subnet ID from step 3 |
    | Cluster termination and node replacement | Termination option | **Automatically terminate cluster after idle time**, idle time **1 hour** |
    | Software settings | Enter configuration | paste the box below |
-   | Security configuration and EC2 key pair | Amazon EC2 key pair for SSH | **your key** `inf2006-<yourname>` from step 2 |
+   | Security configuration and EC2 key pair | Amazon EC2 key pair for SSH | **Hsy's key pair**: the one with the same name as the `.pem` file from step 2 |
    | Identity and Access Management (IAM) roles | Amazon EMR service role | **Choose an existing service role** then `EMR_DefaultRole` |
    | | EC2 instance profile for Amazon EMR | **Choose an existing instance profile** then `EMR_EC2_DefaultRole` (on a Learner Lab it may be called `LabInstanceProfile`; pick that if `EMR_EC2_DefaultRole` is not in the list) |
 
@@ -113,9 +105,9 @@ This file lets your laptop log in to the cluster. You make your own so nobody ha
 2. In PowerShell (or Mac Terminal):
    ```powershell
    cd $HOME\Downloads
-   ssh -i inf2006-<yourname>.pem hadoop@<primary-public-dns>
+   ssh -i <key>.pem hadoop@<primary-public-dns>
    ```
-   Replace `<primary-public-dns>` with what you copied. The user name is always `hadoop`.
+   Replace `<key>` with the key name from step 2 and `<primary-public-dns>` with what you copied. The user name is always `hadoop`.
 3. The first time it asks `Are you sure you want to continue connecting (yes/no)?`. Type `yes` and press Enter.
 4. You are in when you see a big **EMR** logo and a prompt like `[hadoop@ip-172-31-... ~]$`. Every command from now on goes into this window unless the step says otherwise.
 
@@ -185,7 +177,7 @@ task2_price_stages   partitions16      3   4 min 50 s   ...
 2. Open a **new** PowerShell window on your laptop (keep the cluster window open) and run:
    ```powershell
    cd $HOME\Downloads
-   scp -i inf2006-<yourname>.pem hadoop@<primary-public-dns>:~/perf_20261118-1000-perf.tar.gz .
+   scp -i <key>.pem hadoop@<primary-public-dns>:~/perf_20261118-1000-perf.tar.gz .
    ```
    Note the space and the dot at the very end ("copy it here"). The file lands in your Downloads folder.
 3. **Backup copy in S3** (do this too, in the cluster window):
@@ -205,8 +197,8 @@ task2_price_stages   partitions16      3   4 min 50 s   ...
 | What you see | What to do |
 |---|---|
 | `ssh: connect to host ... Connection timed out` | The firewall rule is missing or your IP changed. Redo step 5 (add SSH, My IP). |
-| `Permission denied (publickey)` | Wrong key file or user name. The command must use your `.pem` from step 2 and `hadoop@`. Check that you chose your key in step 4. |
-| `WARNING: UNPROTECTED PRIVATE KEY FILE!` | Redo step 2.5 (the `icacls` lines), then connect again. |
+| `Permission denied (publickey)` | Wrong key file or user name. The command must use Hsy's `.pem` from step 2 and `hadoop@`. Check that you chose Hsy's key pair in step 4. |
+| `WARNING: UNPROTECTED PRIVATE KEY FILE!` | Redo step 2.2 (the `icacls` lines), then connect again. |
 | Cluster status **Terminated with errors** | Open the cluster, read the reason. If it mentions the subnet, pick another subnet with **Auto-assign public IPv4 = Yes** (step 3) and create a new cluster. If it mentions a role or instance profile, use `LabInstanceProfile` / `EMR_DefaultRole`. |
 | `git switch` says `invalid reference` | Run `git switch main && git pull`. |
 | Connection dropped while the script runs | Nothing is lost. Connect again (step 6) and run `tmux attach -t perf`. |
