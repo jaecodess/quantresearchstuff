@@ -1,12 +1,13 @@
 # Section 6 timing runs: step-by-step guide for teammates
 
-You will start a small Amazon EMR cluster on Hsy's AWS account, run one script that times parts of our project 18 times, download one result file, send it to Hsy, and shut the cluster down. You do not need to know the project or edit any code. Follow every step in order.
+You will start a small Amazon EMR cluster on Hsy's AWS account, run one script that times parts of our project 18 times, put the results on GitHub, and shut the cluster down. You do not need to know the project or edit any code. Follow every step in order.
 
-- **Time:** about 2 hours in total, of which about 1 hour 30 minutes is the script running by itself (you can leave it).
-- **Cost:** about USD 1.50 of Hsy's AWS credit. The cluster costs money every hour it is on, so **always do step 11 (terminate)** at the end, even if something went wrong.
+- **Time:** about 2 hours 15 minutes in total, of which about 1 hour 30 minutes is the script running by itself (you can leave it).
+- **Cost:** about USD 1.50 of Hsy's AWS credit. The cluster costs money every hour it is on, so **always do step 12 (terminate)** at the end, even if something went wrong.
 - **What you need:**
   - A Windows laptop with PowerShell (built in), or a Mac with Terminal.
   - Hsy's AWS login details and Hsy's key file (`.pem`).
+  - A GitHub account with access to the project repository (step 11.1).
   - The **bucket name** (Hsy sends it to you; it looks like `inf2006-...-us-east-1-an`). Wherever this guide says `<bucket>`, type that name instead, without the `< >`.
 
 ## Why we are doing this
@@ -163,30 +164,69 @@ task2_price_stages   partitions16      3   4 min 50 s   ...
 ...
 [...] finished. Bundle with: tar czf ~/perf_20261118-1000-perf.tar.gz ...
 ```
-- `18 of 18` is the goal. If fewer succeeded, that is still useful evidence: carry on to step 10 and tell Hsy how many failed.
-- Take a screenshot of this table for Hsy.
+- `18 of 18` is the goal. If fewer succeeded, that is still useful evidence: carry on to step 10 and say how many failed in the pull request (step 11.5).
+- Copy this table (select it with the mouse; in PowerShell right-click copies) into a notepad. You paste it into the pull request in step 11.5.
 
-## Step 10. Download the results and send them to Hsy
-1. In the cluster window (the prompt that ends in `quantresearchstuff]$`), bundle everything into one file. Use your run name:
-   ```bash
-   cd ~/quantresearchstuff
-   tar czf ~/perf_20261118-1000-perf.tar.gz evidence/perf $(find evidence -name '*20261118-1000-perf*' -not -path 'evidence/perf/*')
-   ls -lh ~/perf_20261118-1000-perf.tar.gz
-   ```
-   `ls` shows the file and its size (a few MB).
-2. Open a **new** PowerShell window on your laptop (keep the cluster window open) and run:
-   ```powershell
-   cd $HOME\Downloads
-   scp -i <key>.pem hadoop@<primary-public-dns>:~/perf_20261118-1000-perf.tar.gz .
-   ```
-   Note the space and the dot at the very end ("copy it here"). The file lands in your Downloads folder.
-3. **Backup copy in S3** (do this too, in the cluster window):
-   ```bash
-   aws s3 cp ~/perf_20261118-1000-perf.tar.gz s3://<bucket>/inf2006/evidence/
-   ```
-4. Send the `.tar.gz` file and your screenshot to Hsy (Telegram, Teams or email). Hsy commits it to the project.
+## Step 10. Keep a backup copy of the results
+In the cluster window (the prompt that ends in `quantresearchstuff]$`), bundle everything into one file and copy it to S3. Use your run name:
+```bash
+cd ~/quantresearchstuff
+tar czf ~/perf_20261118-1000-perf.tar.gz evidence/perf $(find evidence -name '*20261118-1000-perf*' -not -path 'evidence/perf/*')
+aws s3 cp ~/perf_20261118-1000-perf.tar.gz s3://<bucket>/inf2006/evidence/
+```
+The last line prints `upload: ...`. If anything goes wrong in step 11, the results are still safe in S3.
 
-## Step 11. Terminate the cluster (do not skip)
+## Step 11. Put the results on GitHub yourself (about 10 minutes)
+You commit the results from the cluster, where they already are. Nothing needs downloading.
+
+**11.1 One-time GitHub setup (on your laptop, in a browser).**
+1. You need a GitHub account with access to `jaecodess/quantresearchstuff`. Open https://github.com/jaecodess/quantresearchstuff; if you get a 404, ask the repo owner (jaecodess) to add you under **Settings**, **Collaborators**, then accept the email invitation.
+2. Create a token (GitHub's password for command-line pushes): click your profile picture (top right), **Settings**, then at the bottom left **Developer settings**, **Personal access tokens**, **Tokens (classic)**, **Generate new token**, **Generate new token (classic)**.
+   | Field | Value |
+   |---|---|
+   | Note | `inf2006 cluster` |
+   | Expiration | **7 days** |
+   | Select scopes | tick **repo** (the top box; its sub-boxes tick themselves) |
+3. Click **Generate token** at the bottom and copy the token (starts with `ghp_`) into a notepad. It is shown only once. Never put it in a file or in GitHub.
+
+**11.2 Hide the bucket name and server addresses (in the cluster window).** Project files must not contain them. Type your bucket name in the first line:
+```bash
+cd ~/quantresearchstuff
+BUCKET=<bucket>
+grep -rlE "$BUCKET|compute-1\.amazonaws\.com" evidence | xargs -r sed -i -E "s#$BUCKET#<bucket>#g; s#ec2-[0-9-]+\.compute-1\.amazonaws\.com#<primary-dns>#g"
+python3 scripts/check_hygiene.py
+```
+The last line must print `hygiene: 0 problem(s)`. Leave `<bucket>` and `<primary-dns>` inside the `sed` line exactly as written: they are the replacement text.
+
+**11.3 Add a progress note (required by the project's checks).** Change `<your-github-username>` to your GitHub username, and the run name if yours differs:
+```bash
+echo "- $(date -u +%F) @<your-github-username>: Section 6 timing runs on EMR (20261118-1000-perf), results in evidence/perf/summary_20261118-1000-perf.csv. Evidence: evidence/perf/ (PERF-07, PERF-08, PERF-09)" >> docs/progress/performance.md
+python3 scripts/progress.py status
+python3 scripts/progress.py check
+```
+The last line must print `0 errors` (warnings are fine).
+
+**11.4 Commit and push.** Change the three placeholders:
+```bash
+git config user.name "<Your Name>"
+git config user.email "<the email of your GitHub account>"
+git switch -c ws/perf/timing-results-<yourname>
+git add evidence docs/progress
+git commit -m "PERF: Section 6 timing runs 20261118-1000-perf (EMR evidence)"
+git push -u origin ws/perf/timing-results-<yourname>
+```
+When `git push` asks:
+- `Username for 'https://github.com':` type your GitHub username, press Enter.
+- `Password for ...:` paste the token from 11.1 (right-click pastes in PowerShell; nothing shows while you paste, that is normal), press Enter.
+
+It ends with a line containing `https://github.com/jaecodess/quantresearchstuff/pull/new/ws/perf/timing-results-<yourname>`.
+
+**11.5 Open the pull request (in a browser).**
+1. Open that link. Check **base** is `main` and **compare** is your branch.
+2. Title: `PERF: Section 6 timing runs (EMR evidence)`. In the description, paste the `RESULT` table from step 9 and tick the boxes that apply in the template.
+3. Click **Create pull request**, then send Hsy the link.
+
+## Step 12. Terminate the cluster (do not skip)
 1. In the AWS console, open **EMR**, then **Clusters**, tick your cluster `inf2006-perf-<yourname>`, and click **Terminate**, then **Terminate** again to confirm.
 2. Wait until the status says **Terminating** and then **Terminated** (a few minutes). Data in S3 stays; only the cluster is deleted.
 3. On a Learner Lab you can also click **End Lab** afterwards.
@@ -204,7 +244,10 @@ task2_price_stages   partitions16      3   4 min 50 s   ...
 | Connection dropped while the script runs | Nothing is lost. Connect again (step 6) and run `tmux attach -t perf`. |
 | A line ends in `exit 1` (or another number) | That one run failed; the script carries on with the next. Let it finish and tell Hsy. |
 | The script seems frozen | It prints nothing while a part runs (up to about 5 minutes). Check the detail log (step 8.7). |
-| You need to stop everything | Press **Ctrl+c** in the script window, then still do steps 10 and 11. |
+| You need to stop everything | Press **Ctrl+c** in the script window, then still do steps 10, 11 and 12. |
+| `git push` says `Authentication failed` | Use your GitHub username and the token (not your GitHub password). Make a new token if needed (11.1). |
+| `git push` says `Permission ... denied` or `403` | Your account has no write access yet: ask jaecodess to add you as a collaborator (11.1). |
+| `hygiene` reports a problem | Read the file and line it names; usually the bucket name was typed wrong in 11.2. Fix `BUCKET=` and run the 11.2 lines again. |
 
-## For Hsy, after receiving the file
-Upload the `.tar.gz` in the project chat with Claude (or unpack it into the repo and commit `evidence/perf/` with the bucket name redacted). `evidence/perf/summary_<run>.csv` holds the medians, ranges and speedup for report section 6.
+## For Hsy
+The pull request from step 11 holds `evidence/perf/summary_<run>.csv` (medians, ranges and speedup for report section 6). Merge the `ws/perf/timing-runs` pull request first (the script lives there), then this one after its CI checks pass. The backup bundle is in `s3://<bucket>/inf2006/evidence/`.
