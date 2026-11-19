@@ -20,3 +20,6 @@ derby.log
 # Build output
 dist/
 .DS_Store
+
+# PERF raw resource snapshots contain hostnames; parsed peaks are committed instead
+evidence/perf/*/raw/

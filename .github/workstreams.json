@@ -41,7 +41,7 @@
     "PERF": {
       "name": "Performance & reproducibility",
       "file": "docs/progress/performance.md",
-      "owner": "@TODO",
+      "owner": "@jaecodess",
       "cross_reviewers": ["CORP"],
       "paths": ["perf/", "evidence/", "notebooks/", "docs/rerun/", "tests/perf/"]
     }

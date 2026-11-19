@@ -19,9 +19,9 @@
 /models/ @r4ihn
 /tests/model/ @r4ihn
 /docs/progress/model.md @r4ihn
-/perf/ @HoShangJ
-/evidence/ @HoShangJ
-/notebooks/ @HoShangJ
-/docs/rerun/ @HoShangJ
-/tests/perf/ @HoShangJ
-/docs/progress/performance.md @HoShangJ
+/perf/ @jaecodess @HoShangJ
+/evidence/ @jaecodess @HoShangJ
+/notebooks/ @jaecodess @HoShangJ
+/docs/rerun/ @jaecodess @HoShangJ
+/tests/perf/ @jaecodess @HoShangJ
+/docs/progress/performance.md @jaecodess @HoShangJ
