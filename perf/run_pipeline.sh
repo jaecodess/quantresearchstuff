@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
-# One timed PERF run of the whole pipeline (PERF-02): Task 2 -> Task 3 (frozen model) -> Task 4.
+# One timed PERF run of the whole pipeline (PERF-02): Task 2 -> Task 3 (validation training) -> Task 4.
 # Run on the EMR primary node from the repo root, AFTER the raw corpus is staged in HDFS
 # (corpus/stage_to_hdfs.sh). Timing starts here (brief): staging, downloads and cluster start-up are not timed.
 #
-#   bash perf/run_pipeline.sh --profile dev|full --config ref|alt --rep N --raw-dir <hdfs raw prices dir>
-#   e.g. bash perf/run_pipeline.sh --profile full --config ref --rep 1 \
-#          --raw-dir /inf2006/raw/prices/plotly-datasets-0c447c4/acquired=2026-11-03
+#   bash perf/run_pipeline.sh --profile dev|full --config ref|alt --rep N --raw-dir <hdfs raw prices dir> \
+#        [--s3-root s3://<bucket>/inf2006]
+#   e.g. bash perf/run_pipeline.sh --profile dev --config ref --rep 1 \
+#          --raw-dir /inf2006/raw/prices/plotly-datasets-0c447c4/acquired=2026-11-03 --s3-root s3://<bucket>/inf2006
+#   --s3-root is needed once per cluster, to copy the stored Task 3 predictions into HDFS (untimed).
 #
 # Run sets (HANDOVER section 11): A = dev/ref x3, B = full/ref x3, C = full/alt x3. Run each inside tmux.
 #
@@ -17,16 +19,16 @@
 # Configs: perf/configs/ref.env (reference) and perf/configs/alt.env (one change, PERF-08).
 #
 # What is timed: the Task 2 runner (Streaming, Hive, PySpark cleaning, splits, features, GDELT, reconciliation),
-# Task 3 for the frozen Gate 2 config (fit on train, score, write predictions/weights, fresh-session reload
-# check, Hive model tables) and the Task 4 runner. Nothing is reused from earlier runs.
-# The 8-config validation grid is NOT rerun: model selection is finished (Gate 2) and is not production work.
+# Task 3 validation (modeling/run_model.py validate: the 8 Gate 1 configs fitted on 2013-15 train rows and
+# scored on 2016 validation rows, with baselines and the selection rule) and the Task 4 runner. This is the same
+# timed workload as the three full-profile reruns (perf/inf2006_pipeline.ipynb), so dev and full are comparable.
 #
-# Test-once guard: the frozen model is refitted and rescored in every run, as the brief's timed workload and
-# output checks require. Each run therefore uses its own model root (<root>/perf/<run_id>) and marker
-# directory, so the official Task 3 marker and results (evidence/model/) are never touched. Nothing here
-# selects or tunes anything; see decision D-023.
+# Test-once rule (D-025, replaces D-023): no model is fitted on, scores or evaluates 2017 rows here, and the
+# Task 3 test mode is never called. Task 4 reads the stored frozen-model predictions of PRED_RUN (the single
+# Task 3 test run), copied into HDFS before timing like the raw corpus; Task 4 joins them to this run's features,
+# so a dev run analyses only the dev tickers and weeks.
 #
-# Environment options: HDFS_ROOT (default /inf2006), DEV_TICKER_MOD, DEV_GDELT_MONTH, SAMPLE_INTERVAL (s, 15),
+# Environment options: HDFS_ROOT (default /inf2006), PRED_RUN (default 20261106-1400-full-ref), DEV_TICKER_MOD, DEV_GDELT_MONTH, SAMPLE_INTERVAL (s, 15),
 #   ALLOW_DIRTY=1 (run with uncommitted changes to tracked files; not for assessed runs).
 #
 # Evidence: evidence/perf/<run_id>/ (meta.txt, run.log, wrapper_times.csv, pipeline/, model/, analytics/,
@@ -35,13 +37,14 @@
 set -euo pipefail
 
 usage() { sed -n '2,8p' "$0" >&2; exit 2; }
-PROFILE="" CONFIG="" REP="" RAW_DIR=""
+PROFILE="" CONFIG="" REP="" RAW_DIR="" S3_ROOT=""
 while [ $# -gt 0 ]; do
   case "$1" in
     --profile) PROFILE="${2:-}"; shift 2 ;;
     --config) CONFIG="${2:-}"; shift 2 ;;
     --rep) REP="${2:-}"; shift 2 ;;
     --raw-dir) RAW_DIR="${2:-}"; shift 2 ;;
+    --s3-root) S3_ROOT="${2:-}"; S3_ROOT="${S3_ROOT%/}"; shift 2 ;;
     -h|--help) usage ;;
     *) echo "unknown argument: $1" >&2; usage ;;
   esac
@@ -57,7 +60,7 @@ DEV_GDELT_MONTH="${DEV_GDELT_MONTH:-201601}"
 SAMPLE_INTERVAL="${SAMPLE_INTERVAL:-15}"
 RUN_ID="$(date -u +%Y%m%d-%H%M)-${PROFILE}-${CONFIG}-r${REP}"
 RUN_DIR="evidence/perf/$RUN_ID"
-MODEL_ROOT="$ROOT/perf/$RUN_ID"
+PRED_RUN="${PRED_RUN:-20261106-1400-full-ref}"
 now() { date -u +%Y-%m-%dT%H:%M:%SZ; }
 
 # ---------------------------------------------------------------- configuration
@@ -70,9 +73,6 @@ if [ "$CONFIG" = "alt" ]; then
 fi
 export SPARK_OPTS
 
-FROZEN="$(sed -n '/^## Gate 2/,/^## Other/p' docs/decisions/decision-log.md \
-  | grep -oE 'Frozen configuration: `[A-Za-z0-9_.]+' | sed 's/.*`//' | head -1)"
-[ -n "$FROZEN" ] || { echo "REFUSED: no frozen configuration in Gate 2 of the decision log." >&2; exit 2; }
 
 # ---------------------------------------------------------------- preflight (untimed)
 if [ "${ALLOW_DIRTY:-0}" != "1" ] && ! git diff --quiet HEAD --; then
@@ -80,9 +80,17 @@ if [ "${ALLOW_DIRTY:-0}" != "1" ] && ! git diff --quiet HEAD --; then
   exit 2
 fi
 hdfs dfs -test -e "$RAW_DIR/all_stocks_5yr.csv" || { echo "no $RAW_DIR/all_stocks_5yr.csv in HDFS" >&2; exit 2; }
-for out in "$MODEL_ROOT" "$ROOT/staging/streaming/$RUN_ID" "$ROOT/features/$RUN_ID"; do
+for out in "$ROOT/staging/streaming/$RUN_ID" "$ROOT/features/$RUN_ID"; do
   if hdfs dfs -test -e "$out" || [ -e "$RUN_DIR" ]; then
     echo "outputs for $RUN_ID already exist; wait a minute and rerun (run ids are per minute)" >&2; exit 2
+  fi
+done
+# Stored Task 3 predictions for Task 4 (untimed, like staging; copied once per cluster)
+for d in predictions eval; do
+  if ! hdfs dfs -test -d "$ROOT/$d/$PRED_RUN"; then
+    [ -n "$S3_ROOT" ] || { echo "no $ROOT/$d/$PRED_RUN in HDFS; pass --s3-root s3://<bucket>/inf2006 to copy it" >&2; exit 2; }
+    s3-dist-cp --src "$S3_ROOT/$d/$PRED_RUN" --dest "hdfs://$ROOT/$d/$PRED_RUN" >/dev/null \
+      || { echo "could not copy $S3_ROOT/$d/$PRED_RUN" >&2; exit 2; }
   fi
 done
 mkdir -p "$RUN_DIR/model" "$RUN_DIR/raw"
@@ -113,11 +121,11 @@ fi
   echo "status=running"
   echo "config_note=$CONFIG_NOTE"
   echo "spark_opts=$SPARK_OPTS"
-  echo "frozen_config=$FROZEN"
+  echo "task3=validate (8 Gate 1 configs, train 2013-15, scored 2016; 2017 never read)"
+  echo "task4_predictions=$PRED_RUN (stored, untimed copy)"
   echo "input_dir=$INPUT_DIR"
   echo "gdelt_glob=${GDELT_GLOB:-all staged archives}"
   echo "dev_ticker_mod=$([ "$PROFILE" = dev ] && echo "$DEV_TICKER_MOD" || echo none)"
-  echo "model_root=$MODEL_ROOT"
   echo "git_commit=$(git rev-parse HEAD)"
   echo "started_utc=$(now)"
   echo "dfs_replication=$(hdfs getconf -confKey dfs.replication 2>/dev/null)"
@@ -163,18 +171,13 @@ step3() {  # stage rows for Task 3, in the same format as the Task 2 and Task 4 
 task3() {
   echo "stage,start_utc,end_utc,seconds" > "$T3_TIMES"
   # shellcheck disable=SC2086
-  step3 fit_score_test spark-submit $SPARK_OPTS modeling/run_model.py test --run-id "$RUN_ID" --root "$MODEL_ROOT" \
-    --frozen "$FROZEN" --out "$RUN_DIR/model" --marker-dir "$RUN_DIR/model" || return 1
-  # shellcheck disable=SC2086
-  step3 reload_check spark-submit $SPARK_OPTS modeling/run_model.py reload --run-id "$RUN_ID" --root "$MODEL_ROOT" \
+  step3 validate spark-submit $SPARK_OPTS modeling/run_model.py validate --run-id "$RUN_ID" --root "$ROOT" \
     --out "$RUN_DIR/model" || return 1
-  step3 hive_model_tables hive --hivevar "root=$MODEL_ROOT" --hivevar "run_id=$RUN_ID" \
-    -f modeling/model_tables.sql || return 1
 }
 
 timed task2 bash spark/run_task2.sh "$RUN_ID" "$INPUT_DIR"
 timed task3 task3
-timed task4 bash analytics/run_task4.sh "$RUN_ID" "$ROOT" "$RUN_ID" "$RUN_ID" "$MODEL_ROOT"
+timed task4 bash analytics/run_task4.sh "$RUN_ID" "$ROOT" "$RUN_ID" "$PRED_RUN"
 
 # ---------------------------------------------------------------- evidence (untimed)
 kill "$SAMPLER" 2>/dev/null || true

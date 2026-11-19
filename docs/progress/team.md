@@ -11,7 +11,7 @@ Format and rules: [README.md](README.md). Edit only your own task lines; add a l
 - [ ] **TEAM-03** Agree table names and columns for every stage, especially `features.weekly` (§9 contracts) · owner: @TODO · due: 2026-11-01
 - [ ] **TEAM-04** Create project config (paths, dates, profiles, seeds, Spark settings) and `config/paths.yaml` per machine from the template · owner: @TODO · due: 2026-11-01 · needs: TEAM-02
 - [ ] **TEAM-05** Accept or reject every `[PROPOSED]` item in the decision log (D-001 to D-014) · owner: @TODO · due: 2026-11-01
-- [ ] **TEAM-06** Freeze development and full input profiles (the dev subset rule and the GDELT month) · owner: @TODO · due: 2026-11-01
+- [x] **TEAM-06** Freeze development and full input profiles (the dev subset rule and the GDELT month) · owner: @husyGIT · due: 2026-11-01 · evidence: docs/decisions/decision-log.md
 - [ ] **TEAM-07** Send the teaching-team questions (§16) and record answers in the decision log · owner: @TODO · due: 2026-11-01
 - [ ] **TEAM-08** Copy the brief PDF to `docs/brief/` and the Final Draft export to `docs/decisions/` · owner: @TODO · due: 2026-11-01
 - [ ] **TEAM-09** Assign real GitHub handles in `.github/workstreams.json`, run `make codeowners`, turn on branch protection per `docs/ci/SETUP.md` · owner: @TODO · due: 2026-10-31
@@ -43,3 +43,5 @@ Format and rules: [README.md](README.md). Edit only your own task lines; add a l
 - 2026-11-09 @husyGIT: docs/analytics/ (Task 4 approach and tool choice per question, EMR steps aws_task4.md, section 5 draft skeleton). Evidence: docs/analytics/README.md, docs/analytics/aws_task4.md, docs/analytics/section5_draft.md
 - 2026-11-10 @husyGIT: docs/analytics/README.md EMR results and section 5 draft filled from run 20261110-1000-full-ref. Evidence: docs/analytics/README.md, docs/analytics/section5_draft.md
 - 2026-11-12 @jaecodess: Took PERF ownership in .github/workstreams.json (CODEOWNERS regenerated); proposed D-023 (PERF timing scope, isolated test marker) and D-024 (dev profile, for TEAM-06) in the decision log; .gitignore ignores evidence/perf/*/raw/. Evidence: docs/decisions/decision-log.md, perf/README.md
+- 2026-11-17 @husyGIT: docs/perf/section6_timing_runs_guide.md: step-by-step guide so teammates can run the Section 6 timing runs on EMR without prior context. Evidence: docs/perf/section6_timing_runs_guide.md
+- 2026-11-19 @husyGIT: Dev profile frozen: D-024 accepted (crc32(ticker) % 10 == 0, about 50 tickers, plus GDELT January 2016; full = everything staged). Evidence: docs/decisions/decision-log.md (TEAM-06)

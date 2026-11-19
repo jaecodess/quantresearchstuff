@@ -4,13 +4,15 @@ Everything runs on the EMR **primary node**, from the repo root, inside `tmux`. 
 
 | File | What it does |
 |---|---|
-| `run_pipeline.sh` | One timed run: Task 2 → Task 3 (frozen Gate 2 model) → Task 4, fresh `run_id`, evidence in `evidence/perf/<run_id>/` (PERF-02) |
+| `run_pipeline.sh` | One timed run: Task 2 → Task 3 validation (8 configs, 2017 never scored) → Task 4 on the stored predictions, fresh `run_id`, evidence in `evidence/perf/<run_id>/` (PERF-02) |
 | `timings.py` | Merges stage times into `evidence/perf/timings.csv`, per-node memory/disk peaks, YARN app stats, median/range summary, output checks (PERF-01) |
 | `sample_resources.sh` | Background sampler started by `run_pipeline.sh` (YARN node memory, HDFS per-datanode usage) |
 | `make_dev_input.py` | Derives the dev-profile price file (PERF-03, rule in D-024) |
 | `configs/ref.env`, `configs/alt.env` | Reference Spark settings; the one alternative change for run set C (PERF-08) |
 
-Timing scope and the test-once guard are explained in decision **D-023**; the dev profile in **D-024** (both PROPOSED until the team accepts them).
+Timing scope and the test-once rule: decision **D-025** (replaces D-023). Dev profile: **D-024** (accepted). The full-profile set B is the three full reruns already committed (same timed workload, D-025); the dev set A is run with this script. Step-by-step: `docs/perf/dev_profile_guide.md`.
+
+With one GDELT month, the dev weekly news measure (which needs a 60-day baseline) is empty, so Q3 in Task 4 has no weeks to analyse in a dev run; it still runs, and section 6 says so.
 
 ## Before the first run (each new cluster)
 
@@ -22,10 +24,11 @@ Timing scope and the test-once guard are explained in decision **D-023**; the de
 
 ```bash
 RAW=/inf2006/raw/prices/plotly-datasets-0c447c4/acquired=2026-11-03   # your staged price folder
+S3=s3://<bucket>/inf2006                                              # first run only: copies the stored predictions
 ```
 
 ```bash
-for rep in 1 2 3; do bash perf/run_pipeline.sh --profile dev --config ref --rep $rep --raw-dir "$RAW"; done    # A (PERF-06)
+for rep in 1 2 3; do bash perf/run_pipeline.sh --profile dev --config ref --rep $rep --raw-dir "$RAW" --s3-root "$S3"; done    # A (PERF-06)
 ```
 
 ```bash

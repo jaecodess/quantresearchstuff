@@ -9,14 +9,14 @@ Legend: `[ ]` todo, `[~]` in progress, `[x]` done, `[!]` blocked.
 
 | Workstream | Owner | Done | In progress | Blocked | Todo | Total |
 |---|---|---|---|---|---|---|
-| [TEAM](team.md) Shared / team | @TODO | 1 | 0 | 0 | 15 | 16 |
+| [TEAM](team.md) Shared / team | @TODO | 2 | 0 | 0 | 14 | 16 |
 | [CORP](corpus.md) Corpus (Task 1) | @HoShangJ | 11 | 1 | 0 | 1 | 13 |
 | [PIPE](pipeline.md) Pipeline (Task 2) | @r4ihn | 12 | 1 | 0 | 1 | 14 |
 | [MODEL](model.md) Model (Task 3) | @TODO | 9 | 1 | 0 | 1 | 11 |
 | [ANLY](analytics.md) Analytics (Task 4) | @TODO | 5 | 1 | 0 | 1 | 7 |
-| [PERF](performance.md) Performance & reproducibility | @jaecodess | 0 | 3 | 0 | 11 | 14 |
+| [PERF](performance.md) Performance & reproducibility | @jaecodess | 2 | 8 | 0 | 4 | 14 |
 
-**Overall: 38/75 tasks done.**
+**Overall: 41/75 tasks done.**
 
 ## In progress
 
@@ -27,6 +27,11 @@ Legend: `[ ]` todo, `[~]` in progress, `[x]` done, `[!]` blocked.
 - [PERF-01](performance.md) Shared logging helper → `evidence/timings.csv`, application/job/query IDs: @jaecodess · due 2026-11-04
 - [PERF-02](performance.md) Single run script taking `--profile` and `--config`, fresh `run_id` outputs per run: @jaecodess · due 2026-11-06
 - [PERF-03](performance.md) Define the development and full profiles as config (deterministic ~50-ticker rule plus one GDELT month): @jaecodess · due 2026-11-03
+- [PERF-06](performance.md) Run set A: development profile, reference config, 3 repetitions: @husyGIT · due 2026-11-13
+- [PERF-07](performance.md) Run set B: full profile, reference config, 3 repetitions; measure memory and disk per worker (`hdfs dfsadmin -report`, `df -h`): @husyGIT · due 2026-11-15
+- [PERF-08](performance.md) Choose ONE justified alternative from run-set-B evidence (shuffle partitions, file format or join strategy): @husyGIT · due 2026-11-15
+- [PERF-09](performance.md) Run set C: full profile, alternative config, 3 repetitions; same output checks (row counts, predictions): @husyGIT · due 2026-11-17
+- [PERF-13](performance.md) Export the actual `.ipynb` from EMR and build the submission ZIP with `make zip`; hygiene clean: @husyGIT · due 2026-11-20
 
 ## Blocked
 
@@ -38,20 +43,28 @@ _Nothing blocked._
 - [TEAM-02](team.md) Agree HDFS folder layout (§9) and record it in the decision log: @TODO · due 2026-11-01
 - [TEAM-03](team.md) Agree table names and columns for every stage, especially `features.weekly` (§9 contracts): @TODO · due 2026-11-01
 - [TEAM-05](team.md) Accept or reject every `[PROPOSED]` item in the decision log (D-001 to D-014): @TODO · due 2026-11-01
-- [TEAM-06](team.md) Freeze development and full input profiles (the dev subset rule and the GDELT month): @TODO · due 2026-11-01
 - [TEAM-07](team.md) Send the teaching-team questions (§16) and record answers in the decision log: @TODO · due 2026-11-01
 - [TEAM-08](team.md) Copy the brief PDF to `docs/brief/` and the Final Draft export to `docs/decisions/`: @TODO · due 2026-11-01
 - [PERF-04](performance.md) EMR bring-up: reference cluster config (emr-7.10.0, 1 + 2 m5.xlarge, replication 2, Spark 2 x 2 x 6 GiB, dynamic allocation off); confirm with teaching team: @TODO · due 2026-11-06
 - [MODEL-10](model.md) Leakage cross-review of PIPE feature, universe and split code (§12): @TODO · due 2026-11-10
 - [PIPE-12](pipeline.md) Leakage cross-review of MODEL evaluation and training code (§12): @TODO · due 2026-11-10
 - [CORP-13](corpus.md) Cross-review: read PIPE cleaning rules against your quality findings (does every finding have a handling rule?): @TODO · due 2026-11-12
+- [TEAM-10](team.md) Report section 1: overview, objectives and labelled end-to-end data-flow diagram (~300 words): @TODO · due 2026-11-17
 - [ANLY-05](analytics.md) Optional: exploratory interaction experiment on the frozen configuration, with the ~26-week training limitation stated: @TODO · due 2026-11-18
+- [PERF-12](performance.md) Independent rerun test: someone OUTSIDE this workstream follows Appendix A on a fresh cluster; fix whatever they get stuck on: @TODO · due 2026-11-19
 - [TEAM-12](team.md) References with versions: @TODO · due 2026-11-19
 - [TEAM-13](team.md) Appendix C: use of AI assistance, compiled from `ai-usage.md`: @TODO · due 2026-11-19
 - [TEAM-14](team.md) Appendix D: team contributions table (name, work delivered, % total 100), compiled from the progress logs: @TODO · due 2026-11-19
 
 ## Recent activity (newest 15 progress-log entries)
 
+- 2026-11-19 @husyGIT [TEAM]: Dev profile frozen: D-024 accepted (crc32(ticker) % 10 == 0, about 50 tickers, plus GDELT January 2016; full = everything staged). Evidence: docs/decisions/decision-log.md (TEAM-06)
+- 2026-11-19 @HoShangJ [PERF]: Independent fresh-session rerun of Tasks 1 to 4 on EMR from a separate AWS account (20261119-1430-rerun-shangjay), following docs/rerun/teammate_full_rerun_guide.md: 18 of 19 checks passed; stage times for section 6. Evidence: evidence/rerun/checks_20261119-1430-rerun-shangjay.csv, evidence/rerun/timings_20261119-1430-rerun-shangjay.csv, notebooks/inf2006_pipeline_20261119-1430-rerun-shangjay.ipynb (PERF-12)
+- 2026-11-19 @husyGIT [PERF]: Built on @jaecodess's PR #10 (merged with main): perf/run_pipeline.sh now times Task 3 as the 8-config validation only and Task 4 on the stored predictions, so no PERF run scores 2017 (D-025 replaces D-023) and the dev runs are comparable with the three full-profile reruns; safety test; step-by-step guide for run set A. EMR run pending. Evidence: perf/run_pipeline.sh, tests/perf/test_run_pipeline.py, docs/perf/dev_profile_guide.md, docs/decisions/decision-log.md (PERF-02, PERF-06)
+- 2026-11-17 @husyGIT [TEAM]: docs/perf/section6_timing_runs_guide.md: step-by-step guide so teammates can run the Section 6 timing runs on EMR without prior context. Evidence: docs/perf/section6_timing_runs_guide.md
+- 2026-11-17 @husyGIT [PERF]: Section 6 timing runs (full profile; the development-profile set PERF-06 is not covered): script perf/perf_runs.sh (reference config and one alternative, spark.sql.shuffle.partitions=16, three repetitions each of the Task 2 price stages, Task 3 validation and Task 4; GDELT not repeated; never the test mode), summariser (median, range, speedup) and a full step-by-step guide for teammates. EMR run pending. Evidence: perf/perf_runs.sh, perf/summarise_perf.py, tests/perf/test_perf_runs.py, docs/perf/section6_timing_runs_guide.md (PERF-07, PERF-08, PERF-09)
+- 2026-11-15 @husyGIT [PERF]: Fresh-session rerun notebook (one section per stage calling the owned scripts, verification checks against the committed evidence, never evaluates the test set), headless runner for the EMR primary node, Appendix A guide. Dry run tested locally; EMR run pending. Evidence: perf/inf2006_pipeline.ipynb, perf/run_notebook.sh, docs/rerun/appendix_a_rerun_guide.md (PERF-05, PERF-11, PERF-13)
+- 2026-11-15 @husyGIT [PERF]: Fresh-session rerun on EMR (20261116-1000-rerun, commit 809a140, new cluster from S3 only, 75 min): 18 of 19 checks passed. Corpus, Task 2 figures, frozen-config recommendation, saved-model reload (25,531 predictions, max diff 0.0) and Task 4 results identical; random-forest validation AUCs differ by up to 0.0013 (partitioning), check recorded as FAIL. Executed notebook committed (bucket redacted); second timing of every stage. Evidence: notebooks/inf2006_pipeline_20261116-1000-rerun.ipynb, evidence/rerun/, docs/rerun/appendix_a_rerun_guide.md (PERF-11, PERF-13)
 - 2026-11-12 @jaecodess [TEAM]: Took PERF ownership in .github/workstreams.json (CODEOWNERS regenerated); proposed D-023 (PERF timing scope, isolated test marker) and D-024 (dev profile, for TEAM-06) in the decision log; .gitignore ignores evidence/perf/*/raw/. Evidence: docs/decisions/decision-log.md, perf/README.md
 - 2026-11-12 @jaecodess [PERF]: PERF code written, not yet run on EMR: `perf/run_pipeline.sh` (one timed run of Task 2 → Task 3 frozen model → Task 4 per `--profile dev|full --config ref|alt --rep N`, fresh run_id, failures recorded, output check against the first successful reference run), `perf/timings.py` (timings table, per-node memory/disk peaks without hostnames, YARN app stats, median/range summary, result check), resource sampler, dev-input builder, ref/alt configs, tests. Dry-run end to end with stubbed Hadoop/Hive/Spark/YARN commands. Timing scope proposed as D-023, dev profile as D-024. Evidence: perf/, tests/perf/ (PERF-01, PERF-02, PERF-03)
 - 2026-11-10 @husyGIT [TEAM]: docs/corpus (quality findings, inventory, section 2 draft) and docs/pipeline (README, section 3 draft) filled with the Task 2 EMR figures. Evidence: docs/corpus/quality_findings.md, docs/pipeline/README.md
@@ -60,10 +73,3 @@ _Nothing blocked._
 - 2026-11-10 @husyGIT [CORP]: GDELT content audit confirmed on EMR (Task 2 run 20261105-1430-full-ref): 731/731 archives read, 144,207,180 events, 0 malformed/bad/duplicate, 0 missing dates, SHA-256 of every HDFS copy matches the manifest, 2 overlapping adjacent-day ID ranges, 1.06% events >30 days old. Quality findings, inventory and section 2 draft updated. Evidence: evidence/gdelt_daily_20261105-1430-full-ref.log, evidence/corpus/inventory_20261105-1430-full-ref.json, docs/corpus/quality_findings.md (CORP-07, CORP-09, CORP-11, CORP-12)
 - 2026-11-10 @husyGIT [CORP]: Teaching team requires all four sources in S3. Added SEC EDGAR (311 filings from the course inventory, config/sec_filing_inventory.csv) and Wikinews (2026-10-01 full-history dumps) to corpus/acquire.py with integrity checks and manifests; HDFS verifier checks them by size; EMR guide docs/corpus/aws_aux_sources.md. Stored only, not analysed. Remaining: EMR acquisition run. Evidence: corpus/acquire.py, config/sec_filing_inventory.csv, docs/corpus/aws_aux_sources.md (CORP-07, CORP-11)
 - 2026-11-10 @husyGIT [CORP]: SEC EDGAR and Wikinews acquired on EMR and stored in S3 and HDFS: SEC 311/311 filings (2,777,408,405 bytes, each with its own accession number), Wikinews 4/4 dump files (946,012,974 bytes, MD5 and size match dumpstatus.json; the two .bz2 parts are the brief's 662 MB). All four sources staged together, 1,047/1,047 files match their manifests (run 20261110-1300-aux). Inventory, section 2 and guide updated. Evidence: manifests/sec_acquired=2026-11-10.csv, manifests/wikinews_acquired=2026-11-10.csv, evidence/corpus/inventory_20261110-1300-aux.json (CORP-07, CORP-11)
-- 2026-11-10 @husyGIT [PIPE]: Full Task 2 EMR run 20261105-1430-full-ref committed: price figures identical to the dev run (605,887 clean, eligible 65,086 / 25,720 / 25,531), GDELT Streaming over all 731 archives (job_1793861139962_0011, 52 min) reconciles exactly (144,207,180 events), weekly news for 97 weeks. Stage times, job/application/query IDs, logs and output summaries as evidence; section 3 draft and pipeline README updated. Evidence: evidence/pipeline/, evidence/gdelt_daily_20261105-1430-full-ref.log, docs/pipeline/README.md (PIPE-03, PIPE-11, PIPE-13, PIPE-14)
-- 2026-11-10 @husyGIT [ANLY]: EMR Task 4 run 20261110-1000-full-ref committed (features and predictions read from S3; Q2 all-weeks test reproduces Task 3 exactly). Q1: busy-volume stocks slightly less often above the median in all three periods, intervals include 0. Q2: no subgroup where the model is reliably better or worse than B3. Q3a: high-news weeks show more cross-sectional dispersion (+0.0049 [+0.0005, +0.0093]). Q3b: no evidence model accuracy depends on news. Charts and section 5 draft filled. Evidence: evidence/analytics/, docs/analytics/README.md, docs/analytics/section5_draft.md (ANLY-01, ANLY-02, ANLY-03, ANLY-04, ANLY-06, ANLY-07)
-- 2026-11-10 @husyGIT [PERF]: Added Task 2 EMR evidence (run 20261105-1430-full-ref): reconciliation, summaries, stage times, IDs, full log, GDELT Streaming log, session staging and HDFS verification. Bucket and hostnames redacted. Evidence: evidence/pipeline/, evidence/gdelt_daily_20261105-1430-full-ref.log, evidence/corpus/inventory_20261105-1430-full-ref.json
-- 2026-11-10 @husyGIT [PERF]: Added SEC EDGAR and Wikinews acquisition and four-source HDFS staging evidence (run 20261110-1300-aux); bucket and contact email redacted. Evidence: evidence/corpus/inventory_20261110-1300-aux.json, evidence/corpus/stage_20261110-1300-aux.log
-- 2026-11-10 @husyGIT [PERF]: Added Task 4 EMR evidence (run 20261110-1000-full-ref): summaries, weekly tables, log (bucket redacted), Hive query and application IDs, stage timings, charts. Evidence: evidence/analytics/
-- 2026-11-09 @husyGIT [TEAM]: docs/model/README.md EMR results and section 4 draft filled from run 20261106-1400-full-ref. Evidence: docs/model/README.md, docs/model/section4_draft.md
-- 2026-11-09 @husyGIT [TEAM]: docs/analytics/ (Task 4 approach and tool choice per question, EMR steps aws_task4.md, section 5 draft skeleton). Evidence: docs/analytics/README.md, docs/analytics/aws_task4.md, docs/analytics/section5_draft.md
