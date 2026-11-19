@@ -1,0 +1,20 @@
+check,command,expected,actual,evidence,result
+HDFS copies match their manifests (files),corpus/stage_to_hdfs.sh,1047,1047,evidence/corpus/inventory_20261119-1430-rerun-shangjay.json,pass
+Verification problems across all sources,corpus/verify_hdfs.py,0,0,evidence/corpus/hdfs_verify_20261119-1430-rerun-shangjay.csv,pass
+Raw = clean + rejected price rows,spark/clean_prices.py,True,True,evidence/pipeline/reconciliation_20261119-1430-rerun-shangjay.json,pass
+Clean price rows,spark/clean_prices.py,605887,605887,evidence/pipeline/reconciliation_20261119-1430-rerun-shangjay.json,pass
+"Eligible stock-weeks, train",spark/weekly_features.py,65086,65086,evidence/pipeline/reconciliation_20261119-1430-rerun-shangjay.json,pass
+"Eligible stock-weeks, validation",spark/weekly_features.py,25720,25720,evidence/pipeline/reconciliation_20261119-1430-rerun-shangjay.json,pass
+"Eligible stock-weeks, test",spark/weekly_features.py,25531,25531,evidence/pipeline/reconciliation_20261119-1430-rerun-shangjay.json,pass
+GDELT events read (731 archives),streaming/gdelt_daily/run.sh,144207180,144207180,evidence/pipeline/reconciliation_20261119-1430-rerun-shangjay.json,pass
+GDELT corrupt archives,streaming/gdelt_daily/run.sh,0,0,evidence/pipeline/reconciliation_20261119-1430-rerun-shangjay.json,pass
+Weeks with a pre-start news measure,hive/41_weekly_news.sql,97,97,evidence/pipeline/reconciliation_20261119-1430-rerun-shangjay.json,pass
+Recommended frozen configuration,modeling/run_model.py validate,lr_f1_r001,lr_f1_r001,evidence/model/validation_20261119-1430-rerun-shangjay.json,pass
+Test split read during validation,modeling/run_model.py validate,False,False,evidence/model/validation_20261119-1430-rerun-shangjay.json,pass
+"Max difference in mean weekly AUC, 8 configs vs reference run",modeling/run_model.py validate,0.0,0.0018043834839773232,evidence/model/validation_20261119-1430-rerun-shangjay.json,FAIL
+Reload check passed (no retraining),modeling/run_model.py reload,True,True,evidence/rerun/reload_20261106-1400-full-ref.json,pass
+Test predictions compared,modeling/run_model.py reload,25531,25531,evidence/rerun/reload_20261106-1400-full-ref.json,pass
+Max absolute prediction difference,modeling/run_model.py reload,0.0,0.0,evidence/rerun/reload_20261106-1400-full-ref.json,pass
+"Q2 paired AUC difference, 2017, all weeks",analytics/run_analytics.py,0.014260489360569416,0.014260489360569416,evidence/analytics/task4_20261119-1430-rerun-shangjay.json,pass
+"Q1 busiest minus quietest quintile, 2017",analytics/20_q1_volume_quintiles.sql,-0.022866423897291693,-0.022866423897291693,evidence/analytics/task4_20261119-1430-rerun-shangjay.json,pass
+"Q3a dispersion, high minus low news tercile",analytics/30_q3a_news_market.sql,0.004884812925514109,0.004884812925514109,evidence/analytics/task4_20261119-1430-rerun-shangjay.json,pass
