@@ -1,0 +1,9 @@
+timing,tercile,n_weeks,news_abn_n_weeks,news_abn_mean,news_abn_lo,news_abn_hi,dispersion_n_weeks,dispersion_mean,dispersion_lo,dispersion_hi,abs_market_ln_n_weeks,abs_market_ln_mean,abs_market_ln_lo,abs_market_ln_hi,mean_vol_20d_n_weeks,mean_vol_20d_mean,mean_vol_20d_lo,mean_vol_20d_hi,dispersion_spearman_all_weeks,abs_market_ln_spearman_all_weeks,mean_vol_20d_spearman_all_weeks
+pre_start,1,0,0,,,,0,,,,0,,,,0,,,,,,
+pre_start,2,0,0,,,,0,,,,0,,,,0,,,,,,
+pre_start,3,0,0,,,,0,,,,0,,,,0,,,,,,
+pre_start,high-low,0,,,,,,,,,,,,,,,,,,,
+same_week,1,0,0,,,,0,,,,0,,,,0,,,,,,
+same_week,2,0,0,,,,0,,,,0,,,,0,,,,,,
+same_week,3,0,0,,,,0,,,,0,,,,0,,,,,,
+same_week,high-low,0,,,,,,,,,,,,,,,,,,,

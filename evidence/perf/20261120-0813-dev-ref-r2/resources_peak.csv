@@ -1,0 +1,3 @@
+node,peak_alloc_mb,peak_pmem_mb,peak_dfs_used_bytes,peak_non_dfs_used_bytes,min_dfs_remaining_bytes,samples
+node1,12288,6363,14201787751,5380435335,42471930609,38
+node2,12288,5882,14261534782,5475535101,42381686449,38

@@ -1,0 +1,5 @@
+ticker,prev_date,date,prev_close,open,ratio,log_gap,nearest_k,kind,k_rel_error,volume_shift,price_rule,volume_rule,both_rules,for_review
+DISCA,2014-08-06,2014-08-07,83.02,43.25,0.520959,-0.652084,2,split,0.0419,1.165,False,True,False,True
+MRO,2017-09-13,2017-09-14,11.91,15.495,1.301008,0.263139,1.5,reverse,0.1327,1.043,False,True,False,False
+MRO,2017-09-14,2017-09-15,16.02,11.96,0.746567,-0.29227,1.5,split,0.1199,1.008,False,True,False,False
+UA,2017-01-30,2017-01-31,25.09,18.78,0.748505,-0.289677,1.5,split,0.1228,3.414,False,False,False,False

@@ -1,0 +1,358 @@
+run_id=20261120-0831-dev-ref-r3 in_root=/inf2006 features=20261120-0831-dev-ref-r3 predictions=/inf2006/20261106-1400-full-ref git=254e484 started=2026-11-20T08:41:42Z
+=== databases
+Hive Session ID = a72ea58a-cb46-4f1a-8491-d553e9548897
+
+Logging initialized using configuration in file:/etc/hive/conf.dist/hive-log4j2.properties Async: true
+OK
+Time taken: 0.504 seconds
+OK
+Time taken: 0.004 seconds
+OK
+Time taken: 0.005 seconds
+OK
+Time taken: 0.006 seconds
+OK
+Time taken: 0.004 seconds
+=== register_features
+Hive Session ID = 9c4c25c4-2dbd-4c83-b315-d6949cbf6205
+
+Logging initialized using configuration in file:/etc/hive/conf.dist/hive-log4j2.properties Async: true
+OK
+Time taken: 0.465 seconds
+OK
+Time taken: 0.068 seconds
+OK
+Partitions not in metastore:	weekly:split=test	weekly:split=train	weekly:split=validation
+Repair: Added partition to metastore weekly:split=train
+Repair: Added partition to metastore weekly:split=validation
+Repair: Added partition to metastore weekly:split=test
+Time taken: 0.122 seconds, Fetched: 4 row(s)
+Query ID = hadoop_20261120084205_58070b36-568d-40e8-b529-aac836b33d35
+Total jobs = 1
+Launching Job 1 out of 1
+Status: Running (Executing on YARN cluster with App id application_1795160077738_0061)
+
+Map 1: -/-	Reducer 2: 0/2	Reducer 3: 0/1	
+Map 1: 0/1	Reducer 2: 0/2	Reducer 3: 0/1	
+Map 1: 0(+1)/1	Reducer 2: 0/2	Reducer 3: 0/1	
+Map 1: 1/1	Reducer 2: 0(+1)/2	Reducer 3: 0/1	
+Map 1: 1/1	Reducer 2: 2/2	Reducer 3: 1/1	
+OK
+train	148	7252	5999	0.4922	2013-02-08	2015-12-18
+validation	52	2548	2460	0.4927	2016-01-04	2016-12-23
+test	51	2499	2486	0.4924	2017-01-06	2017-12-22
+Time taken: 10.453 seconds, Fetched: 3 row(s)
+Query ID = hadoop_20261120084215_bec915ed-63cb-4dcf-b30f-cebf93c642f8
+Total jobs = 1
+Launching Job 1 out of 1
+Status: Running (Executing on YARN cluster with App id application_1795160077738_0061)
+
+Map 1: -/-	Reducer 2: 0/2	Reducer 3: 0/1	
+Map 1: 1/1	Reducer 2: 2/2	Reducer 3: 0(+1)/1	
+Map 1: 1/1	Reducer 2: 2/2	Reducer 3: 1/1	
+OK
+test	insufficient_history	13
+train	no_bar_at_cutoff	624
+train	insufficient_history	615
+train	split_in_window	14
+validation	no_bar_at_cutoff	67
+validation	insufficient_history	21
+Time taken: 1.02 seconds, Fetched: 6 row(s)
+=== register_model
+Hive Session ID = 8da5be61-15af-4f1c-a869-23a9af6693bc
+
+Logging initialized using configuration in file:/etc/hive/conf.dist/hive-log4j2.properties Async: true
+OK
+Time taken: 0.568 seconds
+OK
+Time taken: 0.066 seconds
+OK
+Partitions not in metastore:	predictions:split=test	predictions:split=train	predictions:split=validation
+Repair: Added partition to metastore predictions:split=validation
+Repair: Added partition to metastore predictions:split=test
+Repair: Added partition to metastore predictions:split=train
+Time taken: 0.104 seconds, Fetched: 4 row(s)
+OK
+Time taken: 0.037 seconds
+OK
+Time taken: 0.027 seconds
+OK
+Time taken: 0.04 seconds
+OK
+Time taken: 0.025 seconds
+Query ID = hadoop_20261120084227_81653f12-24a6-41c1-925c-839ce64b609f
+Total jobs = 1
+Launching Job 1 out of 1
+Status: Running (Executing on YARN cluster with App id application_1795160077738_0062)
+
+Map 1: -/-	Reducer 2: 0/2	Reducer 3: 0/1	
+Map 1: 0/1	Reducer 2: 0/2	Reducer 3: 0/1	
+Map 1: 0(+1)/1	Reducer 2: 0/2	Reducer 3: 0/1	
+Map 1: 1/1	Reducer 2: 2/2	Reducer 3: 0(+1)/1	
+Map 1: 1/1	Reducer 2: 2/2	Reducer 3: 1/1	
+OK
+1.0000000000000004	1.0000000000000007	51
+Time taken: 9.75 seconds, Fetched: 1 row(s)
+Query ID = hadoop_20261120084237_99ea375d-d265-412f-b8a5-6bc94228ab32
+Total jobs = 1
+Launching Job 1 out of 1
+Status: Running (Executing on YARN cluster with App id application_1795160077738_0062)
+
+Map 1: -/-	Reducer 2: 0/2	Reducer 3: 0/1	
+Map 1: 1/1	Reducer 2: 0/2	Reducer 3: 0/1	
+Map 1: 1/1	Reducer 2: 2/2	Reducer 3: 1/1	
+OK
+test	B0_majority	51	0.5	NULL
+test	B1_mom_4w	51	0.4998	8.0E-4
+test	B2_reversal	51	0.5086	0.017
+test	B3_best_single	51	0.4991	0.0046
+test	model	51	0.5133	0.0286
+train	B0_majority	135	0.5	NULL
+train	B1_mom_4w	135	0.4989	-0.0014
+train	B2_reversal	135	0.5043	0.0057
+train	B3_best_single	135	0.5096	0.0196
+train	model	135	0.5094	0.0199
+validation	B0_majority	52	0.5	NULL
+validation	B1_mom_4w	52	0.4858	-0.0359
+validation	B2_reversal	52	0.5001	0.008
+validation	B3_best_single	52	0.4958	-0.0083
+validation	model	52	0.4946	-0.0076
+Time taken: 1.338 seconds, Fetched: 15 row(s)
+=== q1_hive
+Hive Session ID = 00d1d0ab-2e3a-44ca-b326-25a887fc301b
+
+Logging initialized using configuration in file:/etc/hive/conf.dist/hive-log4j2.properties Async: true
+OK
+Time taken: 0.763 seconds
+OK
+Time taken: 0.088 seconds
+Query ID = hadoop_20261120084251_ff10d9b7-38a8-4081-a8f2-dd6327e5f500
+Total jobs = 1
+Launching Job 1 out of 1
+Status: Running (Executing on YARN cluster with App id application_1795160077738_0063)
+
+Map 1: -/-	Map 2: -/-	Reducer 3: 0/2	Reducer 4: 0/2	Reducer 5: 0/2	Reducer 6: 0/1	
+Map 1: 0/1	Map 2: 0/1	Reducer 3: 0/2	Reducer 4: 0/2	Reducer 5: 0/2	Reducer 6: 0/1	
+Map 1: 0/1	Map 2: 0(+1)/1	Reducer 3: 0/2	Reducer 4: 0/2	Reducer 5: 0/2	Reducer 6: 0/1	
+Map 1: 0(+1)/1	Map 2: 0(+1)/1	Reducer 3: 0/2	Reducer 4: 0/2	Reducer 5: 0/2	Reducer 6: 0/1	
+Map 1: 1/1	Map 2: 1/1	Reducer 3: 0(+2)/2	Reducer 4: 0/2	Reducer 5: 0/2	Reducer 6: 0/1	
+Map 1: 1/1	Map 2: 1/1	Reducer 3: 2/2	Reducer 4: 2/2	Reducer 5: 0(+2)/2	Reducer 6: 0/1	
+Map 1: 1/1	Map 2: 1/1	Reducer 3: 2/2	Reducer 4: 2/2	Reducer 5: 2/2	Reducer 6: 1/1	
+Loading data to table analytics.q1_weekly
+OK
+Time taken: 11.569 seconds
+Query ID = hadoop_20261120084302_9c4ddbcc-ce19-46f0-86fa-da501c2ba5b2
+Total jobs = 1
+Launching Job 1 out of 1
+Status: Running (Executing on YARN cluster with App id application_1795160077738_0063)
+
+Map 1: -/-	Reducer 2: 0/2	Reducer 3: 0/1	
+Map 1: 1/1	Reducer 2: 1(+0)/2	Reducer 3: 0(+1)/1	
+Map 1: 1/1	Reducer 2: 2/2	Reducer 3: 1/1	
+OK
+test	1	51	510	0.5451	0.00179
+test	2	51	510	0.5039	9.0E-4
+test	3	51	510	0.4667	-0.00181
+test	4	51	497	0.4719	-0.00375
+test	5	51	459	0.4706	-0.00219
+train	1	135	1227	0.4964	0.0012
+train	2	135	1226	0.4952	1.1E-4
+train	3	135	1196	0.4864	-4.0E-5
+train	4	135	1187	0.4939	4.1E-4
+train	5	135	1163	0.4904	9.7E-4
+validation	1	52	520	0.5385	0.0026
+validation	2	52	520	0.5115	0.00111
+validation	3	52	484	0.4551	-0.00233
+validation	4	52	468	0.4829	-3.0E-4
+validation	5	52	468	0.4701	-2.0E-4
+Time taken: 1.116 seconds, Fetched: 15 row(s)
+=== register_news
+Hive Session ID = f5fe7e00-28ff-465a-98e1-6baff59f932c
+
+Logging initialized using configuration in file:/etc/hive/conf.dist/hive-log4j2.properties Async: true
+OK
+Time taken: 0.695 seconds
+OK
+Time taken: 0.096 seconds
+Query ID = hadoop_20261120084320_add94c2b-73f3-4c46-8f56-598e89ea3c0a
+Total jobs = 1
+Launching Job 1 out of 1
+Status: Running (Executing on YARN cluster with App id application_1795160077738_0064)
+
+Map 1: -/-	Reducer 2: 0/1	
+Map 1: 0/1	Reducer 2: 0/1	
+Map 1: 0/1	Reducer 2: 0/1	
+Map 1: 0(+1)/1	Reducer 2: 0/1	
+Map 1: 1/1	Reducer 2: 1/1	
+OK
+15	0	0	2015-12-28	2016-04-01
+Time taken: 11.252 seconds, Fetched: 1 row(s)
+=== q3a_hive
+Hive Session ID = 6b1c3c78-96b8-4efb-ab49-f69288523132
+
+Logging initialized using configuration in file:/etc/hive/conf.dist/hive-log4j2.properties Async: true
+OK
+Time taken: 0.433 seconds
+OK
+Time taken: 0.066 seconds
+Query ID = hadoop_20261120084342_2ef77108-b05d-4d92-b765-e7b4e5781441
+Total jobs = 1
+Launching Job 1 out of 1
+Status: Running (Executing on YARN cluster with App id application_1795160077738_0065)
+
+Map 1: -/-	Map 6: -/-	Reducer 2: 0/2	Reducer 3: 0/2	Reducer 4: 0/2	Reducer 5: 0/1	
+Map 1: 0/1	Map 6: 0/1	Reducer 2: 0/2	Reducer 3: 0/2	Reducer 4: 0/2	Reducer 5: 0/1	
+Map 1: 0/1	Map 6: 0/1	Reducer 2: 0/2	Reducer 3: 0/2	Reducer 4: 0/2	Reducer 5: 0/1	
+Map 1: 0(+1)/1	Map 6: 0(+1)/1	Reducer 2: 0/2	Reducer 3: 0/2	Reducer 4: 0/2	Reducer 5: 0/1	
+Map 1: 1/1	Map 6: 1/1	Reducer 2: 0(+2)/2	Reducer 3: 0/2	Reducer 4: 0/2	Reducer 5: 0/1	
+Map 1: 1/1	Map 6: 1/1	Reducer 2: 1(+1)/2	Reducer 3: 0(+1)/2	Reducer 4: 0/2	Reducer 5: 0/1	
+Map 1: 1/1	Map 6: 1/1	Reducer 2: 2/2	Reducer 3: 2/2	Reducer 4: 2/2	Reducer 5: 0(+1)/1	
+Map 1: 1/1	Map 6: 1/1	Reducer 2: 2/2	Reducer 3: 2/2	Reducer 4: 2/2	Reducer 5: 1/1	
+Loading data to table analytics.q3a_weekly
+OK
+Time taken: 13.046 seconds
+Query ID = hadoop_20261120084355_27743d81-60fb-48c3-81c0-9e646aade748
+Total jobs = 1
+Launching Job 1 out of 1
+Status: Running (Executing on YARN cluster with App id application_1795160077738_0065)
+
+Map 1: -/-	Map 4: -/-	Reducer 2: 0/2	Reducer 5: 0/2	
+Map 1: -/-	Map 4: -/-	Reducer 2: 2/2	Reducer 5: 2/2	
+OK
+Time taken: 0.733 seconds
+=== q2_q3b_spark
+26/11/20 08:44:00 INFO EMRParamSideChannel: Setting FGAC mode to false
+26/11/20 08:44:00 INFO SparkContext: Running Spark version 3.5.5-amzn-1
+26/11/20 08:44:00 INFO SparkContext: OS info Linux, 6.1.189-236.400.amzn2023.x86_64, amd64
+26/11/20 08:44:00 INFO SparkContext: Java version 17.0.21
+26/11/20 08:44:00 INFO ResourceUtils: ==============================================================
+26/11/20 08:44:00 INFO ResourceUtils: No custom resources configured for spark.driver.
+26/11/20 08:44:00 INFO ResourceUtils: ==============================================================
+26/11/20 08:44:00 INFO SparkContext: Submitted application: analytics_20261120-0831-dev-ref-r3
+26/11/20 08:44:00 INFO ResourceProfile: Default ResourceProfile created, executor resources: Map(cores -> name: cores, amount: 2, script: , vendor: , offHeap -> name: offHeap, amount: 0, script: , vendor: , memoryOverhead -> name: memoryOverhead, amount: 2048, script: , vendor: , executorType -> name: executorType, amount: 1, script: , vendor: , memory -> name: memory, amount: 6144, script: , vendor: ), task resources: Map(cpus -> name: cpus, amount: 1.0)
+26/11/20 08:44:00 INFO ResourceProfile: Limiting resource is cpus at 2 tasks per executor
+26/11/20 08:44:00 INFO ResourceProfileManager: Added ResourceProfile id: 0
+26/11/20 08:44:00 INFO ResourceProfile: User executor ResourceProfile created, executor resources: Map(cores -> name: cores, amount: 2, script: , vendor: , offHeap -> name: offHeap, amount: 0, script: , vendor: , memoryOverhead -> name: memoryOverhead, amount: 2048, script: , vendor: , executorType -> name: executorType, amount: 1, script: , vendor: , memory -> name: memory, amount: 6144, script: , vendor: ), task resources: Map(cpus -> name: cpus, amount: 1.0)
+26/11/20 08:44:00 INFO ResourceProfile: Limiting resource is cpus at 2 tasks per executor
+26/11/20 08:44:00 INFO ResourceProfileManager: Added ResourceProfile id: 1
+26/11/20 08:44:00 INFO SecurityManager: Changing view acls to: hadoop
+26/11/20 08:44:00 INFO SecurityManager: Changing modify acls to: hadoop
+26/11/20 08:44:00 INFO SecurityManager: Changing view acls groups to: 
+26/11/20 08:44:00 INFO SecurityManager: Changing modify acls groups to: 
+26/11/20 08:44:00 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: hadoop; groups with view permissions: EMPTY; users with modify permissions: hadoop; groups with modify permissions: EMPTY
+26/11/20 08:44:00 INFO Utils: Successfully started service 'sparkDriver' on port 40877.
+26/11/20 08:44:00 INFO SparkEnv: Registering MapOutputTracker
+26/11/20 08:44:00 INFO SparkEnv: Registering BlockManagerMaster
+26/11/20 08:44:00 INFO BlockManagerMasterEndpoint: Using org.apache.spark.storage.DefaultTopologyMapper for getting topology information
+26/11/20 08:44:00 INFO BlockManagerMasterEndpoint: BlockManagerMasterEndpoint up
+26/11/20 08:44:00 INFO SparkEnv: Registering BlockManagerMasterHeartbeat
+26/11/20 08:44:00 INFO DiskBlockManager: Created local directory at /mnt/tmp/blockmgr-8049df29-54e0-4168-a7f5-71e48bdd6038
+26/11/20 08:44:00 INFO MemoryStore: MemoryStore started with capacity 1048.8 MiB
+26/11/20 08:44:00 INFO SparkEnv: Registering OutputCommitCoordinator
+26/11/20 08:44:00 INFO SubResultCacheManager: Sub-result caches are disabled.
+26/11/20 08:44:00 INFO JettyUtils: Start Jetty 0.0.0.0:4040 for SparkUI
+26/11/20 08:44:00 INFO Utils: Successfully started service 'SparkUI' on port 4040.
+26/11/20 08:44:01 INFO DefaultNoHARMFailoverProxyProvider: Connecting to ResourceManager at ip-172-31-22-71.ec2.internal/172.31.22.71:8032
+26/11/20 08:44:01 INFO Configuration: resource-types.xml not found
+26/11/20 08:44:01 INFO ResourceUtils: Unable to find 'resource-types.xml'.
+26/11/20 08:44:01 INFO Client: Verifying our application has not requested more than the maximum memory capability of the cluster (12288 MB per container)
+26/11/20 08:44:01 INFO Client: Will allocate AM container, with 896 MB memory including 384 MB overhead
+26/11/20 08:44:01 INFO Client: Setting up container launch context for our AM
+26/11/20 08:44:01 INFO Client: Setting up the launch environment for our AM container
+26/11/20 08:44:01 INFO Client: Preparing resources for our AM container
+26/11/20 08:44:01 WARN Client: Neither spark.yarn.jars nor spark.yarn.archive is set, falling back to uploading libraries under SPARK_HOME.
+26/11/20 08:44:03 INFO Client: Uploading resource file:/mnt/tmp/spark-7b86c43a-2334-47bd-bc6e-1d37d00c538f/__spark_libs__15376641372638588045.zip -> hdfs://ip-172-31-22-71.ec2.internal:8020/user/hadoop/.sparkStaging/application_1795160077738_0066/__spark_libs__15376641372638588045.zip
+26/11/20 08:44:04 INFO Client: Uploading resource file:/etc/spark/conf.dist/hive-site.xml -> hdfs://ip-172-31-22-71.ec2.internal:8020/user/hadoop/.sparkStaging/application_1795160077738_0066/hive-site.xml
+26/11/20 08:44:04 INFO Client: Uploading resource file:/etc/hudi/conf.dist/hudi-defaults.conf -> hdfs://ip-172-31-22-71.ec2.internal:8020/user/hadoop/.sparkStaging/application_1795160077738_0066/hudi-defaults.conf
+26/11/20 08:44:04 INFO Client: Uploading resource file:/usr/lib/spark/python/lib/pyspark.zip -> hdfs://ip-172-31-22-71.ec2.internal:8020/user/hadoop/.sparkStaging/application_1795160077738_0066/pyspark.zip
+26/11/20 08:44:04 INFO Client: Uploading resource file:/usr/lib/spark/python/lib/py4j-0.10.9.7-src.zip -> hdfs://ip-172-31-22-71.ec2.internal:8020/user/hadoop/.sparkStaging/application_1795160077738_0066/py4j-0.10.9.7-src.zip
+26/11/20 08:44:04 INFO Client: Uploading resource file:/mnt/tmp/spark-7b86c43a-2334-47bd-bc6e-1d37d00c538f/__spark_conf__12404812950428818459.zip -> hdfs://ip-172-31-22-71.ec2.internal:8020/user/hadoop/.sparkStaging/application_1795160077738_0066/__spark_conf__.zip
+26/11/20 08:44:04 INFO SecurityManager: Changing view acls to: hadoop
+26/11/20 08:44:04 INFO SecurityManager: Changing modify acls to: hadoop
+26/11/20 08:44:04 INFO SecurityManager: Changing view acls groups to: 
+26/11/20 08:44:04 INFO SecurityManager: Changing modify acls groups to: 
+26/11/20 08:44:04 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: hadoop; groups with view permissions: EMPTY; users with modify permissions: hadoop; groups with modify permissions: EMPTY
+26/11/20 08:44:04 INFO Client: Submitting application application_1795160077738_0066 to ResourceManager
+26/11/20 08:44:04 INFO YarnClientImpl: Submitted application application_1795160077738_0066
+26/11/20 08:44:05 INFO Client: Application report for application_1795160077738_0066 (state: ACCEPTED)
+26/11/20 08:44:05 INFO Client: 
+	 client token: N/A
+	 diagnostics: AM container is launched, waiting for AM container to Register with RM
+	 ApplicationMaster host: N/A
+	 ApplicationMaster RPC port: -1
+	 queue: root.default
+	 start time: 1795164244442
+	 final status: UNDEFINED
+	 tracking URL: http://ip-172-31-22-71.ec2.internal:20888/proxy/application_1795160077738_0066/
+	 user: hadoop
+26/11/20 08:44:09 INFO YarnClientSchedulerBackend: Add WebUI Filter. org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter, Map(PROXY_HOSTS -> ip-172-31-22-71.ec2.internal, PROXY_URI_BASES -> http://ip-172-31-22-71.ec2.internal:20888/proxy/application_1795160077738_0066), /proxy/application_1795160077738_0066
+26/11/20 08:44:09 INFO YarnSchedulerBackend$YarnSchedulerEndpoint: ApplicationMaster registered as NettyRpcEndpointRef(spark-client://YarnAM)
+26/11/20 08:44:09 INFO Client: Application report for application_1795160077738_0066 (state: RUNNING)
+26/11/20 08:44:09 INFO Client: 
+	 client token: N/A
+	 diagnostics: N/A
+	 ApplicationMaster host: 172.31.18.120
+	 ApplicationMaster RPC port: -1
+	 queue: root.default
+	 start time: 1795164244442
+	 final status: UNDEFINED
+	 tracking URL: http://ip-172-31-22-71.ec2.internal:20888/proxy/application_1795160077738_0066/
+	 user: hadoop
+26/11/20 08:44:09 INFO YarnClientSchedulerBackend: Application application_1795160077738_0066 has started running.
+26/11/20 08:44:09 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 34453.
+26/11/20 08:44:09 INFO NettyBlockTransferService: Server created on ip-172-31-22-71.ec2.internal:34453
+26/11/20 08:44:09 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy
+26/11/20 08:44:09 INFO BlockManager: external shuffle service port = 7337
+26/11/20 08:44:09 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(driver, ip-172-31-22-71.ec2.internal, 34453, None)
+26/11/20 08:44:09 INFO BlockManagerMasterEndpoint: Registering block manager ip-172-31-22-71.ec2.internal:34453 with 1048.8 MiB RAM, BlockManagerId(driver, ip-172-31-22-71.ec2.internal, 34453, None)
+26/11/20 08:44:09 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, ip-172-31-22-71.ec2.internal, 34453, None)
+26/11/20 08:44:09 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, ip-172-31-22-71.ec2.internal, 34453, None)
+26/11/20 08:44:09 INFO SingleEventLogFileWriter: Logging events to hdfs:/var/log/spark/apps/application_1795160077738_0066.inprogress
+26/11/20 08:44:10 INFO ServerInfo: Adding filter to /jobs: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/11/20 08:44:10 INFO ServerInfo: Adding filter to /jobs/json: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/11/20 08:44:10 INFO ServerInfo: Adding filter to /jobs/job: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/11/20 08:44:10 INFO ServerInfo: Adding filter to /jobs/job/json: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/11/20 08:44:10 INFO ServerInfo: Adding filter to /stages: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/11/20 08:44:10 INFO ServerInfo: Adding filter to /stages/json: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/11/20 08:44:10 INFO ServerInfo: Adding filter to /stages/stage: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/11/20 08:44:10 INFO ServerInfo: Adding filter to /stages/stage/json: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/11/20 08:44:10 INFO ServerInfo: Adding filter to /stages/pool: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/11/20 08:44:10 INFO ServerInfo: Adding filter to /stages/pool/json: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/11/20 08:44:10 INFO ServerInfo: Adding filter to /storage: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/11/20 08:44:10 INFO ServerInfo: Adding filter to /storage/json: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/11/20 08:44:10 INFO ServerInfo: Adding filter to /storage/rdd: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/11/20 08:44:10 INFO ServerInfo: Adding filter to /storage/rdd/json: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/11/20 08:44:10 INFO ServerInfo: Adding filter to /environment: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/11/20 08:44:10 INFO ServerInfo: Adding filter to /environment/json: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/11/20 08:44:10 INFO ServerInfo: Adding filter to /executors: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/11/20 08:44:10 INFO ServerInfo: Adding filter to /executors/json: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/11/20 08:44:10 INFO ServerInfo: Adding filter to /executors/threadDump: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/11/20 08:44:10 INFO ServerInfo: Adding filter to /executors/threadDump/json: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/11/20 08:44:10 INFO ServerInfo: Adding filter to /executors/heapHistogram: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/11/20 08:44:10 INFO ServerInfo: Adding filter to /executors/heapHistogram/json: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/11/20 08:44:10 INFO ServerInfo: Adding filter to /static: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/11/20 08:44:10 INFO ServerInfo: Adding filter to /: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/11/20 08:44:10 INFO ServerInfo: Adding filter to /api: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/11/20 08:44:10 INFO ServerInfo: Adding filter to /jobs/job/kill: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/11/20 08:44:10 INFO ServerInfo: Adding filter to /stages/stage/kill: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/11/20 08:44:10 INFO ServerInfo: Adding filter to /metrics/json: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/11/20 08:44:10 INFO YarnClientSchedulerBackend: SchedulerBackend is ready for scheduling beginning after reached minRegisteredResourcesRatio: 0.0
+26/11/20 08:44:12 WARN HiveConf: HiveConf of name hive.server2.thrift.url does not exist
+26/11/20 08:44:33 WARN SparkStringUtils: Truncated the string representation of a plan since it was too large. This behavior can be adjusted by setting 'spark.sql.debug.maxToStringFields'.
+/usr/lib/spark/python/lib/pyspark.zip/pyspark/sql/catalog.py:748: FutureWarning: `dbName` has been deprecated since Spark 3.4 and might be removed in a future version. Use tableExists(`dbName.tableName`) instead.
+wrote evidence/analytics/task4_20261120-0831-dev-ref-r3.json
+Q2 validation all       weeks=52 paired model-B3 = -0.0011547174497714568 [-0.026496767340099044, 0.02466499635289778]
+Q2 validation vol_low   weeks=52 paired model-B3 = -0.011051141700180157 [-0.0737658175158175, 0.05353056398729475]
+Q2 validation vol_mid   weeks=52 paired model-B3 = 0.003851461038961039 [-0.04322172040922041, 0.05117220742220742]
+Q2 validation vol_high  weeks=52 paired model-B3 = 0.022681225024975018 [-0.026402243589743586, 0.07224633005883006]
+Q2 validation disp_low  weeks=18 paired model-B3 = 0.004819274019153009 [-0.03176226876403724, 0.04188851265510182]
+Q2 validation disp_mid  weeks=17 paired model-B3 = 0.03429635868672759 [-0.006911268975870714, 0.07965612331616494]
+Q2 validation disp_high weeks=17 paired model-B3 = -0.042931196318072885 [-0.08817082159232241, 0.004070166789272238]
+Q2 test       all       weeks=51 paired model-B3 = 0.014260489360569416 [-0.00840675873908863, 0.03641046240553434]
+Q2 test       vol_low   weeks=51 paired model-B3 = -0.003901511070628706 [-0.06113773889509182, 0.04994854002206944]
+Q2 test       vol_mid   weeks=51 paired model-B3 = 0.03631795084000966 [-0.012165013635601867, 0.08713916122004357]
+Q2 test       vol_high  weeks=51 paired model-B3 = -0.004969152579446697 [-0.0531897228588405, 0.04298349390261156]
+Q2 test       disp_low  weeks=17 paired model-B3 = 0.009539769203059508 [-0.03299205208996184, 0.048849648834205305]
+Q2 test       disp_mid  weeks=17 paired model-B3 = 0.014074982933486675 [-0.014825308260550422, 0.044448861271382756]
+Q2 test       disp_high weeks=17 paired model-B3 = 0.019166715945162057 [-0.024058892736662278, 0.06444692279367745]
+finished=2026-11-20T08:44:55Z
