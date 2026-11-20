@@ -25,3 +25,4 @@ Required when a PR ticks "AI assistance was used". The brief requires AI use to 
 | 2026-11-15 | @husyGIT | Claude (cloud session) | Checked the fresh-session rerun evidence, committed the executed notebook, updated Appendix A guide and report | PERF-11, PERF-13, evidence/rerun/ |
 | 2026-11-17 | @husyGIT | Claude (cloud session) | Section 6 timing-run script, summariser, tests and teammate guide | PERF-06 to PERF-09, perf/, docs/perf/ |
 | 2026-11-19 | @husyGIT | Claude (cloud session) | Adapted the PERF run script to validation-only Task 3 (D-025), safety test and dev-profile guide | PERF-02, PERF-06, perf/, docs/perf/ |
+| 2026-11-20 | @husyGIT | Claude (cloud session) | Updated the Appendix A rerun guide from rerun feedback | PERF-11, docs/rerun/ |
