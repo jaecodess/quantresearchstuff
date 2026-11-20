@@ -1,0 +1,4 @@
+task,stage,start_utc,end_utc,seconds,exit_code
+task2,_total,2026-11-20T08:32:10Z,2026-11-20T08:40:06Z,476,0
+task3,_total,2026-11-20T08:40:06Z,2026-11-20T08:41:42Z,96,0
+task4,_total,2026-11-20T08:41:42Z,2026-11-20T08:44:55Z,193,0
